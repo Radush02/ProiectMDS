@@ -1,11 +1,14 @@
 
 # Rent your car
+
+Aplicația de închiriat mașini oferă o platformă online pentru conectarea proprietarilor de mașini cu utilizatorii care doresc să închirieze un vehicul. Platforma va facilita căutarea, rezervarea și gestionarea închirierilor de mașini, oferind o experiență convenabilă și sigură pentru toți utilizatorii.
+
 ## User Story 1: Înregistrare utilizator
 
 Criteriu de acceptare:
 
-Utilizatorul poate completa câmpurile pentru username, email, parolă și încărca o poză de profil pentru înregistrare.
-După înregistrare, utilizatorul primește un email de confirmare pentru activarea contului.
+Ca utilizator, vreau să pot completa câmpurile pentru username, email, parolă și încărca o poză de profil pentru înregistrare.
+După înregistrare, vreau să primesc un email de confirmare pentru activarea contului.
 
 Backlog:
 
@@ -17,7 +20,7 @@ Backlog:
 
 Criteriu de acceptare:
 
-Proprietarul poate adăuga mașina sa spre închiriere cu detaliile relevante (marca, model, an, etc.).
+Ca utilizator în calitate de propietar, vreau să pot adăuga mașinile mele spre închiriere cu detaliile relevante (marca, model, an, etc.).
 Mașina apare listată pe platformă și este vizibilă pentru utilizatorii în căutare.
 
 Backlog:
@@ -30,8 +33,8 @@ Backlog:
 
 Criteriu de acceptare:
 
-Utilizatorul poate căuta mașini disponibile pe platformă folosind filtrele precum brand, transmisie, cai putere, etc.
-Rezultatele căutării sunt relevante și actualizate în timp real.
+Ca utilizator în calitate de chiriaș, vreau să pot căuta mașini disponibile pe platformă folosindu-ma de filtre precum brand, transmisie, cai putere, etc.
+Rezultatele căutării să fie relevante și actualizate în timp real.
 
 Backlog:
 
@@ -42,8 +45,8 @@ Backlog:
 
 Criteriu de acceptare:
 
-Proprietarul poate selecta perioade de timp în care mașina este indisponibilă pentru închiriere.
-Utilizatorii nu pot rezerva mașina în perioadele selectate de proprietar.
+Ca utilizator în calitate de propietar vreau să pot selecta perioade de timp în care mașina este indisponibilă pentru închiriere.
+Utilizatorii în calitate de chiriași nu pot rezerva mașina în perioadele selectate de mine.
 
 Backlog:
 
@@ -54,8 +57,8 @@ Backlog:
 
 Criteriu de acceptare:
 
-Profilul proprietarului afișează informații personale și lista de mașini disponibile pentru închiriere.
-Utilizatorii pot accesa profilurile proprietarilor și pot vizualiza detaliile mașinilor acestora.
+Ca utilizator în calitate de propietar, vreau ca profilul meu să afișeze informații personale și lista de mașini disponibile pentru închiriere.
+Utilizatorii pot accesa profilul meu și pot vizualiza detaliile mașinilor puse spre închiriere.
 
 Backlog:
 
@@ -66,8 +69,8 @@ Backlog:
 
 Criteriu de acceptare:
 
-Utilizatorii pot lăsa recenzii și evaluări pentru mașini și pentru experiența generală cu platforma.
-Recenziile sunt vizibile publicului și pot fi filtrate sau sortate.
+Ca utilizator în calitate de chirias, vreau să pot lăsa recenzii și evaluări pentru mașini și pentru experiența generală cu platforma.
+Recenziile sunt vizibile altor utilizatori și pot fi filtrate sau sortate.
 
 Backlog:
 
@@ -78,7 +81,7 @@ Backlog:
 
 Criteriu de acceptare:
 
-Proprietarii pot edita sau șterge anunțurile lor în funcție de nevoi sau greșeli.
+Ca utilizator în calitate de propietar vreau să pot edita sau șterge anunțurile lor în funcție de nevoi sau greșeli.
 
 Backlog:
 
@@ -89,7 +92,7 @@ Backlog:
 
 Criteriu de acceptare:
 
-Datele personale și de plată ale utilizatorilor sunt criptate și stocate în siguranță.
+Ca utilizator, vreau ca datele personale și de plată să fie criptate și stocate în siguranță.
 Implementare a unui sistem de autentificare și autorizare robust pentru protejarea datelor.
 
 Backlog:
@@ -101,7 +104,7 @@ Backlog:
 
 Criteriu de acceptare:
 
-Utilizatorii primesc notificări pe email și pe mobil în urma unor evenimente relevante (rezervare, anulare, etc.).
+Ca utilizator, vreau să primesc notificări pe email și pe mobil în urma unor evenimente relevante (rezervare, anulare, etc.).
 
 Backlog:
 
@@ -112,7 +115,7 @@ Backlog:
 
 Criteriu de acceptare:
 
-Utilizatorii pot contacta echipa de suport pentru rezolvarea problemelor sau întrebărilor legate de platformă.
+Ca utilizator, vreau să pot contacta echipa de suport pentru rezolvarea problemelor sau întrebărilor legate de platformă.
 
 Backlog:
 
@@ -123,7 +126,7 @@ Backlog:
 
 Criteriu de acceptare:
 
-Utilizatorii primesc puncte de fidelitate pentru utilizarea frecventă a serviciului.
+Ca utilizator, doresc să primesc puncte de fidelitate pentru utilizarea frecventă a serviciului.
 Punctele de fidelitate pot fi folosite pentru obținerea unor beneficii sau reduceri.
 
 Backlog:
@@ -135,8 +138,8 @@ Backlog:
 
 Criteriu de acceptare:
 
-Utilizatorii pot anula rezervările în anumite condiții (cum ar fi înainte de începerea perioadei de închiriere).
-Proprietarii pot anula rezervările cu restricții și penalizări în funcție de politica platformei.
+Ca utilizator în calitate de chirias, vreau să pot anula rezervările în anumite condiții (cum ar fi înainte de începerea perioadei de închiriere).
+Ca utilizator în calitate de propietar, vreau să pot anula rezervările cu restricții și penalizări în funcție de politica platformei.
 
 Backlog:
 
@@ -144,4 +147,6 @@ Backlog:
 - Definirea și aplicarea politicilor de anulare pentru proprietari și chiriași.
 
 
-<img src="https://cdn.discordapp.com/attachments/1062136144382398506/1217465804417667203/Untitled.drawio.png?ex=66042063&is=65f1ab63&hm=d17d2190fd55074632bae6f9f0fd335f2412c651e01d8482abaca4a4d8368a76&">
+<img src="https://cdn.discordapp.com/attachments/1062136144382398506/1220849044843401359/image.png?ex=66106f46&is=65fdfa46&hm=ab0bc5b89a7d5895c79cffe03368eb9236dc4599bb37817b14608e1209194792&">
+
+<img src="https://media.discordapp.net/attachments/1062136144382398506/1220849239324889220/clip_image002.png?ex=66106f74&is=65fdfa74&hm=00c587e47196b60f4144693500120262bff5650a2090500c98603a0e79573e41&=&format=webp&quality=lossless&width=481&height=670">
