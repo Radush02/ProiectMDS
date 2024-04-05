@@ -21,6 +21,7 @@ namespace ProiectMDS.Migrations
                     prenume = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     parola = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    username = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     nrTelefon = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     carteIdentitate = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     permis = table.Column<string>(type: "nvarchar(max)", nullable: false)

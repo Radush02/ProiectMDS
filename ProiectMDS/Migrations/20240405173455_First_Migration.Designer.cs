@@ -12,7 +12,7 @@ using ProiectMDS.Data;
 namespace ProiectMDS.Migrations
 {
     [DbContext(typeof(ProjectDbContext))]
-    [Migration("20240405164355_First_Migration")]
+    [Migration("20240405173455_First_Migration")]
     partial class First_Migration
     {
         /// <inheritdoc />
@@ -205,6 +205,10 @@ namespace ProiectMDS.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("prenume")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("username")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
