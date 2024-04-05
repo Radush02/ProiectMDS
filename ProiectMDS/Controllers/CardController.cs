@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProiectMDS.Models.DTOs;
-using ProiectMDS.Services;
+using ProiectMDS.Services.CardServices;
 
 namespace ProiectMDS.Controllers
 {
@@ -21,5 +21,20 @@ namespace ProiectMDS.Controllers
             await cardService.AddCard(cardDTO, username);
             return Ok();
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCard(int id)
+        {
+            try
+            {
+                await cardService.DeleteCard(id);
+                return Ok();
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
+
     }
 }

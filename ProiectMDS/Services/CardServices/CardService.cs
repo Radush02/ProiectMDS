@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using ProiectMDS.Models;
 using ProiectMDS.Models.DTOs;
-using ProiectMDS.Repositories;
+using ProiectMDS.Repositories.CardRepositories;
 
-namespace ProiectMDS.Services
+namespace ProiectMDS.Services.CardServices
 {
     public class CardService
     {
@@ -24,6 +24,11 @@ namespace ProiectMDS.Services
                 UserId = cardDTO.UserId
             };
             await _cardRepository.AddCard(card);
+        }
+
+        public async Task DeleteCard(int id)
+        {
+            await _cardRepository.DeleteCard(id);
         }
     }
 }
