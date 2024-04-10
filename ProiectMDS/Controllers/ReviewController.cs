@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProiectMDS.Models.DTOs;
 using ProiectMDS.Services;
-using ProiectMDS.Services.ReviewServices;
 
 namespace ProiectMDS.Controllers
 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProiectMDS.Models.DTOs;
-using ProiectMDS.Services.ChirieServices;
+using ProiectMDS.Services;
 
 namespace ProiectMDS.Controllers
 {

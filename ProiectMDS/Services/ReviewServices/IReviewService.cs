@@ -1,7 +1,7 @@
 ﻿using ProiectMDS.Models;
 using ProiectMDS.Models.DTOs;
 
-namespace ProiectMDS.Services.ReviewServices
+namespace ProiectMDS.Services
 {
     public interface IReviewService
     {

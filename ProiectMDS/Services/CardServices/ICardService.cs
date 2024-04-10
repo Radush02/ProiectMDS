@@ -1,6 +1,6 @@
 ﻿using ProiectMDS.Models.DTOs;
 
-namespace ProiectMDS.Services.CardServices
+namespace ProiectMDS.Services
 {
     public interface ICardService
     {
