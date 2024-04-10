@@ -1,6 +1,6 @@
 ﻿using ProiectMDS.Models;
 
-namespace ProiectMDS.Repositories.ChirieRepositories
+namespace ProiectMDS.Models.Repositories.ChirieRepositories
 {
     public interface IChirieRepository
     {

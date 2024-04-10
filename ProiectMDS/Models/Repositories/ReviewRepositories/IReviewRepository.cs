@@ -1,6 +1,6 @@
 ﻿using ProiectMDS.Models;
 
-namespace ProiectMDS.Repositories.ReviewRepositories
+namespace ProiectMDS.Models.Repositories.ReviewRepositories
 {
     public interface IReviewRepository
     {

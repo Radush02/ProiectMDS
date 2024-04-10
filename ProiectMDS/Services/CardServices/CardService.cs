@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using ProiectMDS.Models;
 using ProiectMDS.Models.DTOs;
-using ProiectMDS.Repositories.CardRepositories;
+using ProiectMDS.Models.Repositories.CardRepositories;
 
-namespace ProiectMDS.Services.CardServices
+namespace ProiectMDS.Services
 {
     public class CardService
     {

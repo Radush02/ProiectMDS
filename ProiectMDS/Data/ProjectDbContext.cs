@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using ProiectMDS.Models;
 namespace ProiectMDS.Data
 {
-    public class ProjectDbContext : DbContext
+    public class ProjectDbContext : IdentityDbContext<User, IdentityRole<int>, int>
     {
         public ProjectDbContext(DbContextOptions dbContextOptions): base(dbContextOptions)
         {

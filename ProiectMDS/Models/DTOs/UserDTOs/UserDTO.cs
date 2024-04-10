@@ -10,7 +10,7 @@
 
         public string parola { get; set; }
 
-        public string username {  get; set; }
+        public string username { get; set; }
 
         public string nrTelefon { get; set; }
 

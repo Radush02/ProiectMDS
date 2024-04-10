@@ -2,7 +2,7 @@
 using ProiectMDS.Data;
 using ProiectMDS.Models;
 
-namespace ProiectMDS.Repositories.ReviewRepositories
+namespace ProiectMDS.Models.Repositories.ReviewRepositories
 {
     public class ReviewRepository
     {

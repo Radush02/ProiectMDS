@@ -1,7 +1,7 @@
 ﻿using ProiectMDS.Data;
 using ProiectMDS.Models;
 
-namespace ProiectMDS.Repositories.PostareRepositories
+namespace ProiectMDS.Models.Repositories.PostareRepositories
 {
     public class PostareRepository : IPostareRepository
     {

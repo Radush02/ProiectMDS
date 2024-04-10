@@ -1,9 +1,8 @@
 ﻿using ProiectMDS.Models.DTOs;
 using ProiectMDS.Models;
-using ProiectMDS.Repositories;
-using ProiectMDS.Repositories.ReviewRepositories;
+using ProiectMDS.Models.Repositories.ReviewRepositories;
 
-namespace ProiectMDS.Services.ReviewServices
+namespace ProiectMDS.Services
 {
     public class ReviewService
     {

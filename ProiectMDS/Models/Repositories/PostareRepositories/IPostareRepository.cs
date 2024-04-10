@@ -1,6 +1,6 @@
 ﻿using ProiectMDS.Models;
 
-namespace ProiectMDS.Repositories.PostareRepositories
+namespace ProiectMDS.Models.Repositories.PostareRepositories
 {
     public interface IPostareRepository
     {

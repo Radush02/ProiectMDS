@@ -1,6 +1,6 @@
 ﻿using ProiectMDS.Models.DTOs;
 
-namespace ProiectMDS.Services.PostareServices
+namespace ProiectMDS.Services
 {
     public interface IPostareService
     {

@@ -1,7 +1,7 @@
 ﻿using ProiectMDS.Data;
 using ProiectMDS.Models;
 
-namespace ProiectMDS.Repositories.ChirieRepositories
+namespace ProiectMDS.Models.Repositories.ChirieRepositories
 {
     public class ChirieRepository : IChirieRepository
     {

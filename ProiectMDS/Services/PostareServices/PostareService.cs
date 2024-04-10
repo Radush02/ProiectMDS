@@ -1,8 +1,8 @@
 ﻿using ProiectMDS.Models.DTOs;
 using ProiectMDS.Models;
-using ProiectMDS.Repositories.PostareRepositories;
+using ProiectMDS.Models.Repositories.PostareRepositories;
 
-namespace ProiectMDS.Services.PostareServices
+namespace ProiectMDS.Services
 {
     public class PostareService : IPostareService
     {
