@@ -6,7 +6,9 @@
       <input formControlName="parola" type="password" id="parola" name="parola"><br>
       <label  for="remember">Remember me?:</label>
       <input formControlName="remember" type="checkbox" id="remember" name="remember"><br>
-      <input type="submit" [disabled]="loginForm.invalid"value="Login">
+      <!--<input type="submit" [disabled]="loginForm.invalid"value="Login">-->
+      <input type="submit" value="Login">
+
       <div *ngIf="errorMessage" class="error-message">{{errorMessage}}</div>
 
     </form> 
