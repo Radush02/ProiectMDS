@@ -1,4 +1,6 @@
-﻿namespace ProiectMDS.Models.DTOs
+﻿
+
+namespace ProiectMDS.Models.DTOs
 {
     public class RegisterDTO
     {
@@ -8,5 +10,7 @@
         public string prenume { get; set; }
         public string email { get; set; }
         public string nrTelefon { get; set; }
+        public DateTime dataNasterii { get; set; }
+        public IFormFile pozaProfil { get; set; }
     }
 }

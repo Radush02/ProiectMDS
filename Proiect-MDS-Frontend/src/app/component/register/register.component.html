@@ -1,1 +1,58 @@
 <p>register works!</p>
+<div class="register-container">
+  <form (ngSubmit)="register()" [formGroup]="registerForm">
+    <label for="username">Username:</label><br />
+    <input
+      formControlName="username"
+      type="text"
+      id="username"
+      name="username"
+    /><br />
+    <label for="email">Email:</label><br />
+    <input formControlName="email" type="email" id="email" name="email" /><br />
+    <label for="prenume">First name:</label><br />
+    <input
+      formControlName="prenume"
+      type="text"
+      id="prenume"
+      name="prenume"
+    /><br />
+    <label for="nume">Last name:</label><br />
+    <input formControlName="nume" type="text" id="nume" name="nume" /><br />
+    <label for="parola">Parola:</label><br />
+    <input
+      formControlName="parola"
+      type="password"
+      id="parola"
+      name="parola"
+    /><br />
+    <label for="nrTelefon">Phone number:</label><br />
+    <input
+      formControlName="nrTelefon"
+      type="text"
+      id="nrTelefon"
+      name="nrTelefon"
+    /><br />
+    <label for="dataNasterii">dataNasterii:</label><br />
+    <input
+      formControlName="dataNasterii"
+      type="date"
+      id="dataNasterii"
+      name="dataNasterii"
+    /><br />
+    <label for="pozaProfil">Poza profil:</label><br />
+    <input
+    formControlName="pozaProfil"
+    type="file"
+    id="pozaProfil"
+    name="pozaProfil"
+    (change)="onFileChange($event)"
+  />
+    <br />
+    <!--<input type="submit" [disabled]="loginForm.invalid"value="Login">-->
+    <input type="submit" value="Register" />
+
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+  </form>
+  <button (click)="this.router.navigate(['login'])">Login</button>
+</div>

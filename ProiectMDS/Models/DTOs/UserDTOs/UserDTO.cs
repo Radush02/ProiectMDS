@@ -8,14 +8,13 @@
 
         public string email { get; set; }
 
-        public string parola { get; set; }
-
         public string username { get; set; }
 
         public string nrTelefon { get; set; }
 
-        public string carteIdentitate { get; set; }
+        public bool carteIdentitate { get; set; }
 
-        public string permis { get; set; }
+        public bool permis { get; set; }
+        public string linkPozaProfil { get; set;}
     }
 }

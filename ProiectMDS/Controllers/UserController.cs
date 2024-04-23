@@ -16,7 +16,7 @@ namespace ProiectMDS.Controllers
             _userService = userService;
         }
         [HttpPost("register")]
-        public async Task<IActionResult> Register(RegisterDTO user)
+        public async Task<IActionResult> Register([FromForm] RegisterDTO user)
         {
 
             var result = await _userService.RegisterAsync(user);

@@ -4,6 +4,7 @@ using ProiectMDS.Exceptions;
 using ProiectMDS.Models;
 using ProiectMDS.Models.DTOs;
 using ProiectMDS.Models.Enum;
+using ProiectMDS.Services;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -14,14 +15,18 @@ namespace ProiectMDS.Services
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly IS3Service _s3Service;
 
-        public UserService(UserManager<User> userManager, SignInManager<User> signInManager)
+        public UserService(UserManager<User> userManager, SignInManager<User> signInManager, IS3Service s3Service)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _s3Service = s3Service;
         }
         public async Task<IdentityResult> RegisterAsync(RegisterDTO newUser)
         {
+
+            await _s3Service.UploadFileAsync(newUser.username+"_pfp.png", newUser.pozaProfil);
             var user = new User{
                 UserName = newUser.username,
                 Email = newUser.email,
@@ -29,7 +34,9 @@ namespace ProiectMDS.Services
                 prenume = newUser.prenume,
                 PhoneNumber = newUser.nrTelefon,
                 permis = "N/A",
-                carteIdentitate = "N/A"
+                carteIdentitate = "N/A",
+                dataNasterii = newUser.dataNasterii,
+                pozaProfil = _s3Service.GetFileUrl(newUser.username+"_pfp.png")
             };
 
             var result = await _userManager.CreateAsync(user,newUser.parola);
