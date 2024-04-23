@@ -20,6 +20,7 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrl: './register.component.css',
 })
 export class RegisterComponent implements OnInit {
+  selectedFile: File | null = null;
   registerForm!: FormGroup;
   errorMessage = '';
   constructor(
@@ -36,13 +37,32 @@ export class RegisterComponent implements OnInit {
       prenume: ['', Validators.required],
       email: ['', Validators.required],
       nrTelefon: ['', [Validators.required, Validators.maxLength(15)]],
+      dataNasterii: [null, Validators.required],
+      pozaProfil: [null, Validators.required]
     });
   }
+  onFileChange(event: any) {
+    if (event.target.files.length > 0) {
+      this.selectedFile = event.target.files[0];
+    }
+  }
   register() {
-    console.log(this.registerForm.value);
+    const formData = new FormData();
+    formData.append('username', this.registerForm.get('username')?.value);
+    formData.append('parola', this.registerForm.get('parola')?.value);
+    formData.append('nume', this.registerForm.get('nume')?.value);
+    formData.append('prenume', this.registerForm.get('prenume')?.value);
+    formData.append('email', this.registerForm.get('email')?.value);
+    formData.append('nrTelefon', this.registerForm.get('nrTelefon')?.value);
+    formData.append('dataNasterii', this.registerForm.get('dataNasterii')?.value);
+    //let fileInput = this.registerForm.get('pozaProfil');
+    if (this.selectedFile) {
+      formData.append('pozaProfil', this.selectedFile, this.selectedFile.name);
+    }
+  
 
     this.registerService
-      .register(this.registerForm.value)
+      .register(formData)
       .subscribe((response: any) => {
         console.log(response);
         this.registerService
@@ -69,8 +89,9 @@ export class RegisterComponent implements OnInit {
       nume: ['', Validators.required],
       prenume: ['', Validators.required],
       email: ['', Validators.required],
-
       nrTelefon: ['', [Validators.required, Validators.maxLength(15)]],
+      dataNasterii: [null, Validators.required],
+      pozaProfil: [null, Validators.required]
       //remember: [false, Validators.required],
     });
   }

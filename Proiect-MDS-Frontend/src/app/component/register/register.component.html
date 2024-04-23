@@ -33,7 +33,21 @@
       id="nrTelefon"
       name="nrTelefon"
     /><br />
-
+    <label for="dataNasterii">dataNasterii:</label><br />
+    <input
+      formControlName="dataNasterii"
+      type="date"
+      id="dataNasterii"
+      name="dataNasterii"
+    /><br />
+    <label for="pozaProfil">Poza profil:</label><br />
+    <input
+    formControlName="pozaProfil"
+    type="file"
+    id="pozaProfil"
+    name="pozaProfil"
+    (change)="onFileChange($event)"
+  />
     <br />
     <!--<input type="submit" [disabled]="loginForm.invalid"value="Login">-->
     <input type="submit" value="Register" />

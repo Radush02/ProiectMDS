@@ -13,6 +13,9 @@ namespace ProiectMDS.Models
         public string carteIdentitate {  get; set; }
 
         public string permis {  get; set; }
+        public DateTime dataNasterii { get; set; }
+
+        public string pozaProfil { get; set; }
 
         public ICollection<Card>? card {  get; set; }
 
