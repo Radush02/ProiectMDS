@@ -1,4 +1,3 @@
-<p>register works!</p>
 <div class="register-container">
   <form (ngSubmit)="register()" [formGroup]="registerForm">
     <label for="username">Username:</label><br />
@@ -10,14 +9,14 @@
     /><br />
     <label for="email">Email:</label><br />
     <input formControlName="email" type="email" id="email" name="email" /><br />
-    <label for="prenume">First name:</label><br />
+    <label for="prenume">Prenume:</label><br />
     <input
       formControlName="prenume"
       type="text"
       id="prenume"
       name="prenume"
     /><br />
-    <label for="nume">Last name:</label><br />
+    <label for="nume">Nume:</label><br />
     <input formControlName="nume" type="text" id="nume" name="nume" /><br />
     <label for="parola">Parola:</label><br />
     <input
@@ -26,20 +25,32 @@
       id="parola"
       name="parola"
     /><br />
-    <label for="nrTelefon">Phone number:</label><br />
+    <div *ngIf="registerForm.get('parola')?.hasError('parolaInvalida') && registerForm.get('parola')?.touched" class="error-message">Parola trebuie sa contina cel putin o litera mare, o litera mica, o cifra, un caracter special si sa aiba cel putin 8 caractere.</div>
+    <label for="confirmareParola">Confirma parola:</label><br />
+    <input
+      formControlName="confirmareParola"
+      type="password"
+      id="confirmareParola"
+      name="confirmareParola"
+    /><br />
+    <div *ngIf="registerForm.get('confirmareParola')?.hasError('parolaInvalida') && registerForm.get('confirmareParola')?.touched" class="error-message">Parola trebuie sa contina cel putin o litera mare, o litera mica, o cifra, un caracter special si sa aiba cel putin 8 caractere.</div>
+    <div *ngIf="registerForm.get('confirmareParola')!==null && registerForm.get('parola')!==null && registerForm.get('confirmareParola')?.value!==registerForm.get('parola')?.value && !registerForm.get('confirmareParola')?.hasError('parolaInvalida') " class="error-message">Parolele nu coincid.</div>
+    <label for="nrTelefon">Nr. Telefon:</label><br />
     <input
       formControlName="nrTelefon"
       type="text"
       id="nrTelefon"
       name="nrTelefon"
     /><br />
-    <label for="dataNasterii">dataNasterii:</label><br />
+    <div *ngIf="registerForm.get('nrTelefon')?.hasError('nrTelefonInvalid') && registerForm.get('nrTelefon')?.touched" class="error-message">Numar de telefon. Numerele de telefon acceptate sunt doar cele din Romania.</div>
+    <label for="dataNasterii">Data Nasterii:</label><br />
     <input
       formControlName="dataNasterii"
       type="date"
       id="dataNasterii"
       name="dataNasterii"
     /><br />
+    <div *ngIf="registerForm.get('dataNasterii')?.hasError('minor') && registerForm.get('dataNasterii')?.touched" class="error-message">Trebuie sa ai cel putin 18 ani pentru a te inregistra.</div>
     <label for="pozaProfil">Poza profil:</label><br />
     <input
     formControlName="pozaProfil"
@@ -48,6 +59,7 @@
     name="pozaProfil"
     (change)="onFileChange($event)"
   />
+  <div *ngIf="registerForm.get('pozaProfil')?.hasError('extensieIncorecta') && registerForm.get('pozaProfil')?.touched" class="error-message">Poza de profil trebuie sa fie de tipul jpg, jpeg sau png.</div>
     <br />
     <!--<input type="submit" [disabled]="loginForm.invalid"value="Login">-->
     <input type="submit" value="Register" />

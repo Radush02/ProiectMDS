@@ -10,7 +10,7 @@ import {
 } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { CookieService } from 'ngx-cookie-service';
-import { passwordValidator } from '../../validators/user.validator';
+import {validatorParola,validatorVarsta,validatorPoza} from '../../validators/user.validator';
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -32,13 +32,14 @@ export class RegisterComponent implements OnInit {
   ) {
     this.registerForm = this.fb.group({
       username: ['', Validators.required],
-      parola: ['', [Validators.required, Validators.minLength(8),passwordValidator]],
+      parola: ['', [Validators.required, Validators.minLength(8),validatorParola]],
+      confirmareParola: ['', [Validators.required, Validators.minLength(8),validatorParola]],
       nume: ['', Validators.required],
       prenume: ['', Validators.required],
       email: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z]{3,}\.[a-zA-Z]{2,}$')]],
       nrTelefon: ['', [Validators.required, Validators.pattern('^(?:\\(\\+40\\)\\s?)?0?7\\d{2}\\s?\\d{3}\\s?\\d{3}$')]],
-      dataNasterii: [null, Validators.required],
-      pozaProfil: [null, Validators.required]
+      dataNasterii: [null, [Validators.required,validatorVarsta]],
+      pozaProfil: [null, [Validators.required,validatorPoza]],
       //remember: [false, Validators.required],
     });
   }
@@ -48,20 +49,26 @@ export class RegisterComponent implements OnInit {
     }
   }
   register() {
-    if(this.registerForm.get('pozaProfil')?.value == null){
-      alert('Poza de profil este obligatorie');
-      return;
+    const formFields = [
+      { field: 'pozaProfil', errorType: 'value', errorMessage: 'Poza de profil este obligatorie' },
+      { field: 'nrTelefon', errorType: 'pattern', errorMessage: 'Numarul de telefon nu este valid' },
+      { field: 'email', errorType: 'pattern', errorMessage: 'Emailul nu este valid' },
+      { field: 'parola', errorType: 'parolaInvalida', errorMessage: 'Parola trebuie sa contina cel putin o litera mare, o litera mica, o cifra, un caracter special si sa aiba cel putin 8 caractere' },
+      { field: 'dataNasterii', errorType: 'minor', errorMessage: 'Trebuie sa ai cel putin 18 ani pentru a te inregistra' },
+      { field: 'pozaProfil', errorType: 'extensieIncorecta', errorMessage: 'Extensia pozei de profil trebuie sa fie jpg, jpeg sau png' },
+    ];
+    
+    for (let field of formFields) {
+      if (field.errorType === 'value' && this.registerForm.get(field.field)?.value == null) {
+        alert(field.errorMessage);
+        return;
+      } else if (this.registerForm.get(field.field)?.hasError(field.errorType)) {
+        alert(field.errorMessage);
+        return;
+      }
     }
-    if(this.registerForm.get('nrTelefon')?.hasError('pattern')){
-      alert('Numarul de telefon nu este valid');
-      return;
-    }
-    if(this.registerForm.get('email')?.hasError('pattern')){
-      alert('Emailul nu este valid');
-      return;
-    }
-    if(this.registerForm.get('parola')?.hasError('invalidPassword')){
-      alert('Parola trebuie sa contina cel putin o litera mare, o litera mica, o cifra, un caracter special si sa aiba cel putin 8 caractere');
+    if (this.registerForm.get('parola')?.value !== this.registerForm.get('confirmareParola')?.value) {
+      alert('Parolele nu coincid');
       return;
     }
     const formData = new FormData();
@@ -106,12 +113,13 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     this.registerForm = this.fb.group({
       username: ['', Validators.required],
-      parola: ['', [Validators.required, Validators.minLength(8)]],
+      parola: ['', [Validators.required, Validators.minLength(8),validatorParola]],
+      confirmareParola: ['', [Validators.required, Validators.minLength(8),validatorParola]],
       nume: ['', Validators.required],
       prenume: ['', Validators.required],
       email: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z]{3,}\.[a-zA-Z]{2,}$')]],
       nrTelefon: ['', [Validators.required, Validators.pattern('^(?:\\(\\+40\\)\\s?)?0?7\\d{2}\\s?\\d{3}\\s?\\d{3}$')]],
-      dataNasterii: [null, Validators.required],
+      dataNasterii: [null, [Validators.required,validatorVarsta]],
       pozaProfil: [null, Validators.required]
       //remember: [false, Validators.required],
     });
