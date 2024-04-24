@@ -1,6 +1,7 @@
 ﻿using ProiectMDS.Models.DTOs;
 using ProiectMDS.Models;
 using ProiectMDS.Models.Repositories.PostareRepositories;
+using ProiectMDS.Exceptions;
 
 namespace ProiectMDS.Services
 {
@@ -13,11 +14,11 @@ namespace ProiectMDS.Services
             _postareRepository = postareRepository;
         }
 
-        public async Task AddPostare(PostareDTO postareDTO)
+        public async Task AddPostare(PostareDTO postareDTO, int userId)
         {
             var postare = new Postare()
             {
-                UserId = postareDTO.UserId,
+                UserId = userId,
                 titlu = postareDTO.titlu,
                 descriere = postareDTO.descriere,
                 pret =  postareDTO.pret,
@@ -35,6 +36,29 @@ namespace ProiectMDS.Services
         public async Task DeletePostare(int id)
         {
             await _postareRepository.DeletePostare(id);
+        }
+
+        public async Task UpdatePostare(PostareDTO postareDTO, int postareId)
+        {
+            var p = await _postareRepository.PostareById(postareId);
+
+            if (p == null)
+            {
+                throw new NotFoundException($"Nu exista postare cu id-ul {postareId}.");
+            }
+
+            p.titlu = postareDTO.titlu;
+            p.descriere = postareDTO.descriere;
+            p.pret = postareDTO.pret;
+            p.firma = postareDTO.firma;
+            p.model = postareDTO.model;
+            p.kilometraj = postareDTO.kilometraj;
+            p.anFabricatie = postareDTO.anFabricatie;
+            p.talon = postareDTO.talon;
+            p.carteIdentitateMasina = postareDTO.carteIdentitateMasina;
+            p.asigurare = postareDTO.asigurare;
+
+            await _postareRepository.UpdatePostare(p);
         }
     }
 }

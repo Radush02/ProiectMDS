@@ -4,7 +4,7 @@ using ProiectMDS.Models;
 
 namespace ProiectMDS.Models.Repositories.CardRepositories
 {
-    public class CardRepository
+    public class CardRepository : ICardRepository
     {
         private readonly ProjectDbContext _dbcontext;
         public CardRepository(ProjectDbContext dbContext)
@@ -24,6 +24,18 @@ namespace ProiectMDS.Models.Repositories.CardRepositories
             if (k != null)
                 _dbcontext.Card.Remove(k);
 
+            await _dbcontext.SaveChangesAsync();
+        }
+
+        public async Task<Card> CardById(int id)
+        {
+            var c = await _dbcontext.Card.FirstOrDefaultAsync(i => i.CardId == id);
+            return c;
+        }
+
+        public async Task UpdateCard(Card card)
+        {
+            _dbcontext.Card.Update(card);
             await _dbcontext.SaveChangesAsync();
         }
     }

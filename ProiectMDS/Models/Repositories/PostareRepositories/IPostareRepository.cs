@@ -6,5 +6,7 @@ namespace ProiectMDS.Models.Repositories.PostareRepositories
     {
         Task AddPostare(Postare postare);
         Task DeletePostare(int id);
+        Task<Postare> PostareById(int postareId);
+        Task UpdatePostare(Postare postare);
     }
 }
