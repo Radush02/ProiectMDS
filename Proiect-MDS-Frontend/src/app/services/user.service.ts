@@ -4,7 +4,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 
 import { CookieService } from 'ngx-cookie-service';
 import { jwtDecode } from 'jwt-decode';
-import { environment } from '../../environments/environments';
+import { environment } from '../../app/environments/environments';
 
 @Injectable({
   providedIn: 'root',
