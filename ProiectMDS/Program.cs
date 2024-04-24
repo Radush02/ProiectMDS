@@ -9,18 +9,36 @@ using System.Text;
 using Microsoft.OpenApi.Models;
 using System.Security.Claims;
 using Amazon.S3;
+using ProiectMDS.Models.Repositories.CardRepositories;
+using ProiectMDS.Models.Repositories.ChirieRepositories;
+using ProiectMDS.Models.Repositories.PostareRepositories;
+using ProiectMDS.Models.Repositories.ReviewRepositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Configuration.AddJsonFile("env.json");
 builder.Services.AddDbContext<ProjectDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("AzureConnectionString")));
+
+builder.Services.AddScoped<ICardRepository, CardRepository>();
+builder.Services.AddScoped<ICardService, CardService>();
+
+builder.Services.AddScoped<IChirieRepository, ChirieRepository>();
+builder.Services.AddScoped<IChirieService, ChirieService>();
+
+builder.Services.AddScoped<IPostareRepository, PostareRepository>();
+builder.Services.AddScoped<IPostareService, PostareService>();
+
+builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+builder.Services.AddScoped<IReviewService, ReviewService>();
+
 builder.Services.AddIdentity<User, IdentityRole<int>>(options =>
 {
     options.Password.RequireDigit = true;

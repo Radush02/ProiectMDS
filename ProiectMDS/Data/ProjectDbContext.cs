@@ -19,6 +19,7 @@ namespace ProiectMDS.Data
         public DbSet<Review> Review { get; set; }
 
         public DbSet<Chirie> Chirie { get; set; }
+        public object CardDTO { get; internal set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

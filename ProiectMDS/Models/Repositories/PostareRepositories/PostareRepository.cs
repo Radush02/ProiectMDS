@@ -1,4 +1,5 @@
-﻿using ProiectMDS.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using ProiectMDS.Data;
 using ProiectMDS.Models;
 
 namespace ProiectMDS.Models.Repositories.PostareRepositories
@@ -20,12 +21,23 @@ namespace ProiectMDS.Models.Repositories.PostareRepositories
 
         public async Task DeletePostare(int id)
         {
-            var postare = await _dbContext.Postare.FindAsync(id);
-            if (postare != null)
-            {
-                _dbContext.Postare.Remove(postare);
-                await _dbContext.SaveChangesAsync();
-            }
+            var k = await _dbContext.Postare.Where(x => x.PostareId == id).FirstOrDefaultAsync();
+            if (k != null)
+                _dbContext.Postare.Remove(k);
+
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<Postare> PostareById(int id)
+        {
+            var p = await _dbContext.Postare.FirstOrDefaultAsync(i => i.PostareId == id);
+            return p;
+        }
+
+        public async Task UpdatePostare(Postare p)
+        {
+            _dbContext.Postare.Update(p);
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

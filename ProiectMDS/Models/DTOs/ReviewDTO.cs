@@ -2,9 +2,6 @@
 {
     public class ReviewDTO
     {
-        public int PostareId { get; set; }
-
-        public int UserId { get; set; }
 
         public string titlu { get; set; }
 
