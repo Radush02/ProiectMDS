@@ -16,9 +16,9 @@ namespace ProiectMDS.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddPostare(PostareDTO postareDTO)
+        public async Task<IActionResult> AddPostare(PostareDTO postareDTO, int userId)
         {
-            await _postareService.AddPostare(postareDTO);
+            await _postareService.AddPostare(postareDTO, userId);
             return Ok();
         }
 
@@ -34,6 +34,55 @@ namespace ProiectMDS.Controllers
             {
                 return NotFound();
             }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdatePostare([FromBody] PostareDTO postare, int id)
+        {
+            await _postareService.UpdatePostare(postare, id);
+            return Ok();
+        }
+
+        [HttpGet("titlu/{titlu}")]
+        public async Task<IActionResult> PostareByTitlu(String titlu)
+        {
+            var p = await _postareService.PostareByTitlu(titlu);
+            return Ok(p);
+        }
+
+        [HttpGet("pret/{pretMinim}/{pretMaxim}")]
+        public async Task<IActionResult> PostareByPret(int pretMinim, int pretMaxim)
+        {
+            var p = await _postareService.PostareByPret(pretMinim, pretMaxim);
+            return Ok(p);
+        }
+
+        [HttpGet("firma/{firma}")]
+        public async Task<IActionResult> PostareByFirma(String firma)
+        {
+            var p = await _postareService.PostareByFirma(firma);
+            return Ok(p);
+        }
+
+        [HttpGet("model/{model}")]
+        public async Task<IActionResult> PostareByModel(String model)
+        {
+            var p = await _postareService.PostareByModel(model);
+            return Ok(p);
+        }
+
+        [HttpGet("km/{kmMinim}/{kmMaxim}")]
+        public async Task<IActionResult> PostareByKm(int kmMinim, int kmMaxim)
+        {
+            var p = await _postareService.PostareByKm(kmMinim, kmMaxim);
+            return Ok(p);
+        }
+
+        [HttpGet("an/{anMinim}/{anMaxim}")]
+        public async Task<IActionResult> PostareByAn(int anMinim, int anMaxim)
+        {
+            var p = await _postareService.PostareByAn(anMinim, anMaxim);
+            return Ok(p);
         }
     }
 }

@@ -16,5 +16,6 @@
 
         public bool permis { get; set; }
         public string linkPozaProfil { get; set;}
+        public DateTime dataNasterii { get; set; }
     }
 }

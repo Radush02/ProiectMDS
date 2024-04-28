@@ -48,5 +48,17 @@ namespace ProiectMDS.Controllers
                 return BadRequest(e.Message);
             }
         }
+        [HttpPost("getUserDetails")]
+        public async Task<IActionResult> getUserDetails(string username)
+        {
+            try
+            {
+                var result = await _userService.getUserDetails(username);
+                return Ok(result);
+            }catch(NotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+        }
     }
 }

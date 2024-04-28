@@ -2,7 +2,6 @@
 {
     public class PostareDTO
     {
-        public int UserId { get; set; }
 
         public string titlu { get; set; }
 

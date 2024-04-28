@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProiectMDS.Models;
 using ProiectMDS.Models.DTOs;
 using ProiectMDS.Services;
 
@@ -16,9 +17,9 @@ namespace ProiectMDS.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddCard(CardDTO cardDTO, string username)
+        public async Task<IActionResult> AddCard(CardDTO cardDTO, int userId)
         {
-            await cardService.AddCard(cardDTO, username);
+            await cardService.AddCard(cardDTO, userId);
             return Ok();
         }
 
@@ -34,6 +35,13 @@ namespace ProiectMDS.Controllers
             {
                 return NotFound();
             }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCard([FromBody] CardDTO card, int id)
+        {
+            await cardService.UpdateCard(card, id);
+            return Ok();
         }
 
     }

@@ -16,9 +16,9 @@ namespace ProiectMDS.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddReview(ReviewDTO reviewDTO)
+        public async Task<IActionResult> AddReview(ReviewDTO reviewDTO, int postareId, int userId)
         {
-            await reviewService.AddReview(reviewDTO);
+            await reviewService.AddReview(reviewDTO, postareId, userId);
             return Ok();
         }
 
@@ -36,5 +36,18 @@ namespace ProiectMDS.Controllers
             }
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateReview([FromBody] ReviewDTO review, int id)
+        {
+            await reviewService.UpdateReview(review, id);
+            return Ok();
+        }
+
+        [HttpGet("rating/{rating}")]
+        public async Task<IActionResult> ReviewByRating(int rating)
+        {
+            var r = await reviewService.ReviewByRating(rating);
+            return Ok(r);
+        }
     }
 }

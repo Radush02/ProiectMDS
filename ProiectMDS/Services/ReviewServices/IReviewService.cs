@@ -5,7 +5,9 @@ namespace ProiectMDS.Services
 {
     public interface IReviewService
     {
-        Task AddReview(ReviewDTO reviewDTO);
+        Task AddReview(ReviewDTO reviewDTO, int postareId, int userId);
         Task DeleteReview(int id);
+        Task UpdateReview(ReviewDTO reviewDTO, int id);
+        Task<IEnumerable<ReviewDTO>> ReviewByRating(int rating);
     }
 }
