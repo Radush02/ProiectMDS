@@ -174,8 +174,9 @@ export class EditProfileComponent {
       email: this.editForm.get('email')?.value,
       nrTelefon: this.editForm.get('nrTelefon')?.value,
       dataNasterii: this.editForm.get('dataNasterii')?.value,
-      parola: this.editForm.get('parola')?.value,
       linkPozaProfil: this.selectedFile?.name,
+      carteIdentitate: false,
+      permis: false,
     };
     //send data
     this.router.navigate(['profilePage']);

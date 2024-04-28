@@ -8,9 +8,8 @@ import { AddCarComponent } from './component/add-car/add-car.component';
 import { ProfilePageComponent } from './component/profile-page/profile-page.component';
 import { CustomerSupportComponent } from './component/customer-support/customer-support.component';
 
-
 export const routes: Routes = [
-  { path: '', component: ProfilePageComponent },
+  { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
   { path: 'landingPage', component: LandingPageComponent },
   { path: 'register', component: RegisterComponent },
@@ -19,5 +18,4 @@ export const routes: Routes = [
   { path: 'addCar', component: AddCarComponent },
   { path: 'profilePage', component: ProfilePageComponent },
   { path: 'customerSupport', component: CustomerSupportComponent },
-
 ];
