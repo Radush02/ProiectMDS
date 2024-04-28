@@ -23,6 +23,27 @@ namespace ProiectMDS.Services
             _signInManager = signInManager;
             _s3Service = s3Service;
         }
+        public async Task<UserDTO> getUserDetails (string username)
+        {
+            var user = await _userManager.FindByNameAsync(username);
+            if(user == null)
+            {
+                throw new NotFoundException("Userul nu a fost gasit");
+            }
+            var userInfo = new UserDTO
+            {
+                username = user.UserName,
+                email = user.Email,
+                nume = user.nume,
+                prenume = user.prenume,
+                nrTelefon = user.PhoneNumber,
+                permis = user.permis == "N/A" ? false : true,
+                carteIdentitate = user.carteIdentitate=="N/A"?false : true,
+                dataNasterii = user.dataNasterii,
+                linkPozaProfil = user.pozaProfil
+            };
+            return userInfo;
+        }
         public async Task<IdentityResult> RegisterAsync(RegisterDTO newUser)
         {
 
