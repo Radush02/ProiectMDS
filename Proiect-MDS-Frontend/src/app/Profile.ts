@@ -4,7 +4,9 @@ export interface Profile {
   email: string;
   username: string;
   nrTelefon: string;
-  parola: string;
+  // parola: string;
   linkPozaProfil?: string;
   dataNasterii: string;
+  carteIdentitate: boolean;
+  permis: boolean;
 }

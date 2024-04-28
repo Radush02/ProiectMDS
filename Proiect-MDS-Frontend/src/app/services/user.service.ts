@@ -40,4 +40,10 @@ export class UserService {
     this.cookieService.delete('token');
     return this.http.post(`${this.apiKey}/User/Logout`, null);
   }
+  getUserDetails(username: string): Observable<any> {
+    return this.http.post(
+      `${this.apiKey}/User/getUserDetails?username=${username}`,
+      null
+    );
+  }
 }
