@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProiectMDS.Data;
 using ProiectMDS.Models;
+using ProiectMDS.Models.DTOs;
 
 namespace ProiectMDS.Models.Repositories.ChirieRepositories
 {
@@ -38,6 +39,48 @@ namespace ProiectMDS.Models.Repositories.ChirieRepositories
         {
             _dbContext.Chirie.Update(c);
             await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<ChirieDTO>> ChirieByDataStart(DateTime dataStart)
+        {
+            var c = await _dbContext.Chirie.Where(ch => ch.dataStart == dataStart).ToListAsync();
+
+            var chirieDTOs = c.Select(ch => new ChirieDTO
+            {
+                dataStart = ch.dataStart,
+                dataStop = ch.dataStop
+
+            });
+
+            return chirieDTOs;
+        }
+
+        public async Task<IEnumerable<ChirieDTO>> ChirieByDataStop(DateTime dataStop)
+        {
+            var c = await _dbContext.Chirie.Where(ch => ch.dataStop == dataStop).ToListAsync();
+
+            var chirieDTOs = c.Select(ch => new ChirieDTO
+            {
+                dataStart = ch.dataStart,
+                dataStop = ch.dataStop
+
+            });
+
+            return chirieDTOs;
+        }
+
+        public async Task<IEnumerable<ChirieDTO>> ChirieByData(DateTime dataStart, DateTime dataStop)
+        {
+            var c = await _dbContext.Chirie.Where(ch => ch.dataStop == dataStop && ch.dataStart == dataStart).ToListAsync();
+
+            var chirieDTOs = c.Select(ch => new ChirieDTO
+            {
+                dataStart = ch.dataStart,
+                dataStop = ch.dataStop
+
+            });
+
+            return chirieDTOs;
         }
     }
 }

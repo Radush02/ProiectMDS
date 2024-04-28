@@ -38,6 +38,78 @@ namespace ProiectMDS.Services
             await _postareRepository.DeletePostare(id);
         }
 
+        public async Task<IEnumerable<PostareDTO>> PostareByAn(int anMinim, int anMaxim)
+        {
+            var p = await _postareRepository.PostareByAn(anMinim, anMaxim);
+
+            if (p == null)
+            {
+                throw new NotFoundException($"Nu exista postare in range ul acesta de ani {anMinim} - {anMaxim}.");
+            }
+
+            return p;
+        }
+
+        public async Task<IEnumerable<PostareDTO>> PostareByFirma(string firma)
+        {
+            var p = await _postareRepository.PostareByFirma(firma);
+
+            if (p == null)
+            {
+                throw new NotFoundException($"Nu exista postare cu firma {firma}.");
+            }
+
+            return p;
+        }
+
+        public async Task<IEnumerable<PostareDTO>> PostareByKm(int kmMinim, int kmMaxim)
+        {
+            var p = await _postareRepository.PostareByKm(kmMinim, kmMaxim);
+
+            if (p == null)
+            {
+                throw new NotFoundException($"Nu exista postare in range ul acesta de km {kmMinim} - {kmMaxim}.");
+            }
+
+            return p;
+        }
+
+        public async Task<IEnumerable<PostareDTO>> PostareByModel(string model)
+        {
+            var p = await _postareRepository.PostareByModel(model);
+
+            if (p == null)
+            {
+                throw new NotFoundException($"Nu exista postare cu modelul {model}.");
+            }
+
+            return p;
+        }
+
+        public async Task<IEnumerable<PostareDTO>> PostareByPret(int pretMinim, int pretMaxim)
+        {
+            var p = await _postareRepository.PostareByPret(pretMinim, pretMaxim);
+
+            if (p == null)
+            {
+                throw new NotFoundException($"Nu exista postare in range ul acesta de pret {pretMinim} - {pretMaxim}.");
+            }
+
+            return p;
+        }
+
+        public async Task<IEnumerable<PostareDTO>> PostareByTitlu(string titlu)
+        {
+            var p = await _postareRepository.PostareByTitlu(titlu);
+
+            if (p == null)
+            {
+                throw new NotFoundException($"Nu exista postare cu titlul {titlu}.");
+            }
+
+            return p;
+        }
+
         public async Task UpdatePostare(PostareDTO postareDTO, int postareId)
         {
             var p = await _postareRepository.PostareById(postareId);
