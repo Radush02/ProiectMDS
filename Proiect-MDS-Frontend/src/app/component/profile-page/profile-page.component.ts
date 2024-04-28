@@ -9,6 +9,7 @@ import { Dialog } from '@angular/cdk/dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { EditProfileComponent } from '../edit-profile/edit-profile.component';
 
+
 @Component({
   selector: 'app-profile-page',
   standalone: true,

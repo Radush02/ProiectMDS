@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProiectMDS.Data;
 using ProiectMDS.Models;
+using ProiectMDS.Models.DTOs;
 
 namespace ProiectMDS.Models.Repositories.ReviewRepositories
 {
@@ -37,6 +38,22 @@ namespace ProiectMDS.Models.Repositories.ReviewRepositories
         {
             _dbcontext.Review.Update(r);
             await _dbcontext.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<ReviewDTO>> ReviewByRating(int rating)
+        {
+            var r = await _dbcontext.Review.Where(rr => rr.rating == rating).ToListAsync();
+
+            var reviewDTOs = r.Select(re => new ReviewDTO
+            {
+                comentariu = re.comentariu,
+                rating = re.rating,
+                titlu = re.titlu,
+                dataReview = re.dataReview
+
+            });
+
+            return reviewDTOs;
         }
     }
 }

@@ -46,5 +46,18 @@ namespace ProiectMDS.Services
 
             await _reviewRepository.UpdateReview(r);
         }
+
+        public async Task<IEnumerable<ReviewDTO>> ReviewByRating(int rating)
+        {
+            var r = await _reviewRepository.ReviewByRating(rating);
+
+            if (r == null)
+            {
+                throw new NotFoundException($"Nu exista review cu acest rating {rating}.");
+            }
+
+            return r;
+        }
+
     }
 }

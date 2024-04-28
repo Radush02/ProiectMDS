@@ -43,5 +43,11 @@ namespace ProiectMDS.Controllers
             return Ok();
         }
 
+        [HttpGet("rating/{rating}")]
+        public async Task<IActionResult> ReviewByRating(int rating)
+        {
+            var r = await reviewService.ReviewByRating(rating);
+            return Ok(r);
+        }
     }
 }

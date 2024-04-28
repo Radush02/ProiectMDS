@@ -8,5 +8,6 @@ namespace ProiectMDS.Services
         Task AddReview(ReviewDTO reviewDTO, int postareId, int userId);
         Task DeleteReview(int id);
         Task UpdateReview(ReviewDTO reviewDTO, int id);
+        Task<IEnumerable<ReviewDTO>> ReviewByRating(int rating);
     }
 }

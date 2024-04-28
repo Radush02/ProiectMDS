@@ -1,3 +1,7 @@
+<div class = "container">
+  <div class="logo">
+    <img src="assets/style_assets/logo_main.png" alt="logo" />
+  </div>
 <div class="register-container">
   <form (ngSubmit)="register()" [formGroup]="registerForm">
     <label for="username">Username:</label><br />
@@ -67,4 +71,6 @@
     <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
   </form>
   <button (click)="this.router.navigate(['login'])">Login</button>
+</div>
+
 </div>

@@ -106,7 +106,37 @@ builder.Services.AddAuthentication(options => {
 });
 builder.Services.AddAuthorization();
 var app = builder.Build();
-app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+app.UseCors(builder =>
+{
+    builder
+        .AllowAnyMethod() // Permite orice metodă HTTP
+        .AllowAnyHeader() // Permite orice antet
+        .AllowAnyOrigin();
+});
+
+
+
+
+// await Seed.InitializeRoles(app);
+// if (app.Environment.IsDevelopment())
+// {
+//     app.UseSwagger();
+//     app.UseSwaggerUI();
+// }
+
+// app.UseHttpsRedirection();
+
+// app.UseAuthorization();
+
+// app.MapControllers();
+
+// app.Run();
+app.Use(async (context, next) =>
+{
+    context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+    await next.Invoke();
+});
+
 await Seed.InitializeRoles(app);
 if (app.Environment.IsDevelopment())
 {
