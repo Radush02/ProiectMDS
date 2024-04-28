@@ -1,40 +1,68 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { RouterOutlet, Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Component, Inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  ReactiveFormsModule,
-} from '@angular/forms';
-import { UserService } from '../../services/user.service';
-import { CookieService } from 'ngx-cookie-service';
+  MAT_DIALOG_DATA,
+  MatDialogClose,
+  MatDialogRef,
+  MatDialogContent,
+  MatDialogActions,
+  MatDialogTitle,
+} from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { Profile } from '../../Profile';
+import { Observable } from 'rxjs';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import {
   validatorParola,
   validatorVarsta,
   validatorPoza,
 } from '../../validators/user.validator';
+import { UserService } from '../../services/user.service';
+import { CookieService } from 'ngx-cookie-service';
+import { FormGroup } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Input } from '@angular/core';
+
 @Component({
-  selector: 'app-register',
+  selector: 'app-edit-profile',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, HttpClientModule, ReactiveFormsModule],
-  providers: [UserService],
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.css',
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatDialogActions,
+    MatDialogContent,
+    MatDialogClose,
+    MatButtonModule,
+    MatInputModule,
+    MatDialogTitle,
+    HttpClientModule,
+  ],
+  providers: [UserService, CookieService],
+  templateUrl: './edit-profile.component.html',
+  styleUrl: './edit-profile.component.css',
 })
-export class RegisterComponent implements OnInit {
+export class EditProfileComponent {
   selectedFile: File | null = null;
-  registerForm!: FormGroup;
+  editForm!: FormGroup;
   errorMessage = '';
+  @Input() profile?: Profile;
+
   constructor(
     private fb: FormBuilder,
     private httpClient: HttpClient,
     public router: Router,
-    private registerService: UserService,
+    private editService: UserService,
     private cookieService: CookieService
   ) {
-    this.registerForm = this.fb.group({
+    this.editForm = this.fb.group({
       username: ['', Validators.required],
       parola: [
         '',
@@ -63,16 +91,15 @@ export class RegisterComponent implements OnInit {
         ],
       ],
       dataNasterii: [null, [Validators.required, validatorVarsta]],
-      pozaProfil: [null, [Validators.required, validatorPoza]],
+      pozaProfil: [
+        this.profile?.linkPozaProfil,
+        [Validators.required, validatorPoza],
+      ],
       //remember: [false, Validators.required],
     });
   }
-  onFileChange(event: any) {
-    if (event.target.files.length > 0) {
-      this.selectedFile = event.target.files[0];
-    }
-  }
-  register() {
+
+  save() {
     const formFields = [
       {
         field: 'pozaProfil',
@@ -111,67 +138,51 @@ export class RegisterComponent implements OnInit {
     for (let field of formFields) {
       if (
         field.errorType === 'value' &&
-        this.registerForm.get(field.field)?.value == null
+        this.editForm.get(field.field)?.value == null
       ) {
         alert(field.errorMessage);
         return;
-      } else if (
-        this.registerForm.get(field.field)?.hasError(field.errorType)
-      ) {
+      } else if (this.editForm.get(field.field)?.hasError(field.errorType)) {
         alert(field.errorMessage);
         return;
       }
     }
     if (
-      this.registerForm.get('parola')?.value !==
-      this.registerForm.get('confirmareParola')?.value
+      this.editForm.get('parola')?.value !==
+      this.editForm.get('confirmareParola')?.value
     ) {
       alert('Parolele nu coincid');
       return;
     }
     const formData = new FormData();
-    formData.append('username', this.registerForm.get('username')?.value);
-    formData.append('parola', this.registerForm.get('parola')?.value);
-    formData.append('nume', this.registerForm.get('nume')?.value);
-    formData.append('prenume', this.registerForm.get('prenume')?.value);
-    formData.append('email', this.registerForm.get('email')?.value);
-    formData.append('nrTelefon', this.registerForm.get('nrTelefon')?.value);
-    formData.append(
-      'dataNasterii',
-      this.registerForm.get('dataNasterii')?.value
-    );
-    //let fileInput = this.registerForm.get('pozaProfil');
+    formData.append('username', this.editForm.get('username')?.value);
+    formData.append('parola', this.editForm.get('parola')?.value);
+    formData.append('nume', this.editForm.get('nume')?.value);
+    formData.append('prenume', this.editForm.get('prenume')?.value);
+    formData.append('email', this.editForm.get('email')?.value);
+    formData.append('nrTelefon', this.editForm.get('nrTelefon')?.value);
+    formData.append('dataNasterii', this.editForm.get('dataNasterii')?.value);
+    //let fileInput = this.editForm.get('pozaProfil');
     if (this.selectedFile) {
       formData.append('pozaProfil', this.selectedFile, this.selectedFile.name);
     }
 
-    this.registerService.register(formData).subscribe(
-      (response: any) => {
-        console.log(response);
-        this.registerService.login(this.registerForm.value).subscribe(
-          (loginResponse) => {
-            this.cookieService.set(
-              'token',
-              loginResponse.token,
-              undefined,
-              '/',
-              undefined,
-              false,
-              'Strict'
-            );
-          },
-          (loginError) => {
-            alert(loginError.error.join('\n'));
-          }
-        );
-      },
-      (registerError) => {
-        alert(registerError.error.join('\n'));
-      }
-    );
+    this.profile = {
+      username: this.editForm.get('username')?.value,
+      nume: this.editForm.get('nume')?.value,
+      prenume: this.editForm.get('prenume')?.value,
+      email: this.editForm.get('email')?.value,
+      nrTelefon: this.editForm.get('nrTelefon')?.value,
+      dataNasterii: this.editForm.get('dataNasterii')?.value,
+      parola: this.editForm.get('parola')?.value,
+      linkPozaProfil: this.selectedFile?.name,
+    };
+    //send data
+    this.router.navigate(['profilePage']);
   }
+
   ngOnInit() {
-    this.registerForm = this.fb.group({
+    this.editForm = this.fb.group({
       username: ['', Validators.required],
       parola: [
         '',
@@ -202,5 +213,18 @@ export class RegisterComponent implements OnInit {
       dataNasterii: [null, [Validators.required, validatorVarsta]],
       pozaProfil: [null, Validators.required],
     });
+  }
+
+  cancel() {
+    this.router.navigate(['profilePage']);
+  }
+  photoFile!: File;
+  onPhotoSelected(event: any) {
+    this.photoFile = <File>event.target.files[0];
+  }
+  onFileChange(event: any) {
+    if (event.target.files.length > 0) {
+      this.selectedFile = event.target.files[0];
+    }
   }
 }

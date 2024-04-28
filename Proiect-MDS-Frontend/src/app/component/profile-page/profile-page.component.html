@@ -1,1 +1,21 @@
-<p>profile-page works!</p>
+<br />
+<div>
+  <img
+    src="data:image/webp;base64,{{ profile1.linkPozaProfil }}"
+    width="100px"
+  />
+  <br />
+  <label>First name: {{ profile1.prenume }}</label>
+  <br />
+  <label>Last name: {{ profile1.nume }}</label>
+  <br />
+  <label>Username: {{ profile1.username }}</label> <br />
+  <label>Email: {{ profile1.email }}</label> <br />
+  <label>Phone number: {{ profile1.nrTelefon }}</label> <br />
+  <label>Birth date: {{ profile1.dataNasterii }}</label> <br />
+</div>
+<button mat-icon-button color="primary" (click)="editProfile(profile1)">
+  <mat-icon>edit</mat-icon>
+</button>
+<!-- <app-edit-profile [profile]="this.profile1"></app-edit-profile> -->
+
