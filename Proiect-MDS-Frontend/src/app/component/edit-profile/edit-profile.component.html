@@ -1,0 +1,123 @@
+<div class="edit-container">
+  <form (ngSubmit)="save()" [formGroup]="editForm">
+    <label for="username">Username:</label><br />
+    <input
+      formControlName="username"
+      type="text"
+      id="username"
+      name="username"
+    /><br />
+    <label for="email">Email:</label><br />
+    <input formControlName="email" type="email" id="email" name="email" /><br />
+    <label for="prenume">Prenume:</label><br />
+    <input
+      formControlName="prenume"
+      type="text"
+      id="prenume"
+      name="prenume"
+    /><br />
+    <label for="nume">Nume:</label><br />
+    <input formControlName="nume" type="text" id="nume" name="nume" /><br />
+    <label for="parola">Parola:</label><br />
+    <input
+      formControlName="parola"
+      type="password"
+      id="parola"
+      name="parola"
+    /><br />
+    <div
+      *ngIf="
+        editForm.get('parola')?.hasError('parolaInvalida') &&
+        editForm.get('parola')?.touched
+      "
+      class="error-message"
+    >
+      Parola trebuie sa contina cel putin o litera mare, o litera mica, o cifra,
+      un caracter special si sa aiba cel putin 8 caractere.
+    </div>
+    <label for="confirmareParola">Confirma parola:</label><br />
+    <input
+      formControlName="confirmareParola"
+      type="password"
+      id="confirmareParola"
+      name="confirmareParola"
+    /><br />
+    <div
+      *ngIf="
+        editForm.get('confirmareParola')?.hasError('parolaInvalida') &&
+        editForm.get('confirmareParola')?.touched
+      "
+      class="error-message"
+    >
+      Parola trebuie sa contina cel putin o litera mare, o litera mica, o cifra,
+      un caracter special si sa aiba cel putin 8 caractere.
+    </div>
+    <div
+      *ngIf="
+        editForm.get('confirmareParola') !== null &&
+        editForm.get('parola') !== null &&
+        editForm.get('confirmareParola')?.value !==
+          editForm.get('parola')?.value &&
+        !editForm.get('confirmareParola')?.hasError('parolaInvalida')
+      "
+      class="error-message"
+    >
+      Parolele nu coincid.
+    </div>
+    <label for="nrTelefon">Nr. Telefon:</label><br />
+    <input
+      formControlName="nrTelefon"
+      type="text"
+      id="nrTelefon"
+      name="nrTelefon"
+    /><br />
+    <div
+      *ngIf="
+        editForm.get('nrTelefon')?.hasError('nrTelefonInvalid') &&
+        editForm.get('nrTelefon')?.touched
+      "
+      class="error-message"
+    >
+      Numar de telefon. Numerele de telefon acceptate sunt doar cele din
+      Romania.
+    </div>
+    <label for="dataNasterii">Data Nasterii:</label><br />
+    <input
+      formControlName="dataNasterii"
+      type="date"
+      id="dataNasterii"
+      name="dataNasterii"
+    /><br />
+    <div
+      *ngIf="
+        editForm.get('dataNasterii')?.hasError('minor') &&
+        editForm.get('dataNasterii')?.touched
+      "
+      class="error-message"
+    >
+      Trebuie sa ai cel putin 18 ani pentru a te inregistra.
+    </div>
+    <label for="pozaProfil">Poza profil:</label><br />
+    <input
+      formControlName="pozaProfil"
+      type="file"
+      id="pozaProfil"
+      name="pozaProfil"
+      (change)="onFileChange($event)"
+    />
+    <div
+      *ngIf="
+        editForm.get('pozaProfil')?.hasError('extensieIncorecta') &&
+        editForm.get('pozaProfil')?.touched
+      "
+      class="error-message"
+    >
+      Poza de profil trebuie sa fie de tipul jpg, jpeg sau png.
+    </div>
+    <br />
+    <!--<input type="submit" [disabled]="loginForm.invalid"value="Login">-->
+    <input type="submit" value="edit" />
+
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+  </form>
+</div>
