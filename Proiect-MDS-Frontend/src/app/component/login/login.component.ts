@@ -55,6 +55,9 @@ export class LoginComponent implements OnInit {
     });
   }
   ngOnInit() {
+    if(this.cookieService.get('token') !== ''){
+      this.router.navigate(['landingPage']);
+    }
     this.loginForm = this.fb.group({
       userName: ['', Validators.required],
       parola: ['', [Validators.required, Validators.minLength(8)]],
