@@ -1,10 +1,26 @@
-<div>
-  <button (click)="this.router.navigate(['profilePage'])">Profile page</button>
-  <button (click)="this.router.navigate(['customerSupport'])">
-    Customer support
-  </button>
-</div>
-<div>
-  <button (click)="this.router.navigate(['findCar'])">Find a car</button>
-  <button (click)="this.router.navigate(['addCar'])">Add a car</button>
+<div class="container">
+  <div class="left_component">
+    <div class="logo">
+      <img src="assets/style_assets/logo_main.png" alt="logo" width="80%" />
+    </div>
+    <div class="client">
+      <button class="button1" (click)="this.router.navigate(['profilePage'])">
+        Profile page
+      </button>
+      <button
+        class="button1"
+        (click)="this.router.navigate(['customerSupport'])"
+      >
+        Customer support
+      </button>
+    </div>
+  </div>
+  <div class="right_component">
+    <button class="button2" (click)="this.router.navigate(['findCar'])">
+      Find a car
+    </button>
+    <button class="button2" (click)="this.router.navigate(['addCar'])">
+      Add a car
+    </button>
+  </div>
 </div>

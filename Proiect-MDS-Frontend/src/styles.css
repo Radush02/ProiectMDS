@@ -1,18 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
-html{
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
+html {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
 body {
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    background: linear-gradient(to bottom, #6450A3, black);
-    background-size: 500%;
-    background-repeat: no-repeat;
-    display: flex;
-    justify-content: center; 
-    align-items: center; 
-  }
-
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background: linear-gradient(to bottom, #6450a3, black);
+  background-size: 500%;
+  background-repeat: no-repeat;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+}

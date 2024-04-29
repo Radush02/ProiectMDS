@@ -4,12 +4,10 @@ input[type="number"]::-webkit-outer-spin-button {
   margin: 0;
 }
 
-
-.logo{
+.logo {
   grid-column: 1;
   position: relative;
   bottom: 6vh;
-  
 }
 
 .register-container {
@@ -17,26 +15,22 @@ input[type="number"]::-webkit-outer-spin-button {
   margin: 0;
   position: relative;
   grid-column: 2;
-  top:0vh;
+  top: 0vh;
   overflow: hidden;
   background: transparent;
   height: 100%;
-
 }
-.container{
+.container {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 0px;
   justify-content: center;
   align-items: center;
-  
-  
 }
-
 
 form {
   border-radius: 15px; /* Rotunjirea colțurilor formularului */
-  padding-left: 4vw; 
+  padding-left: 4vw;
   padding-right: 4vw;
   padding-top: 4vh;
   background-color: transparent; /* Culoare de fundal a formularului */
@@ -44,13 +38,12 @@ form {
   align-items: center;
 }
 
-label{
+label {
   color: white; /* Culoare text */
   font-size: 1.2rem; /* Dimensiune text */
-  
 }
-input{
-  background-color:#6450A3 ;
+input {
+  background-color: #6450a3;
 }
 
 /* Stilizare pentru input-uri */
@@ -67,24 +60,26 @@ input[type="submit"] {
 }
 
 /* Stilizare pentru buton */
-button,input[type="submit"] {
+button,
+input[type="submit"] {
   position: relative;
   width: 35%; /* Lățime completă */
-  left:35%;
+  left: 35%;
   padding: 2vh; /* Spațiere interioară */
   border: none; /* Eliminare bordură */
   border-radius: 15px; /* Rotunjirea colțurilor */
-  background-color: #6450A3; /* Culoare de fundal */
+  background-color: #6450a3; /* Culoare de fundal */
   color: #fff; /* Culoare text */
   cursor: pointer; /* Cursor de selectare */
   transition: background-color 0.3s ease; /* Tranzitie pentru efectul de hover */
 }
 
 /* Stilizare pentru efectul de hover la buton */
-button:hover,input[type="submit"]:hover {
+button:hover,
+input[type="submit"]:hover {
   background-color: black; /* Schimbare culoare de fundal la hover */
 }
-.container{
+.container {
   display: flex;
   justify-content: center;
   align-items: center;

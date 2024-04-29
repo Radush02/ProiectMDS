@@ -1,23 +1,32 @@
-<br />
-<div>
-  <!-- <img src="profile?.linkPozaProfil" alt="Profile Image" width="100px" /> -->
-  <a href="profile?.linkPozaProfil"></a>
-  <br />
-  <label>First name: {{ profile.prenume }}</label>
-  <br />
-  <label>Last name: {{ profile.nume }}</label>
-  <br />
-  <label>Username: {{ profile.username }}</label> <br />
-  <label>Email: {{ profile.email }}</label> <br />
-  <label>Phone number: {{ profile.nrTelefon }}</label> <br />
-  <label>Birth date: {{ profile.dataNasterii }}</label> <br />
-  <label>Id card: {{ profile.carteIdentitate ? "Uploaded" : "-" }}</label>
-  <br />
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="assets/style_assets/logo_main.png" alt="logo" width="20%" />
+    </div>
 
-  <label>Driver's license: {{ profile.permis ? "Uploaded" : "-" }}</label>
-  <br />
-</div>
-<!-- <button mat-icon-button color="primary" (click)="editProfile(profile)">
+    <br /><br /><br />
+    <div class="profile_information">
+      <h2>Profile information</h2>
+      <!-- <img src="profile?.linkPozaProfil" alt="Profile Image" width="100px" /> -->
+      <a href="profile?.linkPozaProfil"></a>
+      <br />
+      <label class="name">First name: {{ profile.prenume }}</label>
+      <br />
+      <label class="name">Last name: {{ profile.nume }}</label>
+      <br />
+      <label>Username: {{ profile.username }}</label> <br />
+      <label>Email: {{ profile.email }}</label> <br />
+      <label>Phone number: {{ profile.nrTelefon }}</label> <br />
+      <label>Birth date: {{ profile.dataNasterii }}</label> <br />
+      <label>Id card: {{ profile.carteIdentitate ? "Uploaded" : "-" }}</label>
+      <br />
+
+      <label>Driver's license: {{ profile.permis ? "Uploaded" : "-" }}</label>
+      <br />
+    </div>
+    <!-- <button mat-icon-button color="primary" (click)="editProfile(profile)">
   <mat-icon>edit</mat-icon>
 </button> -->
-<!-- <app-edit-profile [profile]="this.profile"></app-edit-profile> -->
+    <!-- <app-edit-profile [profile]="this.profile"></app-edit-profile> -->
+  </div>
+</body>
