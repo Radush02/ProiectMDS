@@ -1,1 +1,61 @@
-<p>find-car works!</p>
+<div class = "container">
+    <div class="logo">
+      <img src="assets/style_assets/logo_main.png" alt="logo" />
+    </div>
+  <div class="register-container">
+    <form (ngSubmit)="applyFilter()" [formGroup]="findForm">
+      <label for="marca">Marca masina:</label><br />
+      <input
+        formControlName="marca"
+        type="text"
+        id="marca"
+        name="marca"
+      /><br />
+      <label for="model">Model:</label><br />
+      <input formControlName="model" type="text" id="model" name="model" /><br />
+     
+      <label for="anSelectatMinim">An fabricatie minim:</label><br />
+      <select formControlName="anSelectatMinim" id="anSelectatMinim" name="anSelectatMinim">
+        <option *ngFor="let an of rangeAn" [value]="an">{{ an }}</option>
+      </select><br />
+        <label for="anSelectatMaxim">An fabricatie maxim:</label><br />
+        <select formControlName="anSelectatMaxim" id="anSelectatMaxim" name="anSelectatMaxim">
+            <option *ngFor="let an of rangeAn" [value]="an">{{ an }}</option>
+          </select><br />
+        
+        <label for="minimPret">Pret minim:</label><br />
+        <input
+            formControlName="minimPret"
+            type="number"
+            id="minimPret"
+            name="minimPret"
+        /><br />
+        <label for="maximPret">Pret maxim:</label><br />
+        <input
+            formControlName="maximPret"
+            type="number"
+            id="maximPret"
+            name="maximPret"
+        /><br />
+        <label for="minimKm">Km minimi:</label><br />
+        <input
+            formControlName="minimKm"
+            type="number"
+            id="minimKm"
+            name="minimKm"
+        /><br />
+        <label for="maximKm">Km maximi:</label><br />
+        <input
+            formControlName="maximKm"
+            type="number"
+            id="maximKm"
+            name="maximKm"
+        /><br />
+
+      <input type="submit" value="Cauta" />
+  
+      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+    </form>
+  </div>
+  
+  </div>
