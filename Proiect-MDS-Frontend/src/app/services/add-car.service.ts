@@ -11,6 +11,6 @@ export class CarService {
   constructor(private http: HttpClient) { }
 
   addCar(carData: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl+"/2", carData);
+    return this.http.post<any>(this.apiUrl, carData);
   }
 }

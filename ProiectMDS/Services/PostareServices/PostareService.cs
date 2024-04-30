@@ -14,11 +14,11 @@ namespace ProiectMDS.Services
             _postareRepository = postareRepository;
         }
 
-        public async Task AddPostare(PostareDTO postareDTO, int userId)
+        public async Task AddPostare(PostareDTO postareDTO)
         {
             var postare = new Postare()
             {
-                UserId = userId,
+                UserId = postareDTO.userId,
                 titlu = postareDTO.titlu,
                 descriere = postareDTO.descriere,
                 pret =  postareDTO.pret,
@@ -97,6 +97,26 @@ namespace ProiectMDS.Services
 
             return p;
         }
+        public async Task<IEnumerable<PostareDTO>> getAllPostari()
+        {
+            var p = await _postareRepository.getPostare();
+            IEnumerable<PostareDTO> rez;
+            rez = p.Select(po => new PostareDTO
+            {
+                userId = po.UserId,
+                titlu = po.titlu,
+                descriere = po.descriere,
+                pret = po.pret,
+                firma = po.firma,
+                model = po.model,
+                kilometraj = po.kilometraj,
+                anFabricatie = po.anFabricatie,
+                talon = po.talon,
+                carteIdentitateMasina = po.carteIdentitateMasina,
+                asigurare = po.asigurare
+            });
+            return rez;
+        }
 
         public async Task<IEnumerable<PostareDTO>> PostareByTitlu(string titlu)
         {
@@ -110,13 +130,13 @@ namespace ProiectMDS.Services
             return p;
         }
 
-        public async Task UpdatePostare(PostareDTO postareDTO, int postareId)
+        public async Task UpdatePostare(PostareDTO postareDTO)
         {
-            var p = await _postareRepository.PostareById(postareId);
+            var p = await _postareRepository.PostareById(postareDTO.userId);
 
             if (p == null)
             {
-                throw new NotFoundException($"Nu exista postare cu id-ul {postareId}.");
+                throw new NotFoundException($"Nu exista postare cu id-ul {postareDTO.userId}.");
             }
 
             p.titlu = postareDTO.titlu;

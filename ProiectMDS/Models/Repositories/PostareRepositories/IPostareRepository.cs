@@ -8,6 +8,7 @@ namespace ProiectMDS.Models.Repositories.PostareRepositories
         Task AddPostare(Postare postare);
         Task DeletePostare(int id);
         Task<Postare> PostareById(int postareId);
+        Task<IEnumerable<Postare>> getPostare();
         Task UpdatePostare(Postare postare);
         Task<IEnumerable<PostareDTO>> PostareByTitlu(String titlu);
         Task<IEnumerable<PostareDTO>> PostareByPret(int pretMinim, int pretMaxim);
