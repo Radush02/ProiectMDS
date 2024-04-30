@@ -1,4 +1,3 @@
-
 .logo{
     grid-column: 1;
     position: relative;
@@ -23,52 +22,47 @@
   
 
   form {
-    border-radius: 15px; /* Rotunjirea colțurilor formularului */
+    border-radius: 15px;
     padding-left: 4vw; 
     padding-right: 4vw;
     padding-top: 4vh;
-    background-color: transparent; /* Culoare de fundal a formularului */
+    background-color: transparent;
     font-size: 1.12rem;
     align-items: center;
   }
 
   label{
-    color: #fff; /* Culoare text */
-    font-size: 1.2rem; /* Dimensiune text */
+    color: #fff;
+    font-size: 1.2rem;
     
   }
   input{
     background-color:#6450A3 ;
   }
   
-  /* Stilizare pentru input-uri */
   input[type="text"],
   input[type="password"],
-  /* input[type="checkbox"], */
   input[type="submit"] {
-    width: 100%; /* Lățime completă */
-    padding: 1.5vh; /* Spațiere interioară */
-    margin-bottom: 10px; /* Spațiere între elemente */
-    border: none; /* Eliminare bordură */
-    border-radius: 8px; /* Rotunjirea colțurilor */
+    width: 100%;
+    padding: 1.5vh;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 8px;
   }
   
-  /* Stilizare pentru buton */
   button,input[type="submit"] {
     position: relative;
-    width: 35%; /* Lățime completă */
+    width: 35%;
     left:35%;
-    padding: 2vh; /* Spațiere interioară */
-    border: none; /* Eliminare bordură */
-    border-radius: 15px; /* Rotunjirea colțurilor */
-    background-color: #6450A3; /* Culoare de fundal */
-    color: #fff; /* Culoare text */
-    cursor: pointer; /* Cursor de selectare */
-    transition: background-color 0.3s ease; /* Tranzitie pentru efectul de hover */
+    padding: 2vh;
+    border: none;
+    border-radius: 15px;
+    background-color: #6450A3;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
   }
   
-  /* Stilizare pentru efectul de hover la buton */
   button:hover,input[type="submit"]:hover {
-    background-color: black; /* Schimbare culoare de fundal la hover */
+    background-color: black;
   }
-  

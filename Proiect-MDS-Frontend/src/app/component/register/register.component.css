@@ -29,68 +29,125 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 form {
-  border-radius: 15px; /* Rotunjirea colțurilor formularului */
+  border-radius: 15px;
   padding-left: 4vw;
   padding-right: 4vw;
   padding-top: 4vh;
-  background-color: transparent; /* Culoare de fundal a formularului */
+  background-color: transparent;
   font-size: 1.12rem;
   align-items: center;
 }
 
 label {
-  color: white; /* Culoare text */
-  font-size: 1.2rem; /* Dimensiune text */
+  color: white;
+  font-size: 1.2rem;
 }
 input {
   background-color: #6450a3;
 }
 
-/* Stilizare pentru input-uri */
 input[type="text"],
 input[type="password"],
-/* input[type="checkbox"], */
 input[type="submit"] {
-  width: 100%; /* Lățime completă */
-  padding: 1.5vh; /* Spațiere interioară */
-  margin-bottom: 10px; /* Spațiere între elemente */
-  border: none; /* Eliminare bordură */
-  border-radius: 8px; /* Rotunjirea colțurilor */
+  width: 100%;
+  padding: 1vh;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 8px;
   margin-top: 10px;
 }
 
-/* Stilizare pentru buton */
 button,
 input[type="submit"] {
   position: relative;
-  width: 35%; /* Lățime completă */
+  width: 35%;
   left: 35%;
-  padding: 2vh; /* Spațiere interioară */
-  border: none; /* Eliminare bordură */
-  border-radius: 15px; /* Rotunjirea colțurilor */
-  background-color: #6450a3; /* Culoare de fundal */
-  color: #fff; /* Culoare text */
-  cursor: pointer; /* Cursor de selectare */
-  transition: background-color 0.3s ease; /* Tranzitie pentru efectul de hover */
+  padding: 1.5vh;
+  border: none;
+  border-radius: 15px;
+  background-color: #6450a3;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-/* Stilizare pentru efectul de hover la buton */
 button:hover,
 input[type="submit"]:hover {
-  background-color: black; /* Schimbare culoare de fundal la hover */
+  background-color: black;
 }
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+.error-message {
+  padding: 5px;
+  margin: 5px 0;
+  color: red;
+  border: 2px solid red;
+  border-radius: 5px;
+}
 
-/* .register-container {
-  width: 40vw;
-  margin: 0;
-  position: relative;
-  top:0vh;
-  overflow: hidden;
-  background: transparent;
-  height: 100%;
-} */
+@media screen and (min-width: 770px){
+  .register-container {
+    width: 30vw;
+    height: 100vh;
+    top:100px;
+    position: relative;
+  }
+  form {
+    border-radius: 15px;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    padding-top: 2vh;
+    background-color: transparent;
+    font-size: 0.88rem;
+    align-items: center;
+  }
+  .logo{
+    width: 50vw;
+    
+  }
+  .logo img{
+    width: 90%;
+    position: relative;
+    left: 10%;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="submit"] {
+    width: 100%;
+    padding: 0.6vh;
+    margin-bottom: 3px;
+    border: none;
+    border-radius: 8px;
+    margin-top: 10px;
+  }
+
+  button,
+  input[type="submit"] {
+    position: relative;
+    width: 35%;
+    left: 35%;
+    padding: 1vh;
+    border: none;
+    border-radius: 15px;
+    background-color: #6450a3;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  label{
+    font-size: 0.7rem;
+  }
+
+  .error-message {
+    padding: 5px;
+    margin: 5px 0;
+    color: red;
+    border: 2px solid red;
+    border-radius: 5px;
+    font-size: 0.5rem;
+  }
+}
