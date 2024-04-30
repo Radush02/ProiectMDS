@@ -91,6 +91,7 @@ namespace ProiectMDS.Services
             var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.NameIdentifier , user.UserName),
+                    new Claim("id", user.Id.ToString()),
                     new Claim(ClaimTypes.Name , user.nume),
                     new Claim(ClaimTypes.Email , user.Email),
                     new Claim(ClaimTypes.MobilePhone , user.PhoneNumber),

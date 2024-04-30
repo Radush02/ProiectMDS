@@ -46,6 +46,7 @@ export class FindCarComponent {
     let postModel = this.PostService.getPostsByModel(this.findForm.value.model);
   
     forkJoin([postKm, postPret, postAn, postMarca, postModel]).subscribe((responses) => {
+      console.log(responses);
       let arrKm = responses[0];
       let arrPret = responses[1];
       let arrAn = responses[2];
@@ -59,9 +60,8 @@ export class FindCarComponent {
       function apareInToate(obj: carDTO) {
         return exista(arrKm, obj) && exista(arrPret, obj) && exista(arrAn, obj) && exista(arrMarca, obj) && exista(arrModel, obj);
       }
-  
       let rez = arrAn.filter(apareInToate);
-
+      console.log(rez);
     let baseUrl = window.location.origin + window.location.pathname;
     let resultsPageUrl = baseUrl + '/search-results'; 
 

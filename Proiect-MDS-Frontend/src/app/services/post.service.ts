@@ -14,7 +14,7 @@ export class PostService {
     }
     public getPostsByAge(minAge: any,maxRange:any): Observable<any> {
         if(minAge==null && maxRange==null)
-            return this.http.get<any>(this.apiKey+'an/'+1900+"/"+new Date().getFullYear());
+            return this.http.get<any>(this.apiKey);
         if(minAge==null)
             return this.http.get<any>(this.apiKey+'an/'+1900+"/"+maxRange);
         if(maxRange==null)
@@ -23,7 +23,7 @@ export class PostService {
     }
     public getPostsByPrice(minPrice: any,maxPrice:any): Observable<any> {
         if(minPrice==null && maxPrice==null)
-            return this.http.get<any>(this.apiKey+'pret/'+0+"/"+100000);
+            return this.http.get<any>(this.apiKey);
         if(minPrice==null)
             return this.http.get<any>(this.apiKey+'pret/'+0+"/"+maxPrice);
         if(maxPrice==null)
@@ -32,7 +32,7 @@ export class PostService {
     }
     public getPostsByKm(minKm: any,maxKm:any): Observable<any> {
         if(minKm==null && maxKm==null)
-            return this.http.get<any>(this.apiKey+'km/'+0+"/"+1000000);  
+            return this.http.get<any>(this.apiKey);  
         if(minKm==null)
             return this.http.get<any>(this.apiKey+'km/'+0+"/"+maxKm);
         if(maxKm==null)
@@ -40,9 +40,13 @@ export class PostService {
         return this.http.get<any>(this.apiKey+'km/'+minKm+"/"+maxKm);
     }
     public getPostsByBrand(brand: any): Observable<any> {
+        if(brand==null)
+            return this.http.get<any>(this.apiKey);
         return this.http.get<any>(this.apiKey+'firma/'+brand);
     }
     public getPostsByModel(model: any): Observable<any> {
+        if(model==null)
+            return this.http.get<any>(this.apiKey);
         return this.http.get<any>(this.apiKey+'model/'+model);
     }
 }

@@ -9,6 +9,8 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { CarService } from '../../services/add-car.service';
+import { CookieService } from 'ngx-cookie-service';
+import { jwtDecode } from 'jwt-decode';
 @Component({
   selector: 'app-add-car',
   templateUrl: './add-car.component.html',
@@ -25,9 +27,11 @@ export class AddCarComponent implements OnInit {
     private httpClient: HttpClient,
     public router: Router,
     private carService: CarService,
-
+    private cookieService: CookieService
   ) {
+    const decodedToken: { [key: string]: any } = jwtDecode(this.cookieService.get('token'))
     this.carForm = this.fb.group({
+      userId: [decodedToken['id']],
       titlu: ['', Validators.required],
       descriere: ['', Validators.required],
       pret: ['', Validators.required],

@@ -35,7 +35,10 @@ namespace ProiectMDS.Models.Repositories.PostareRepositories
             var p = await _dbContext.Postare.FirstOrDefaultAsync(i => i.PostareId == id);
             return p;
         }
-
+        public async Task<IEnumerable<Postare>> getPostare()
+        {
+            return await _dbContext.Postare.ToListAsync();
+        }
         public async Task UpdatePostare(Postare p)
         {
             _dbContext.Postare.Update(p);
@@ -48,6 +51,7 @@ namespace ProiectMDS.Models.Repositories.PostareRepositories
 
             var postareDTOs = p.Select(po => new PostareDTO
             {
+                userId = po.UserId,
                 titlu = po.titlu,
                 descriere = po.descriere,
                 pret = po.pret,
@@ -70,6 +74,7 @@ namespace ProiectMDS.Models.Repositories.PostareRepositories
 
             var postareDTOs = p.Select(po => new PostareDTO
             {
+                userId = po.UserId,
                 titlu = po.titlu,
                 descriere = po.descriere,
                 pret = po.pret,
@@ -91,7 +96,7 @@ namespace ProiectMDS.Models.Repositories.PostareRepositories
             var p = await _dbContext.Postare.Where(pr => pr.kilometraj >= kmMinim && pr.kilometraj <= kmMaxim).ToListAsync();
 
             var postareDTOs = p.Select(po => new PostareDTO
-            {
+            {   userId = po.UserId,
                 titlu = po.titlu,
                 descriere = po.descriere,
                 pret = po.pret,
@@ -113,7 +118,7 @@ namespace ProiectMDS.Models.Repositories.PostareRepositories
             var p = await _dbContext.Postare.Where(pr => pr.model.ToLower().Contains(model.ToLower())).ToListAsync();
 
             var postareDTOs = p.Select(po => new PostareDTO
-            {
+            {userId = po.UserId,
                 titlu = po.titlu,
                 descriere = po.descriere,
                 pret = po.pret,
@@ -136,6 +141,7 @@ namespace ProiectMDS.Models.Repositories.PostareRepositories
 
             var postareDTOs = p.Select(po => new PostareDTO
             {
+                userId = po.UserId,
                 titlu = po.titlu,
                 descriere = po.descriere,
                 pret = po.pret,
@@ -158,6 +164,8 @@ namespace ProiectMDS.Models.Repositories.PostareRepositories
 
             var postareDTOs = p.Select(po => new PostareDTO
             {
+
+                userId = po.UserId,
                 titlu = po.titlu,
                 descriere = po.descriere,
                 pret = po.pret,

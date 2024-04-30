@@ -16,10 +16,16 @@ namespace ProiectMDS.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddPostare(PostareDTO postareDTO, int userId)
+        public async Task<IActionResult> AddPostare(PostareDTO postareDTO)
         {
-            await _postareService.AddPostare(postareDTO, userId);
+            await _postareService.AddPostare(postareDTO);
             return Ok();
+        }
+        [HttpGet]
+        public async Task<IActionResult> getAllPostari()
+        {
+            var postari = await _postareService.getAllPostari();
+            return Ok(postari);
         }
 
         [HttpDelete("{id}")]
@@ -37,9 +43,9 @@ namespace ProiectMDS.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdatePostare([FromBody] PostareDTO postare, int id)
+        public async Task<IActionResult> UpdatePostare([FromBody] PostareDTO postare)
         {
-            await _postareService.UpdatePostare(postare, id);
+            await _postareService.UpdatePostare(postare);
             return Ok();
         }
 
