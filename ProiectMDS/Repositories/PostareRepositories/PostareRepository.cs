@@ -4,7 +4,7 @@ using ProiectMDS.Models;
 using ProiectMDS.Models.DTOs;
 using System.Linq;
 
-namespace ProiectMDS.Models.Repositories.PostareRepositories
+namespace ProiectMDS.Repositories
 {
     public class PostareRepository : IPostareRepository
     {
@@ -96,7 +96,8 @@ namespace ProiectMDS.Models.Repositories.PostareRepositories
             var p = await _dbContext.Postare.Where(pr => pr.kilometraj >= kmMinim && pr.kilometraj <= kmMaxim).ToListAsync();
 
             var postareDTOs = p.Select(po => new PostareDTO
-            {   userId = po.UserId,
+            {
+                userId = po.UserId,
                 titlu = po.titlu,
                 descriere = po.descriere,
                 pret = po.pret,
@@ -118,7 +119,8 @@ namespace ProiectMDS.Models.Repositories.PostareRepositories
             var p = await _dbContext.Postare.Where(pr => pr.model.ToLower().Contains(model.ToLower())).ToListAsync();
 
             var postareDTOs = p.Select(po => new PostareDTO
-            {userId = po.UserId,
+            {
+                userId = po.UserId,
                 titlu = po.titlu,
                 descriere = po.descriere,
                 pret = po.pret,
@@ -177,7 +179,7 @@ namespace ProiectMDS.Models.Repositories.PostareRepositories
                 carteIdentitateMasina = po.carteIdentitateMasina,
                 asigurare = po.asigurare
 
-        });
+            });
 
             return postareDTOs;
         }

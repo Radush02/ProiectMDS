@@ -3,7 +3,7 @@ using ProiectMDS.Data;
 using ProiectMDS.Models;
 using ProiectMDS.Models.DTOs;
 
-namespace ProiectMDS.Models.Repositories.ReviewRepositories
+namespace ProiectMDS.Repositories
 {
     public class ReviewRepository : IReviewRepository
     {

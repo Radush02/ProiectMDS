@@ -1,9 +1,9 @@
 ﻿using ProiectMDS.Models.DTOs;
 using ProiectMDS.Models;
-using ProiectMDS.Models.Repositories.ChirieRepositories;
+using ProiectMDS.Repositories;
 using ProiectMDS.Exceptions;
 
-namespace ProiectMDS.Services
+namespace ProiectMDS.Services.ChirieServices
 {
     public class ChirieService : IChirieService
     {

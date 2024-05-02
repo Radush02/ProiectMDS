@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using ProiectMDS.Exceptions;
 using ProiectMDS.Models;
 using ProiectMDS.Models.DTOs;
-using ProiectMDS.Models.Repositories.CardRepositories;
+using ProiectMDS.Repositories;
 
 namespace ProiectMDS.Services
 {

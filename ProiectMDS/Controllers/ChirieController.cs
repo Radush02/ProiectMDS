@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ProiectMDS.Models;
 using ProiectMDS.Models.DTOs;
-using ProiectMDS.Services;
+using ProiectMDS.Services.ChirieServices;
 
 namespace ProiectMDS.Controllers
 {

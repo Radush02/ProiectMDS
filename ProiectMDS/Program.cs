@@ -9,10 +9,10 @@ using System.Text;
 using Microsoft.OpenApi.Models;
 using System.Security.Claims;
 using Amazon.S3;
-using ProiectMDS.Models.Repositories.CardRepositories;
-using ProiectMDS.Models.Repositories.ChirieRepositories;
-using ProiectMDS.Models.Repositories.PostareRepositories;
-using ProiectMDS.Models.Repositories.ReviewRepositories;
+using SendGrid.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using ProiectMDS.Repositories;
+using ProiectMDS.Services.ChirieServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,6 +39,11 @@ builder.Services.AddScoped<IPostareService, PostareService>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
 
+
+builder.Services.Configure<SendGridSettings>(builder.Configuration.GetSection("SendGridSettings"));
+builder.Services.AddSendGrid(options=>
+    options.ApiKey=builder.Configuration.GetSection("SendGridSettings").GetValue<string>("SendGridKey")
+    );
 builder.Services.AddIdentity<User, IdentityRole<int>>(options =>
 {
     options.Password.RequireDigit = true;
@@ -60,6 +65,9 @@ builder.Services.AddScoped<IS3Service, S3Service>(provider =>
     var bucketName = "dawbucket";
     return new S3Service(s3Client, bucketName);
 });
+
+builder.Services.AddScoped<IEmailSender, EmailSender>();
+
 builder.Services.AddSwaggerGen(options =>
 {
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme

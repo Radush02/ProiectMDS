@@ -3,7 +3,7 @@ using ProiectMDS.Data;
 using ProiectMDS.Models;
 using ProiectMDS.Models.DTOs;
 
-namespace ProiectMDS.Models.Repositories.ChirieRepositories
+namespace ProiectMDS.Repositories
 {
     public class ChirieRepository : IChirieRepository
     {

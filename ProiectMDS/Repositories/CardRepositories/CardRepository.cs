@@ -2,7 +2,7 @@
 using ProiectMDS.Data;
 using ProiectMDS.Models;
 
-namespace ProiectMDS.Models.Repositories.CardRepositories
+namespace ProiectMDS.Repositories
 {
     public class CardRepository : ICardRepository
     {

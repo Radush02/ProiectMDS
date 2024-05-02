@@ -1,6 +1,6 @@
 ﻿using ProiectMDS.Models.DTOs;
 
-namespace ProiectMDS.Services
+namespace ProiectMDS.Services.ChirieServices
 {
     public interface IChirieService
     {
