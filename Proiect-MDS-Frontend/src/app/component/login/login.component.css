@@ -66,3 +66,11 @@
   button:hover,input[type="submit"]:hover {
     background-color: black;
   }
+  .error-message {
+    padding: 5px;
+    margin: 5px 0;
+    color: red;
+    border: 2px solid red;
+    border-radius: 5px;
+  }
+  

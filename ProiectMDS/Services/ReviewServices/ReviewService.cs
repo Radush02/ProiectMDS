@@ -1,7 +1,7 @@
 ﻿using ProiectMDS.Models.DTOs;
 using ProiectMDS.Models;
-using ProiectMDS.Models.Repositories.ReviewRepositories;
 using ProiectMDS.Exceptions;
+using ProiectMDS.Repositories; 
 
 namespace ProiectMDS.Services
 {

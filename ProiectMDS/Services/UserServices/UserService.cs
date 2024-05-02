@@ -1,13 +1,19 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Amazon.Runtime.Internal.Endpoints.StandardLibrary;
+using Azure.Core;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.IdentityModel.Tokens;
 using ProiectMDS.Exceptions;
 using ProiectMDS.Models;
 using ProiectMDS.Models.DTOs;
 using ProiectMDS.Models.Enum;
 using ProiectMDS.Services;
+using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Web;
 
 namespace ProiectMDS.Services
 {
@@ -15,13 +21,60 @@ namespace ProiectMDS.Services
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly IEmailSender _emailSender;
         private readonly IS3Service _s3Service;
 
-        public UserService(UserManager<User> userManager, SignInManager<User> signInManager, IS3Service s3Service)
+
+        public UserService(UserManager<User> userManager, SignInManager<User> signInManager, IS3Service s3Service,IEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _s3Service = s3Service;
+            _emailSender = emailSender;
+        }
+        public async Task ConfirmEmail(string username, string token)
+        {
+            var user = await _userManager.FindByNameAsync(username);
+            if (user == null)
+            {
+                throw new NotFoundException("Userul nu a fost gasit");
+            }
+            var result = await _userManager.ConfirmEmailAsync(user, token);
+            if (!result.Succeeded)
+            {
+                throw new WrongDetailsException("Token invalid");
+            }
+        }
+        public async Task<IdentityResult> RegisterAsync(RegisterDTO newUser)
+        {
+
+            await _s3Service.UploadFileAsync(newUser.username + "_pfp.png", newUser.pozaProfil);
+            var user = new User
+            {
+                UserName = newUser.username,
+                Email = newUser.email,
+                nume = newUser.nume,
+                prenume = newUser.prenume,
+                PhoneNumber = newUser.nrTelefon,
+                permis = "N/A",
+                carteIdentitate = "N/A",
+                dataNasterii = newUser.dataNasterii,
+                pozaProfil = _s3Service.GetFileUrl(newUser.username + "_pfp.png")
+            };
+
+            var result = await _userManager.CreateAsync(user, newUser.parola);
+
+            if (result.Succeeded)
+            {
+                var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                var encodedToken = HttpUtility.UrlEncode(token);
+                var url = "https://localhost:7215/api/user/confirmEmail?username=" + user.UserName + "&token=" + encodedToken;
+                var emailText = $"Va rugam sa confirmati emailul accesand link-ul de mai jos:\n\n{url}" ;
+                await _emailSender.SendEmailAsync(user.Email, "Confirmare email", emailText);
+                await _userManager.AddToRoleAsync(user, Roles.Default.ToString());
+            }
+
+            return result;
         }
         public async Task<UserDTO> getUserDetails (string username)
         {
@@ -44,33 +97,14 @@ namespace ProiectMDS.Services
             };
             return userInfo;
         }
-        public async Task<IdentityResult> RegisterAsync(RegisterDTO newUser)
-        {
 
-            await _s3Service.UploadFileAsync(newUser.username+"_pfp.png", newUser.pozaProfil);
-            var user = new User{
-                UserName = newUser.username,
-                Email = newUser.email,
-                nume = newUser.nume,
-                prenume = newUser.prenume,
-                PhoneNumber = newUser.nrTelefon,
-                permis = "N/A",
-                carteIdentitate = "N/A",
-                dataNasterii = newUser.dataNasterii,
-                pozaProfil = _s3Service.GetFileUrl(newUser.username+"_pfp.png")
-            };
-
-            var result = await _userManager.CreateAsync(user,newUser.parola);
-
-            if (result.Succeeded){
-                await _userManager.AddToRoleAsync(user, "Propietar");
-            }
-
-            return result;
-        }
         public async Task<string> LoginAsync(LoginDTO login)
         {
             var user = await _userManager.FindByNameAsync(login.username);
+            if(user.EmailConfirmed == false)
+            {
+                throw new NotFoundException("Emailul nu a fost confirmat, va rugam sa verificati emailul pentru link-ul de confirmare");
+            }
             var result = await _signInManager.PasswordSignInAsync(login.username,login.parola,login.remember,lockoutOnFailure:false);
             if (result.Succeeded)
             {
@@ -95,7 +129,7 @@ namespace ProiectMDS.Services
                     new Claim(ClaimTypes.Name , user.nume),
                     new Claim(ClaimTypes.Email , user.Email),
                     new Claim(ClaimTypes.MobilePhone , user.PhoneNumber),
-                    new Claim(ClaimTypes.Role,Role.FirstOrDefault("Default"))
+                    new Claim(ClaimTypes.Role,Role.FirstOrDefault(Roles.Default.ToString()))
                 };
             var token = new JwtSecurityToken(
                 issuer: "https://localhost:7215/",

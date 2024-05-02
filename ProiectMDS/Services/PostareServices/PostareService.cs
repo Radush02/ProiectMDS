@@ -1,6 +1,6 @@
 ﻿using ProiectMDS.Models.DTOs;
 using ProiectMDS.Models;
-using ProiectMDS.Models.Repositories.PostareRepositories;
+using ProiectMDS.Repositories;
 using ProiectMDS.Exceptions;
 
 namespace ProiectMDS.Services

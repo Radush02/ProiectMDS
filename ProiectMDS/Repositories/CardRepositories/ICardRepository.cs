@@ -1,6 +1,6 @@
 ﻿using ProiectMDS.Models;
 
-namespace ProiectMDS.Models.Repositories.CardRepositories
+namespace ProiectMDS.Repositories
 {
     public interface ICardRepository
     {

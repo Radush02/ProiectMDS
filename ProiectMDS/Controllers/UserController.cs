@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Client;
 using ProiectMDS.Exceptions;
 using ProiectMDS.Models.DTOs;
@@ -16,6 +17,7 @@ namespace ProiectMDS.Controllers
             _userService = userService;
         }
         [HttpPost("register")]
+        [AllowAnonymous]
         public async Task<IActionResult> Register([FromForm] RegisterDTO user)
         {
 
@@ -31,6 +33,7 @@ namespace ProiectMDS.Controllers
             }
         }
         [HttpPost("login")]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginDTO user)
         {
             try
@@ -48,7 +51,21 @@ namespace ProiectMDS.Controllers
                 return BadRequest(e.Message);
             }
         }
+        [HttpGet("confirmEmail")]
+        [AllowAnonymous]
+        public async Task<IActionResult> ConfirmEmail(string username, string token)
+        {
+            try
+            {
+                await _userService.ConfirmEmail(username, token);
+                return Ok("Email confirmat cu succes!");
+            }catch(NotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+        }   
         [HttpPost("getUserDetails")]
+        [AllowAnonymous]
         public async Task<IActionResult> getUserDetails(string username)
         {
             try

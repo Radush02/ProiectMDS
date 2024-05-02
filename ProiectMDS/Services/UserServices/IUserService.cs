@@ -9,5 +9,6 @@ namespace ProiectMDS.Services
         Task<IdentityResult> RegisterAsync(RegisterDTO newUser);
         Task<UserDTO> getUserDetails(string username);
         Task<string> LoginAsync(LoginDTO login);
+        Task ConfirmEmail(string username, string token);
     }
 }

@@ -37,3 +37,9 @@ export function validatorPoza(control: AbstractControl): { [key: string]: any } 
   }
   return null;
 }
+
+export function validatorEmail(control: AbstractControl): ValidationErrors | null {
+  const email = control.value as string;
+  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z]{3,}.[a-zA-Z]{2,}$/;
+  return emailPattern.test(email) ? null : { emailInvalid: true };
+}

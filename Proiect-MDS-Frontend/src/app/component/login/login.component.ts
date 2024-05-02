@@ -36,23 +36,28 @@ export class LoginComponent implements OnInit {
   }
   login() {
     console.log(this.loginForm.value);
-
-    this.loginService.login(this.loginForm.value).subscribe((response: any) => {
-      console.log(response);
-      this.cookieService.set(
-        'token',
-        response.token,
-        undefined,
-        '/',
-        undefined,
-        false,
-        'Strict'
-      );
-      this.errorMessage = 'Conectat';
-      this.router.navigate(['landingPage']);
-      localStorage.setItem('token', response.token);
-      console.log(localStorage);
-    });
+    this.loginService.login(this.loginForm.value).subscribe(
+      (response: any) => {
+        console.log(response);
+        this.cookieService.set(
+          'token',
+          response.token,
+          undefined,
+          '/',
+          undefined,
+          false,
+          'Strict'
+        );
+        this.errorMessage = 'Connected';
+        this.router.navigate(['landingPage']);
+        localStorage.setItem('token', response.token);
+        console.log(localStorage);
+      },
+      (error: any) => {
+        console.error(error);
+        this.errorMessage = error.error;
+      }
+    );
   }
   ngOnInit() {
     if(this.cookieService.get('token') !== ''){

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -23,6 +23,11 @@ import {
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css',
 })
-export class LandingPageComponent {
-  constructor(public router: Router) {}
+export class LandingPageComponent implements OnInit{
+  constructor(public router: Router,private cookieService:CookieService) {}
+  ngOnInit(): void {
+      if (this.cookieService.get('token')=="") {
+        this.router.navigate(['/login']);
+      }
+  }
 }

@@ -14,6 +14,7 @@ import {
   validatorParola,
   validatorVarsta,
   validatorPoza,
+  validatorEmail,
 } from '../../validators/user.validator';
 @Component({
   selector: 'app-register',
@@ -50,7 +51,7 @@ export class RegisterComponent implements OnInit {
         '',
         [
           Validators.required,
-          Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z]{3,}.[a-zA-Z]{2,}$'),
+          validatorEmail,
         ],
       ],
       nrTelefon: [
@@ -81,12 +82,12 @@ export class RegisterComponent implements OnInit {
       },
       {
         field: 'nrTelefon',
-        errorType: 'pattern',
+        errorType: 'nrTelefonInvalid',
         errorMessage: 'Numarul de telefon nu este valid',
       },
       {
         field: 'email',
-        errorType: 'pattern',
+        errorType: 'emailInvalid',
         errorMessage: 'Emailul nu este valid',
       },
       {
@@ -148,22 +149,23 @@ export class RegisterComponent implements OnInit {
     this.registerService.register(formData).subscribe(
       (response: any) => {
         console.log(response);
-        this.registerService.login(this.registerForm.value).subscribe(
-          (loginResponse) => {
-            this.cookieService.set(
-              'token',
-              loginResponse.token,
-              undefined,
-              '/',
-              undefined,
-              false,
-              'Strict'
-            );
-          },
-          (loginError) => {
-            alert(loginError.error.join('\n'));
-          }
-        );
+        // this.registerService.login(this.registerForm.value).subscribe(
+        //   (loginResponse) => {
+        //     this.cookieService.set(
+        //       'token',
+        //       loginResponse.token,
+        //       undefined,
+        //       '/',
+        //       undefined,
+        //       false,
+        //       'Strict'
+        //     );
+        //     this.router.navigate(['/login']);
+        //   },
+        //   (loginError) => {
+        //     alert(loginError.error.join('\n'));
+        //   }
+        // );
       },
       (registerError) => {
         alert(registerError.error.join('\n'));
