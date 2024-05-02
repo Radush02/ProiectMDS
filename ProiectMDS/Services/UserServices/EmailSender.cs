@@ -21,7 +21,7 @@ namespace ProiectMDS.Services
             {
                 From = new EmailAddress(_sendGridSettings.SendGridEmail, _sendGridSettings.SendGridName),
                 Subject = subject,
-                PlainTextContent = htmlMessage,
+                HtmlContent = htmlMessage,
             };
             msg.AddTo(new EmailAddress(email));
             await _sendGridClient.SendEmailAsync(msg);

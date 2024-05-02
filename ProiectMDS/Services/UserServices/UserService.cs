@@ -69,8 +69,47 @@ namespace ProiectMDS.Services
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 var encodedToken = HttpUtility.UrlEncode(token);
                 var url = "https://localhost:7215/api/user/confirmEmail?username=" + user.UserName + "&token=" + encodedToken;
-                var emailText = $"Va rugam sa confirmati emailul accesand link-ul de mai jos:\n\n{url}" ;
-                await _emailSender.SendEmailAsync(user.Email, "Confirmare email", emailText);
+                var emailHtml = @"
+            <!DOCTYPE html>
+            <html lang='en'>
+            <head>
+                <meta charset='UTF-8'>
+                <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+                <title>Email Confirmation</title>
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                        background-color: #f4f4f4;
+                        color: #333;
+                    }
+                    .container {
+                        max-width: 600px;
+                        margin: 0 auto;
+                        padding: 20px;
+                        background-color: #fff;
+                        border-radius: 5px;
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                    }
+                    .btn {
+                        display: inline-block;
+                        padding: 10px 20px;
+                        background-color: #007bff;
+                        color: #fff;
+                        text-decoration: none;
+                        border-radius: 5px;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class='container'>
+                    <h2>Confirmare email</h2>
+                    <p>Confirmati adresa de email apasand pe butonul de mai jos:</p>
+                    <a href='" + url + @"' class='btn'>Confirma Email</a>
+                </div>
+            </body>
+            </html>
+        ";
+                await _emailSender.SendEmailAsync(user.Email, "Confirmare email", emailHtml);
                 await _userManager.AddToRoleAsync(user, Roles.Default.ToString());
             }
 
