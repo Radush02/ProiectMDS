@@ -47,7 +47,22 @@ namespace ProiectMDS.Services
                 throw new NotFoundException($"Nu exista postare in range ul acesta de ani {anMinim} - {anMaxim}.");
             }
 
-            return p;
+            IEnumerable<PostareDTO> rez;
+            rez = p.Select(po => new PostareDTO
+            {
+                userId = po.UserId,
+                titlu = po.titlu,
+                descriere = po.descriere,
+                pret = po.pret,
+                firma = po.firma,
+                model = po.model,
+                kilometraj = po.kilometraj,
+                anFabricatie = po.anFabricatie,
+                talon = po.talon,
+                carteIdentitateMasina = po.carteIdentitateMasina,
+                asigurare = po.asigurare
+            });
+            return rez;
         }
 
         public async Task<IEnumerable<PostareDTO>> PostareByFirma(string firma)
@@ -59,7 +74,22 @@ namespace ProiectMDS.Services
                 throw new NotFoundException($"Nu exista postare cu firma {firma}.");
             }
 
-            return p;
+            IEnumerable<PostareDTO> rez;
+            rez = p.Select(po => new PostareDTO
+            {
+                userId = po.UserId,
+                titlu = po.titlu,
+                descriere = po.descriere,
+                pret = po.pret,
+                firma = po.firma,
+                model = po.model,
+                kilometraj = po.kilometraj,
+                anFabricatie = po.anFabricatie,
+                talon = po.talon,
+                carteIdentitateMasina = po.carteIdentitateMasina,
+                asigurare = po.asigurare
+            });
+            return rez;
         }
 
         public async Task<IEnumerable<PostareDTO>> PostareByKm(int kmMinim, int kmMaxim)
@@ -71,7 +101,22 @@ namespace ProiectMDS.Services
                 throw new NotFoundException($"Nu exista postare in range ul acesta de km {kmMinim} - {kmMaxim}.");
             }
 
-            return p;
+            IEnumerable<PostareDTO> rez;
+            rez = p.Select(po => new PostareDTO
+            {
+                userId = po.UserId,
+                titlu = po.titlu,
+                descriere = po.descriere,
+                pret = po.pret,
+                firma = po.firma,
+                model = po.model,
+                kilometraj = po.kilometraj,
+                anFabricatie = po.anFabricatie,
+                talon = po.talon,
+                carteIdentitateMasina = po.carteIdentitateMasina,
+                asigurare = po.asigurare
+            });
+            return rez;
         }
 
         public async Task<IEnumerable<PostareDTO>> PostareByModel(string model)
@@ -83,7 +128,22 @@ namespace ProiectMDS.Services
                 throw new NotFoundException($"Nu exista postare cu modelul {model}.");
             }
 
-            return p;
+            IEnumerable<PostareDTO> rez;
+            rez = p.Select(po => new PostareDTO
+            {
+                userId = po.UserId,
+                titlu = po.titlu,
+                descriere = po.descriere,
+                pret = po.pret,
+                firma = po.firma,
+                model = po.model,
+                kilometraj = po.kilometraj,
+                anFabricatie = po.anFabricatie,
+                talon = po.talon,
+                carteIdentitateMasina = po.carteIdentitateMasina,
+                asigurare = po.asigurare
+            });
+            return rez;
         }
 
         public async Task<IEnumerable<PostareDTO>> PostareByPret(int pretMinim, int pretMaxim)
@@ -94,8 +154,22 @@ namespace ProiectMDS.Services
             {
                 throw new NotFoundException($"Nu exista postare in range ul acesta de pret {pretMinim} - {pretMaxim}.");
             }
-
-            return p;
+            IEnumerable<PostareDTO> rez;
+            rez = p.Select(po => new PostareDTO
+            {
+                userId = po.UserId,
+                titlu = po.titlu,
+                descriere = po.descriere,
+                pret = po.pret,
+                firma = po.firma,
+                model = po.model,
+                kilometraj = po.kilometraj,
+                anFabricatie = po.anFabricatie,
+                talon = po.talon,
+                carteIdentitateMasina = po.carteIdentitateMasina,
+                asigurare = po.asigurare
+            });
+            return rez;
         }
         public async Task<IEnumerable<PostareDTO>> getAllPostari()
         {
@@ -127,7 +201,22 @@ namespace ProiectMDS.Services
                 throw new NotFoundException($"Nu exista postare cu titlul {titlu}.");
             }
 
-            return p;
+            IEnumerable<PostareDTO> rez;
+            rez = p.Select(po => new PostareDTO
+            {
+                userId = po.UserId,
+                titlu = po.titlu,
+                descriere = po.descriere,
+                pret = po.pret,
+                firma = po.firma,
+                model = po.model,
+                kilometraj = po.kilometraj,
+                anFabricatie = po.anFabricatie,
+                talon = po.talon,
+                carteIdentitateMasina = po.carteIdentitateMasina,
+                asigurare = po.asigurare
+            });
+            return rez;
         }
 
         public async Task UpdatePostare(PostareDTO postareDTO)

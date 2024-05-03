@@ -9,8 +9,11 @@ namespace ProiectMDS.Repositories
         Task DeleteChirie(int id);
         Task<Chirie> ChirieById(int id);
         Task UpdateChirie(Chirie c);
-        Task<IEnumerable<ChirieDTO>> ChirieByDataStart(DateTime dataStart);
-        Task<IEnumerable<ChirieDTO>> ChirieByDataStop(DateTime dataStop);
-        Task<IEnumerable<ChirieDTO>> ChirieByData(DateTime dataStart, DateTime dataStop);
+        Task<IEnumerable<Chirie>> ChirieByDataStart(DateTime dataStart);
+        Task<IEnumerable<Chirie>> ChirieByDataStop(DateTime dataStop);
+        Task<IEnumerable<Chirie>> ChirieByData(DateTime dataStart, DateTime dataStop);
+        Task<User> UserById(int id);
+        Task UpdatePuncteFidelitate(User user);
+        Task<int> UserByPostareId(int postareId);
     }
 }

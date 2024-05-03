@@ -14,8 +14,25 @@ namespace ProiectMDS.Repositories
             _dbContext = dbContext;
         }
 
+        public async Task<User> UserById(int userId)
+        {
+            var user = await _dbContext.User.FirstOrDefaultAsync(x => x.Id == userId);
+            return user;
+        }
+
+        public async Task UpdatePuncteFidelitate(User user)
+        {
+            _dbContext.User.Update(user);
+            await _dbContext.SaveChangesAsync();
+        }
+
         public async Task AddChirie(Chirie chirie)
         {
+            var c = await _dbContext.Chirie.Where(x => x.PostareId == chirie.PostareId && (x.dataStart <= chirie.dataStart && (x.dataStop >= chirie.dataStop || x.dataStop >= chirie.dataStart) || x.dataStart >= chirie.dataStart && (x.dataStart <= chirie.dataStop || x.dataStop <= chirie.dataStop))).FirstOrDefaultAsync();
+            if (c != null)
+            {
+                throw new Exception("Masina este deja inchiriata in aceasta perioada");
+            }
             await _dbContext.Chirie.AddAsync(chirie);
             await _dbContext.SaveChangesAsync();
         }
@@ -41,46 +58,31 @@ namespace ProiectMDS.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<ChirieDTO>> ChirieByDataStart(DateTime dataStart)
+        public async Task<IEnumerable<Chirie>> ChirieByDataStart(DateTime dataStart)
         {
             var c = await _dbContext.Chirie.Where(ch => ch.dataStart == dataStart).ToListAsync();
 
-            var chirieDTOs = c.Select(ch => new ChirieDTO
-            {
-                dataStart = ch.dataStart,
-                dataStop = ch.dataStop
-
-            });
-
-            return chirieDTOs;
+            return c;
         }
 
-        public async Task<IEnumerable<ChirieDTO>> ChirieByDataStop(DateTime dataStop)
+        public async Task<IEnumerable<Chirie>> ChirieByDataStop(DateTime dataStop)
         {
             var c = await _dbContext.Chirie.Where(ch => ch.dataStop == dataStop).ToListAsync();
 
-            var chirieDTOs = c.Select(ch => new ChirieDTO
-            {
-                dataStart = ch.dataStart,
-                dataStop = ch.dataStop
-
-            });
-
-            return chirieDTOs;
+            return c;
         }
 
-        public async Task<IEnumerable<ChirieDTO>> ChirieByData(DateTime dataStart, DateTime dataStop)
+        public async Task<IEnumerable<Chirie>> ChirieByData(DateTime dataStart, DateTime dataStop)
         {
             var c = await _dbContext.Chirie.Where(ch => ch.dataStop == dataStop && ch.dataStart == dataStart).ToListAsync();
 
-            var chirieDTOs = c.Select(ch => new ChirieDTO
-            {
-                dataStart = ch.dataStart,
-                dataStop = ch.dataStop
+            return c;
+        }
 
-            });
-
-            return chirieDTOs;
+        public async Task<int> UserByPostareId(int postareId)
+        {
+            var p = await _dbContext.Postare.FirstOrDefaultAsync(i => i.PostareId == postareId);
+            return p.UserId;
         }
     }
 }

@@ -45,143 +45,46 @@ namespace ProiectMDS.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<PostareDTO>> PostareByAn(int anMinim, int anMaxim)
+        public async Task<IEnumerable<Postare>> PostareByAn(int anMinim, int anMaxim)
         {
             var p = await _dbContext.Postare.Where(pr => pr.anFabricatie >= anMinim && pr.anFabricatie <= anMaxim).ToListAsync();
 
-            var postareDTOs = p.Select(po => new PostareDTO
-            {
-                userId = po.UserId,
-                titlu = po.titlu,
-                descriere = po.descriere,
-                pret = po.pret,
-                firma = po.firma,
-                model = po.model,
-                kilometraj = po.kilometraj,
-                anFabricatie = po.anFabricatie,
-                talon = po.talon,
-                carteIdentitateMasina = po.carteIdentitateMasina,
-                asigurare = po.asigurare
-
-            });
-
-            return postareDTOs;
+            return p;
         }
 
-        public async Task<IEnumerable<PostareDTO>> PostareByFirma(string firma)
+        public async Task<IEnumerable<Postare>> PostareByFirma(string firma)
         {
             var p = await _dbContext.Postare.Where(pr => pr.firma.ToLower().Contains(firma.ToLower())).ToListAsync();
 
-            var postareDTOs = p.Select(po => new PostareDTO
-            {
-                userId = po.UserId,
-                titlu = po.titlu,
-                descriere = po.descriere,
-                pret = po.pret,
-                firma = po.firma,
-                model = po.model,
-                kilometraj = po.kilometraj,
-                anFabricatie = po.anFabricatie,
-                talon = po.talon,
-                carteIdentitateMasina = po.carteIdentitateMasina,
-                asigurare = po.asigurare
-
-            });
-
-            return postareDTOs;
+            return p;
         }
 
-        public async Task<IEnumerable<PostareDTO>> PostareByKm(int kmMinim, int kmMaxim)
+        public async Task<IEnumerable<Postare>> PostareByKm(int kmMinim, int kmMaxim)
         {
             var p = await _dbContext.Postare.Where(pr => pr.kilometraj >= kmMinim && pr.kilometraj <= kmMaxim).ToListAsync();
 
-            var postareDTOs = p.Select(po => new PostareDTO
-            {
-                userId = po.UserId,
-                titlu = po.titlu,
-                descriere = po.descriere,
-                pret = po.pret,
-                firma = po.firma,
-                model = po.model,
-                kilometraj = po.kilometraj,
-                anFabricatie = po.anFabricatie,
-                talon = po.talon,
-                carteIdentitateMasina = po.carteIdentitateMasina,
-                asigurare = po.asigurare
-
-            });
-
-            return postareDTOs;
+            return p;
         }
 
-        public async Task<IEnumerable<PostareDTO>> PostareByModel(string model)
+        public async Task<IEnumerable<Postare>> PostareByModel(string model)
         {
             var p = await _dbContext.Postare.Where(pr => pr.model.ToLower().Contains(model.ToLower())).ToListAsync();
 
-            var postareDTOs = p.Select(po => new PostareDTO
-            {
-                userId = po.UserId,
-                titlu = po.titlu,
-                descriere = po.descriere,
-                pret = po.pret,
-                firma = po.firma,
-                model = po.model,
-                kilometraj = po.kilometraj,
-                anFabricatie = po.anFabricatie,
-                talon = po.talon,
-                carteIdentitateMasina = po.carteIdentitateMasina,
-                asigurare = po.asigurare
-
-            });
-
-            return postareDTOs;
+            return p;
         }
 
-        public async Task<IEnumerable<PostareDTO>> PostareByPret(int pretMinim, int pretMaxim)
+        public async Task<IEnumerable<Postare>> PostareByPret(int pretMinim, int pretMaxim)
         {
             var p = await _dbContext.Postare.Where(pr => pr.pret >= pretMinim && pr.pret <= pretMaxim).ToListAsync();
 
-            var postareDTOs = p.Select(po => new PostareDTO
-            {
-                userId = po.UserId,
-                titlu = po.titlu,
-                descriere = po.descriere,
-                pret = po.pret,
-                firma = po.firma,
-                model = po.model,
-                kilometraj = po.kilometraj,
-                anFabricatie = po.anFabricatie,
-                talon = po.talon,
-                carteIdentitateMasina = po.carteIdentitateMasina,
-                asigurare = po.asigurare
-
-            });
-
-            return postareDTOs;
+            return p;
         }
 
-        public async Task<IEnumerable<PostareDTO>> PostareByTitlu(string titlu)
+        public async Task<IEnumerable<Postare>> PostareByTitlu(string titlu)
         {
             var p = await _dbContext.Postare.Where(pr => pr.titlu.ToLower().Contains(titlu.ToLower())).ToListAsync();
 
-            var postareDTOs = p.Select(po => new PostareDTO
-            {
-
-                userId = po.UserId,
-                titlu = po.titlu,
-                descriere = po.descriere,
-                pret = po.pret,
-                firma = po.firma,
-                model = po.model,
-                kilometraj = po.kilometraj,
-                anFabricatie = po.anFabricatie,
-                talon = po.talon,
-                carteIdentitateMasina = po.carteIdentitateMasina,
-                asigurare = po.asigurare
-
-            });
-
-            return postareDTOs;
+            return p;
         }
     }
 }

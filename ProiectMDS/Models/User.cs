@@ -17,6 +17,8 @@ namespace ProiectMDS.Models
 
         public string pozaProfil { get; set; }
 
+        public int puncteFidelitate { get; set; }
+
         public ICollection<Card>? card {  get; set; }
 
         public ICollection<Review>? review {  get; set; }

@@ -190,7 +190,10 @@ namespace ProiectMDS.Migrations
             modelBuilder.Entity("ProiectMDS.Models.Chirie", b =>
                 {
                     b.Property<int>("ChirieId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ChirieId"));
 
                     b.Property<int>("PostareId")
                         .HasColumnType("int");
@@ -204,7 +207,7 @@ namespace ProiectMDS.Migrations
                     b.Property<DateTime>("dataStop")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("ChirieId", "PostareId", "UserId");
+                    b.HasKey("ChirieId");
 
                     b.HasIndex("PostareId");
 
@@ -271,7 +274,10 @@ namespace ProiectMDS.Migrations
             modelBuilder.Entity("ProiectMDS.Models.Review", b =>
                 {
                     b.Property<int>("ReviewId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReviewId"));
 
                     b.Property<int>("PostareId")
                         .HasColumnType("int");
@@ -293,7 +299,7 @@ namespace ProiectMDS.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ReviewId", "PostareId", "UserId");
+                    b.HasKey("ReviewId");
 
                     b.HasIndex("PostareId");
 
@@ -379,6 +385,9 @@ namespace ProiectMDS.Migrations
                     b.Property<string>("prenume")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("puncteFidelitate")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

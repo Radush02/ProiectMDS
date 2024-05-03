@@ -9,5 +9,9 @@ namespace ProiectMDS.Services
         Task DeleteReview(int id);
         Task UpdateReview(ReviewDTO reviewDTO, int id);
         Task<IEnumerable<ReviewDTO>> ReviewByRating(int rating);
+        Task<IEnumerable<ReviewDTO>> GetReviewByDateAsc();
+        Task<IEnumerable<ReviewDTO>> GetReviewByDateDesc();
+        Task<IEnumerable<ReviewDTO>> GetReviewByRatingDesc();
+        Task<IEnumerable<ReviewDTO>> GetReviewByRatingAsc();
     }
 }

@@ -10,11 +10,11 @@ namespace ProiectMDS.Repositories
         Task<Postare> PostareById(int postareId);
         Task<IEnumerable<Postare>> getPostare();
         Task UpdatePostare(Postare postare);
-        Task<IEnumerable<PostareDTO>> PostareByTitlu(string titlu);
-        Task<IEnumerable<PostareDTO>> PostareByPret(int pretMinim, int pretMaxim);
-        Task<IEnumerable<PostareDTO>> PostareByKm(int kmMinim, int kmMaxim);
-        Task<IEnumerable<PostareDTO>> PostareByAn(int anMinim, int anMaxim);
-        Task<IEnumerable<PostareDTO>> PostareByFirma(string firma);
-        Task<IEnumerable<PostareDTO>> PostareByModel(string model);
+        Task<IEnumerable<Postare>> PostareByTitlu(string titlu);
+        Task<IEnumerable<Postare>> PostareByPret(int pretMinim, int pretMaxim);
+        Task<IEnumerable<Postare>> PostareByKm(int kmMinim, int kmMaxim);
+        Task<IEnumerable<Postare>> PostareByAn(int anMinim, int anMaxim);
+        Task<IEnumerable<Postare>> PostareByFirma(string firma);
+        Task<IEnumerable<Postare>> PostareByModel(string model);
     }
 }
