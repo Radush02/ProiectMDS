@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProiectMDS.Models
 {
@@ -7,7 +8,6 @@ namespace ProiectMDS.Models
         [Key]
         public int ChirieId { get; set; }
         public int UserId {  get; set; }
-
         public int PostareId { get; set; }
 
         public DateTime dataStart {  get; set; }

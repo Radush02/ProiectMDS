@@ -23,7 +23,27 @@ namespace ProiectMDS.Services.ChirieServices
                 dataStart = chirieDTO.dataStart,
                 dataStop = chirieDTO.dataStop
             };
+
+            if (userId == await _chirieRepository.UserByPostareId(postareId))
+            {
+                throw new Exception("Nu poti da review unei postari publicate de tine!");
+            }
+
             await _chirieRepository.AddChirie(chirie);
+
+            var user = await _chirieRepository.UserById(chirie.UserId);
+
+            TimeSpan zile = chirie.dataStop - chirie.dataStart;
+            if(zile.Days == 0)
+            {
+                user.puncteFidelitate = user.puncteFidelitate + 1;
+            }
+            else
+            {
+                user.puncteFidelitate = user.puncteFidelitate + zile.Days;
+            }
+            
+            await _chirieRepository.UpdatePuncteFidelitate(user);
         }
 
         public async Task<IEnumerable<ChirieDTO>> ChirieByDataStart(DateTime dataStart)
@@ -35,7 +55,15 @@ namespace ProiectMDS.Services.ChirieServices
                 throw new NotFoundException($"Nu exista chirie cu aceasta data de inceput: {dataStart}.");
             }
 
-            return c;
+            IEnumerable<ChirieDTO> rez;
+            rez = c.Select(ch => new ChirieDTO
+            {
+                userId = ch.UserId,
+                postareId = ch.PostareId,
+                dataStart = ch.dataStart,
+                dataStop = ch.dataStop
+            });
+            return rez;
         }
 
         public async Task<IEnumerable<ChirieDTO>> ChirieByDataStop(DateTime dataStop)
@@ -47,7 +75,15 @@ namespace ProiectMDS.Services.ChirieServices
                 throw new NotFoundException($"Nu exista chirie cu aceasta data de sfarsit: {dataStop}.");
             }
 
-            return c;
+            IEnumerable<ChirieDTO> rez;
+            rez = c.Select(ch => new ChirieDTO
+            {
+                userId = ch.UserId,
+                postareId = ch.PostareId,
+                dataStart = ch.dataStart,
+                dataStop = ch.dataStop
+            });
+            return rez;
         }
 
         public async Task<IEnumerable<ChirieDTO>> ChirieByData(DateTime dataStart, DateTime dataStop)
@@ -59,7 +95,15 @@ namespace ProiectMDS.Services.ChirieServices
                 throw new NotFoundException($"Nu exista chirie cu aceasta data de sfarsit: {dataStop}.");
             }
 
-            return c;
+            IEnumerable<ChirieDTO> rez;
+            rez = c.Select(ch => new ChirieDTO
+            {
+                userId = ch.UserId,
+                postareId = ch.PostareId,
+                dataStart = ch.dataStart,
+                dataStop = ch.dataStop
+            });
+            return rez;
         }
 
         public async Task DeleteChirie(int id)

@@ -14,6 +14,11 @@ namespace ProiectMDS.Repositories
 
         public async Task AddCard(Card card)
         {
+            var c = await _dbcontext.Card.Where(x => x.numar == card.numar && x.nume == card.nume && x.cvv == card.cvv && x.dataExpirare == card.dataExpirare && x.UserId == card.UserId).FirstOrDefaultAsync();
+            if (c != null)
+            {
+                throw new Exception("Cardul este deja adaugat in acest cont");
+            }
             await _dbcontext.Card.AddAsync(card);
             await _dbcontext.SaveChangesAsync();
         }

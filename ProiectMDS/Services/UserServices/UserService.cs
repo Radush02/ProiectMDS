@@ -59,7 +59,8 @@ namespace ProiectMDS.Services
                 permis = "N/A",
                 carteIdentitate = "N/A",
                 dataNasterii = newUser.dataNasterii,
-                pozaProfil = _s3Service.GetFileUrl(newUser.username + "_pfp.png")
+                pozaProfil = _s3Service.GetFileUrl(newUser.username + "_pfp.png"),
+                puncteFidelitate = 0
             };
 
             var result = await _userManager.CreateAsync(user, newUser.parola);
@@ -132,7 +133,8 @@ namespace ProiectMDS.Services
                 permis = user.permis == "N/A" ? false : true,
                 carteIdentitate = user.carteIdentitate=="N/A"?false : true,
                 dataNasterii = user.dataNasterii,
-                linkPozaProfil = user.pozaProfil
+                linkPozaProfil = user.pozaProfil,
+                puncteFidelitate = user.puncteFidelitate
             };
             return userInfo;
         }

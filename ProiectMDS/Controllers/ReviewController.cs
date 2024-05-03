@@ -49,5 +49,33 @@ namespace ProiectMDS.Controllers
             var r = await reviewService.ReviewByRating(rating);
             return Ok(r);
         }
+
+        [HttpGet("GetReviewsByDateNewToOld")]
+        public async Task<IActionResult> GetReviewByDateAsc()
+        {
+            var r = await reviewService.GetReviewByDateAsc();
+            return Ok(r);
+        }
+
+        [HttpGet("GetReviewsByDateOldToNew")]
+        public async Task<IActionResult> GetReviewByDateDesc()
+        {
+            var r = await reviewService.GetReviewByDateAsc();
+            return Ok(r);
+        }
+
+        [HttpGet("GetReviewsByRatingLowToHigh")]
+        public async Task<IActionResult> GetReviewByRatingAsc()
+        {
+            var r = await reviewService.GetReviewByRatingAsc();
+            return Ok(r);
+        }
+
+        [HttpGet("GetReviewsByRatingHighToLow")]
+        public async Task<IActionResult> GetReviewByRatingDesc()
+        {
+            var r = await reviewService.GetReviewByRatingDesc();
+            return Ok(r);
+        }
     }
 }

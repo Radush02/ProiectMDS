@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProiectMDS.Data;
 using ProiectMDS.Models;
-using ProiectMDS.Models.DTOs;
+using System.Linq;
 
 namespace ProiectMDS.Repositories
 {
@@ -15,6 +15,11 @@ namespace ProiectMDS.Repositories
 
         public async Task AddReview(Review review)
         {
+            var r = await _dbcontext.Review.Where(x => x.PostareId == review.PostareId && x.UserId == review.UserId).FirstOrDefaultAsync();
+            if (r != null)
+            {
+                throw new Exception("Ai dat deja review acestei postari");
+            }
             await _dbcontext.Review.AddAsync(review);
             await _dbcontext.SaveChangesAsync();
         }
@@ -40,20 +45,37 @@ namespace ProiectMDS.Repositories
             await _dbcontext.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<ReviewDTO>> ReviewByRating(int rating)
+        public async Task<IEnumerable<Review>> ReviewByRating(int rating)
         {
             var r = await _dbcontext.Review.Where(rr => rr.rating == rating).ToListAsync();
 
-            var reviewDTOs = r.Select(re => new ReviewDTO
-            {
-                comentariu = re.comentariu,
-                rating = re.rating,
-                titlu = re.titlu,
-                dataReview = re.dataReview
+            return r;
+        }
 
-            });
+        public async Task<IEnumerable<Review>> GetReviewByDateAsc()
+        {
+            return  await _dbcontext.Review.ToListAsync();
+        }
 
-            return reviewDTOs;
+        public async Task<IEnumerable<Review>> GetReviewByDateDesc()
+        {
+            return await _dbcontext.Review.ToListAsync();
+        }
+
+        public async Task<IEnumerable<Review>> GetReviewByRatingDesc()
+        {
+            return await _dbcontext.Review.ToListAsync();
+        }
+
+        public async Task<IEnumerable<Review>> GetReviewByRatingAsc()
+        {
+            return await _dbcontext.Review.ToListAsync();
+        }
+
+        public async Task<int> UserByPostareId(int postareId)
+        {
+            var p = await _dbcontext.Postare.FirstOrDefaultAsync(i => i.PostareId == postareId);
+            return p.UserId;
         }
     }
 }

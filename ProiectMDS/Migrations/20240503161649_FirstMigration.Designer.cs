@@ -12,8 +12,8 @@ using ProiectMDS.Data;
 namespace ProiectMDS.Migrations
 {
     [DbContext(typeof(ProjectDbContext))]
-    [Migration("20240410092823_UserMigration")]
-    partial class UserMigration
+    [Migration("20240503161649_FirstMigration")]
+    partial class FirstMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -193,7 +193,10 @@ namespace ProiectMDS.Migrations
             modelBuilder.Entity("ProiectMDS.Models.Chirie", b =>
                 {
                     b.Property<int>("ChirieId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ChirieId"));
 
                     b.Property<int>("PostareId")
                         .HasColumnType("int");
@@ -207,7 +210,7 @@ namespace ProiectMDS.Migrations
                     b.Property<DateTime>("dataStop")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("ChirieId", "PostareId", "UserId");
+                    b.HasKey("ChirieId");
 
                     b.HasIndex("PostareId");
 
@@ -274,7 +277,10 @@ namespace ProiectMDS.Migrations
             modelBuilder.Entity("ProiectMDS.Models.Review", b =>
                 {
                     b.Property<int>("ReviewId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReviewId"));
 
                     b.Property<int>("PostareId")
                         .HasColumnType("int");
@@ -296,7 +302,7 @@ namespace ProiectMDS.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ReviewId", "PostareId", "UserId");
+                    b.HasKey("ReviewId");
 
                     b.HasIndex("PostareId");
 
@@ -364,6 +370,9 @@ namespace ProiectMDS.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("dataNasterii")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("nume")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -372,9 +381,16 @@ namespace ProiectMDS.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("pozaProfil")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("prenume")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("puncteFidelitate")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

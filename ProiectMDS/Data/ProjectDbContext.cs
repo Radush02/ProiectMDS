@@ -24,7 +24,7 @@ namespace ProiectMDS.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Chirie>()
-                .HasKey(c => new { c.ChirieId, c.PostareId, c.UserId });
+                .HasKey(c => c.ChirieId);
 
             modelBuilder.Entity<Chirie>()
                 .HasOne(c => c.User)
@@ -39,7 +39,7 @@ namespace ProiectMDS.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Review>()
-                .HasKey(r => new { r.ReviewId, r.PostareId, r.UserId });
+                .HasKey(r => r.ReviewId);
 
             modelBuilder.Entity<Review>()
                 .HasOne(r => r.User)
