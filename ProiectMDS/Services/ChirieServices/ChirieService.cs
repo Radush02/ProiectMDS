@@ -26,7 +26,7 @@ namespace ProiectMDS.Services.ChirieServices
 
             if (userId == await _chirieRepository.UserByPostareId(postareId))
             {
-                throw new Exception("Nu poti da review unei postari publicate de tine!");
+                throw new Exception("Nu poti inchiria o masina publicata de tine!");
             }
 
             await _chirieRepository.AddChirie(chirie);
