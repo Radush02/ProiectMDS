@@ -77,5 +77,31 @@ namespace ProiectMDS.Controllers
                 return NotFound(e.Message);
             }
         }
+        [HttpPost("uploadPhoto")]
+        [AllowAnonymous]
+        public async Task<IActionResult> uploadPhoto([FromForm] RegisterDTO user)
+        {
+            try
+            {
+                await _userService.uploadPhoto(user);
+                return Ok();
+            }catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        [HttpPost("sendConfirmationEmail")]
+        [AllowAnonymous]
+        public async Task<IActionResult> sendConfirmationEmail([FromForm] RegisterDTO user)
+        {
+            try
+            {
+                await _userService.sendConfirmationEmail(user);
+                return Ok();
+            }catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }   
     }
 }

@@ -141,31 +141,14 @@ export class RegisterComponent implements OnInit {
       'dataNasterii',
       this.registerForm.get('dataNasterii')?.value
     );
-    //let fileInput = this.registerForm.get('pozaProfil');
     if (this.selectedFile) {
       formData.append('pozaProfil', this.selectedFile, this.selectedFile.name);
     }
-
+    this.router.navigate(['/login']);
     this.registerService.register(formData).subscribe(
-      (response: any) => {
-        console.log(response);
-        // this.registerService.login(this.registerForm.value).subscribe(
-        //   (loginResponse) => {
-        //     this.cookieService.set(
-        //       'token',
-        //       loginResponse.token,
-        //       undefined,
-        //       '/',
-        //       undefined,
-        //       false,
-        //       'Strict'
-        //     );
-        //     this.router.navigate(['/login']);
-        //   },
-        //   (loginError) => {
-        //     alert(loginError.error.join('\n'));
-        //   }
-        // );
+      () => {
+        this.registerService.uploadPhoto(formData).subscribe(()=>{console.log('poza incarcata')},(error)=>{console.log(error)});
+        this.registerService.sendConfirmationEmail(formData).subscribe(()=>{console.log('email trimis')},(error)=>{console.log(error)});
       },
       (registerError) => {
         alert(registerError.error.join('\n'));
