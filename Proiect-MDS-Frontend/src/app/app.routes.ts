@@ -7,7 +7,8 @@ import { FindCarComponent } from './component/find-car/find-car.component';
 import { AddCarComponent } from './component/add-car/add-car.component';
 import { ProfilePageComponent } from './component/profile-page/profile-page.component';
 import { CustomerSupportComponent } from './component/customer-support/customer-support.component';
-
+import { PasswordResetComponent } from './component/password-reset/password-reset.component';
+import { ForgotPasswordComponent } from './component/forgot-password/forgot-password.component';
 export const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
@@ -18,4 +19,6 @@ export const routes: Routes = [
   { path: 'addCar', component: AddCarComponent },
   { path: 'profilePage', component: ProfilePageComponent },
   { path: 'customerSupport', component: CustomerSupportComponent },
+  { path: 'resetPassword', component: PasswordResetComponent },
+  { path: 'forgotPassword', component: ForgotPasswordComponent },
 ];

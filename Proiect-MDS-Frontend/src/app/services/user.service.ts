@@ -52,4 +52,11 @@ export class UserService {
   uploadPhoto(info:any):Observable<any>{
     return this.http.post(`${this.apiKey}/User/uploadPhoto`,info);
   }
+  resetPassword(info:any):Observable<any>{
+    return this.http.post(`${this.apiKey}/User/resetPassword`,info);
+  }
+  forgotPassword(info:any):Observable<any>{
+    console.log(info);
+    return this.http.post(`${this.apiKey}/User/forgotPassword`,info);
+  }
 }

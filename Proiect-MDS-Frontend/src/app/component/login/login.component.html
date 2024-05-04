@@ -28,7 +28,8 @@
 
     <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
   </form>
-  <button (click)="this.router.navigate(['register'])">Nu ai un cont?</button>
+  <button (click)="this.router.navigate(['register'])">Nu ai un cont?</button><br><br>
+  <button (click)="this.router.navigate(['forgotPassword'])">Ai uitat parola?</button>
 </div>
 <div class="logo">
   <img src="assets/style_assets/logo_main.png" alt="logo" />

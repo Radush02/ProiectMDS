@@ -102,6 +102,34 @@ namespace ProiectMDS.Controllers
             {
                 return BadRequest(e.Message);
             }
-        }   
+        }
+        [HttpPost("forgotPassword")]
+        [AllowAnonymous]
+        public async Task<IActionResult> forgotPassword(ForgotPasswordDTO user)
+        {
+            Console.WriteLine(user.Username);
+            Console.WriteLine(user.Email);
+            try
+            {
+                await _userService.forgotPassword(user);
+                return Ok();
+            }catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        [HttpPost("resetPassword")]
+        [AllowAnonymous]
+        public async Task<IActionResult> resetPassword(ResetPasswordDTO user)
+        {
+            try
+            {
+                await _userService.resetPassword(user);
+                return Ok();
+            }catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }
