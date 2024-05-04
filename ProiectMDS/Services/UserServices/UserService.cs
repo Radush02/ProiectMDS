@@ -2,6 +2,7 @@
 using Azure.Core;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.IdentityModel.Tokens;
 using ProiectMDS.Exceptions;
@@ -45,10 +46,13 @@ namespace ProiectMDS.Services
                 throw new WrongDetailsException("Token invalid");
             }
         }
+        public async Task uploadPhoto(RegisterDTO newUser)
+        {
+            await _s3Service.UploadFileAsync(newUser.username + "_pfp.png", newUser.pozaProfil);
+        }
         public async Task<IdentityResult> RegisterAsync(RegisterDTO newUser)
         {
 
-            await _s3Service.UploadFileAsync(newUser.username + "_pfp.png", newUser.pozaProfil);
             var user = new User
             {
                 UserName = newUser.username,
@@ -65,12 +69,19 @@ namespace ProiectMDS.Services
 
             var result = await _userManager.CreateAsync(user, newUser.parola);
 
-            if (result.Succeeded)
-            {
-                var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                var encodedToken = HttpUtility.UrlEncode(token);
-                var url = "https://localhost:7215/api/user/confirmEmail?username=" + user.UserName + "&token=" + encodedToken;
-                var emailHtml = @"
+            if (result.Succeeded){
+                await _userManager.AddToRoleAsync(user, Roles.Default.ToString());
+            }
+
+            return result;
+        }
+        public async Task sendConfirmationEmail(RegisterDTO newUser)
+        {
+            User user = await _userManager.FindByNameAsync(newUser.username);
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var encodedToken = HttpUtility.UrlEncode(token);
+            var url = "https://localhost:7215/api/user/confirmEmail?username=" + user.UserName + "&token=" + encodedToken;
+            var emailHtml = @"
             <!DOCTYPE html>
             <html lang='en'>
             <head>
@@ -110,11 +121,7 @@ namespace ProiectMDS.Services
             </body>
             </html>
         ";
-                await _emailSender.SendEmailAsync(user.Email, "Confirmare email", emailHtml);
-                await _userManager.AddToRoleAsync(user, Roles.Default.ToString());
-            }
-
-            return result;
+            await _emailSender.SendEmailAsync(user.Email, "Confirmare email", emailHtml);
         }
         public async Task<UserDTO> getUserDetails (string username)
         {

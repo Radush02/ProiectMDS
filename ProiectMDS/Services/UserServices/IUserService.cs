@@ -10,5 +10,7 @@ namespace ProiectMDS.Services
         Task<UserDTO> getUserDetails(string username);
         Task<string> LoginAsync(LoginDTO login);
         Task ConfirmEmail(string username, string token);
+        Task uploadPhoto(RegisterDTO newUser);
+        Task sendConfirmationEmail(RegisterDTO newUser);
     }
 }

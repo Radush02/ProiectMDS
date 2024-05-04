@@ -46,4 +46,10 @@ export class UserService {
       null
     );
   }
+  sendConfirmationEmail(info:any):Observable<any>{
+    return this.http.post(`${this.apiKey}/User/sendConfirmationEmail`,info);
+  }
+  uploadPhoto(info:any):Observable<any>{
+    return this.http.post(`${this.apiKey}/User/uploadPhoto`,info);
+  }
 }
