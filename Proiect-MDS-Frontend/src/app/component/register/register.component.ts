@@ -16,6 +16,9 @@ import {
   validatorPoza,
   validatorEmail,
 } from '../../validators/user.validator';
+import { MessagePopUpComponent } from '../message-pop-up/message-pop-up.component';
+import { MatDialog } from '@angular/material/dialog';
+
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -33,7 +36,8 @@ export class RegisterComponent implements OnInit {
     private httpClient: HttpClient,
     public router: Router,
     private registerService: UserService,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    public dialog: MatDialog
   ) {
     this.registerForm = this.fb.group({
       username: ['', Validators.required],
@@ -152,7 +156,9 @@ export class RegisterComponent implements OnInit {
         this.registerService.sendConfirmationEmail(formData).subscribe(
           () => {
             console.log('email trimis');
-            alert('Register email sent. Please verify your email address.');
+            let dialogRef = this.dialog.open(MessagePopUpComponent, {
+              data: '  Register confirmation email sent. Please verify your email. ',
+            });
           },
           (error) => {
             console.log(error);
