@@ -47,13 +47,7 @@ export class RegisterComponent implements OnInit {
       ],
       nume: ['', Validators.required],
       prenume: ['', Validators.required],
-      email: [
-        '',
-        [
-          Validators.required,
-          validatorEmail,
-        ],
-      ],
+      email: ['', [Validators.required, validatorEmail]],
       nrTelefon: [
         '',
         [
@@ -147,8 +141,23 @@ export class RegisterComponent implements OnInit {
     this.router.navigate(['/login']);
     this.registerService.register(formData).subscribe(
       () => {
-        this.registerService.uploadPhoto(formData).subscribe(()=>{console.log('poza incarcata')},(error)=>{console.log(error)});
-        this.registerService.sendConfirmationEmail(formData).subscribe(()=>{console.log('email trimis')},(error)=>{console.log(error)});
+        this.registerService.uploadPhoto(formData).subscribe(
+          () => {
+            console.log('poza incarcata');
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+        this.registerService.sendConfirmationEmail(formData).subscribe(
+          () => {
+            console.log('email trimis');
+            alert('Register email sent. Please verify your email address.');
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
       },
       (registerError) => {
         alert(registerError.error.join('\n'));
