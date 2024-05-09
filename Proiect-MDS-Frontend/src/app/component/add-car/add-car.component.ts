@@ -11,23 +11,27 @@ import {
 import { CarService } from '../../services/add-car.service';
 import { CookieService } from 'ngx-cookie-service';
 import { jwtDecode } from 'jwt-decode';
+import { OpenaiService } from '../../services/openai.service';
 @Component({
   selector: 'app-add-car',
   templateUrl: './add-car.component.html',
   imports: [CommonModule, RouterOutlet, HttpClientModule, ReactiveFormsModule],
-  providers: [CarService],
+  providers: [CarService,OpenaiService],
   styleUrls: ['./add-car.component.css'],
   standalone: true,
 })
 export class AddCarComponent implements OnInit {
   carForm: FormGroup;
   errorMessage = '';
+  suggestion='';
+  loading=false;
   constructor(
     private fb: FormBuilder,
     private httpClient: HttpClient,
     public router: Router,
     private carService: CarService,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private openaiService: OpenaiService
   ) {
     const decodedToken: { [key: string]: any } = jwtDecode(this.cookieService.get('token'))
     this.carForm = this.fb.group({
@@ -46,6 +50,37 @@ export class AddCarComponent implements OnInit {
   }
   ngOnInit(): void {}
 
+  async enhanceDescription(){
+    this.loading=true;
+    if(this.carForm.value.descriere==''){
+      alert('Includeti o descriere!');
+      return;
+    }
+    console.log({prompt:this.carForm.value.descriere});
+    this.openaiService.response({prompt:this.carForm.value.descriere}).subscribe((response:any) => {
+      this.suggestion=response.prompt;
+    });
+
+    console.log(this.suggestion);
+    this.loading=false;
+  }
+  // enhanceDescription(){
+  //   if(this.carForm.value.descriere==''){
+  //     alert('Includeti o descriere!');
+  //   }
+  //   const enhanceButton = document.getElementById('enhance') as HTMLButtonElement;
+  //   if (enhanceButton) {
+  //     enhanceButton.disabled = true;
+  //   }
+  //   this.openaiService.response(this.carForm.value.descriere,this.descriptionContext)
+  //   .then((response:any) => {
+  //     this.suggestion=response.choises[0].message.content;
+  //   })
+  //   .catch((error:any) => {
+  //     console.error(error);
+  //     this.errorMessage = 'A aparut o eroare';
+  //   });
+  // }
   addCar() {
     if (this.carForm.invalid) {
       return;

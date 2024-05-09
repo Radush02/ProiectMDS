@@ -39,7 +39,7 @@ builder.Services.AddScoped<IPostareService, PostareService>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
 
-
+builder.Services.AddScoped<IOpenAIService, OpenAIService>();
 builder.Services.Configure<SendGridSettings>(builder.Configuration.GetSection("SendGridSettings"));
 builder.Services.AddSendGrid(options=>
     options.ApiKey=builder.Configuration.GetSection("SendGridSettings").GetValue<string>("SendGridKey")
