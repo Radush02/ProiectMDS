@@ -80,7 +80,13 @@ input[type="submit"]:hover {
   justify-content: center;
   align-items: center;
 }
-
+.suggestion {
+  padding: 5px;
+  margin: 5px 0;
+  color: rgba(0, 213, 255, 0.979);
+  border: 2px solid rgba(0, 213, 255, 0.979);
+  border-radius: 5px;
+}
 @media screen and (min-width: 770px){
   .add-car-container {
     width: 30vw;

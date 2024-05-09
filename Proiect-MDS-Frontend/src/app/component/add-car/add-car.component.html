@@ -20,6 +20,8 @@
           name="descriere"
           required
         /><br />
+        <button id='enhance' *ngIf="suggestion==''" (click)="enhanceDescription()">Imbunatateste descrierea cu OpenAI</button>
+        <div *ngIf="suggestion!=''">Sugestie de descriere generata de AI<br>{{suggestion}}</div>
         <label for="pret">Pret:</label>
         <input
           formControlName="pret"
