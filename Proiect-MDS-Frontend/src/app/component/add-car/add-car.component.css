@@ -80,6 +80,10 @@ input[type="submit"]:hover {
   justify-content: center;
   align-items: center;
 }
+input[type="radio"] {
+  background-color: #6450a3;
+  color: white;
+}
 .suggestion {
   padding: 5px;
   margin: 5px 0;

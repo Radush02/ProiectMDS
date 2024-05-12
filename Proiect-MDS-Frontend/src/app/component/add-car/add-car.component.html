@@ -1,98 +1,97 @@
 <div class="container">
-    <div class="logo">
-        <img src="assets/style_assets/logo_main.png" alt="logo" />
-      </div>
-    <div class="add-car-container">
-      <form (ngSubmit)="addCar()" [formGroup]="carForm">
-        <label for="titlu">Titlu:</label><br />
-        <input
-          formControlName="titlu"
-          type="text"
-          id="titlu"
-          name="titlu"
-          required
-        /><br />
-        <label for="descriere">Descriere:</label><br />
-        <input
-          formControlName="descriere"
-          type="text"
-          id="descriere"
-          name="descriere"
-          required
-        /><br />
-        <button id='enhance' *ngIf="suggestion==''" (click)="enhanceDescription()">Imbunatateste descrierea cu OpenAI</button>
-        <div *ngIf="suggestion!=''">Sugestie de descriere generata de AI<br>{{suggestion}}</div>
-        <label for="pret">Pret:</label>
-        <input
-          formControlName="pret"
-          type="number"
-          id="pret"
-          name="pret"
-          required
-        /><br />
-        <label for="firma">Firma:</label>
-        <input
-          formControlName="firma"
-          type="text"
-          id="firma"
-          name="firma"
-          required
-        /><br />
-        <label for="model">Model:</label>
-        <input
-          formControlName="model"
-          type="text"
-          id="model"
-          name="model"
-          required
-        /><br />
-        <label for="kilometraj">Kilometraj:</label>
-        <input
-          formControlName="kilometraj"
-          type="number"
-          id="kilometraj"
-          name="kilometraj"
-          required
-        /><br />
-        <label for="anFabricatie">An fabricatie:</label>
-        <input
-          formControlName="anFabricatie"
-          type="number"
-          id="anFabricatie"
-          name="anFabricatie"
-          required
-        /><br />
-        <label for="talon">Talon:</label>
-        <input
-          formControlName="talon"
-          type="text"
-          id="talon"
-          name="talon"
-          required
-        /><br />
-        <label for="carteIdentitateMasina">Carte identitate masina:</label>
-        <input
-          formControlName="carteIdentitateMasina"
-          type="text"
-          id="carteIdentitateMasina"
-          name="carteIdentitateMasina"
-          required
-        /><br />
-        <label for="asigurare">Asigurare:</label>
-        <input
-          formControlName="asigurare"
-          type="text"
-          id="asigurare"
-          name="asigurare"
-          required
-        /><br />
-  
-        <input type="submit" value="Adaugă mașina" />
-  
-        <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
-      </form>
+  <div class="logo">
+      <img src="assets/style_assets/logo_main.png" alt="logo" />
     </div>
+  <div class="add-car-container">
+    <form (ngSubmit)="addCar()" [formGroup]="carForm">
+      <label for="titlu">Titlu:</label><br />
+      <input
+        formControlName="titlu"
+        type="text"
+        id="titlu"
+        name="titlu"
+        required
+      /><br />
+      <label for="descriere">Descriere:</label><br />
+      <input
+        formControlName="descriere"
+        type="text"
+        id="descriere"
+        name="descriere"
+        required
+      /><br />
+      <button id='enhance' *ngIf="suggestion==''" (click)="enhanceDescription()">Imbunatateste descrierea cu OpenAI</button>
+      <div *ngIf="suggestion!=''">Sugestie de descriere generata de AI<br>{{suggestion}}</div>
+      <label for="pret">Pret:</label>
+      <input
+        formControlName="pret"
+        type="number"
+        id="pret"
+        name="pret"
+        required
+      /><br />
+      <label for="firma">Firma:</label>
+      <input
+        formControlName="firma"
+        type="text"
+        id="firma"
+        name="firma"
+        required
+      /><br />
+      <label for="model">Model:</label>
+      <input
+        formControlName="model"
+        type="text"
+        id="model"
+        name="model"
+        required
+      /><br />
+      <label for="kilometraj">Kilometraj:</label>
+      <input
+        formControlName="kilometraj"
+        type="number"
+        id="kilometraj"
+        name="kilometraj"
+        required
+      /><br />
+      <label for="anFabricatie">An fabricatie:</label>
+      <input
+        formControlName="anFabricatie"
+        type="number"
+        id="anFabricatie"
+        name="anFabricatie"
+        required
+      /><br />
+      <label for="talon">Talon:</label>
+      <input
+        formControlName="talon"
+        type="text"
+        id="talon"
+        name="talon"
+        required
+      /><br />
+      <label for="carteIdentitateMasina">Carte identitate masina:</label>
+      <input
+        formControlName="carteIdentitateMasina"
+        type="text"
+        id="carteIdentitateMasina"
+        name="carteIdentitateMasina"
+        required
+      /><br />
+      <label for="asigurare">Asigurare:</label>
+      <input
+        formControlName="asigurare"
+        type="text"
+        id="asigurare"
+        name="asigurare"
+        required
+      /><br />
 
-    <div style="clear:both"></div>
+      <input type="submit" value="Adaugă mașina" />
+
+      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+    </form>
   </div>
-  
+
+  <div style="clear:both"></div>
+</div>

@@ -23,5 +23,7 @@
         public string carteIdentitateMasina { get; set; }
 
         public string asigurare { get; set; }
+
+        public List<IFormFile> imagini { get; set; }
     }
 }

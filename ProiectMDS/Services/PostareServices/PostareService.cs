@@ -8,14 +8,23 @@ namespace ProiectMDS.Services
     public class PostareService : IPostareService
     {
         private readonly IPostareRepository _postareRepository;
+        private readonly IS3Service _s3Service;
 
-        public PostareService(IPostareRepository postareRepository)
+        public PostareService(IPostareRepository postareRepository, IS3Service s3Service)
         {
             _postareRepository = postareRepository;
+            _s3Service = s3Service;
         }
 
         public async Task AddPostare(PostareDTO postareDTO)
         {
+            for(int i = 0; i < postareDTO.imagini.Count; i++)
+            {
+                var fileName = postareDTO.imagini[i].FileName;
+                var extension = Path.GetExtension(fileName);
+                var numeFisier = $"{postareDTO.userId}_{i + 1}{extension}";
+                await _s3Service.UploadFileAsync(numeFisier, postareDTO.imagini[i]);
+            }   
             var postare = new Postare()
             {
                 UserId = postareDTO.userId,
@@ -28,7 +37,8 @@ namespace ProiectMDS.Services
                 anFabricatie = postareDTO.anFabricatie,
                 talon = postareDTO.talon,
                 carteIdentitateMasina = postareDTO.carteIdentitateMasina,
-                asigurare = postareDTO.asigurare
+                asigurare = postareDTO.asigurare,
+                nrImagini = postareDTO.imagini.Count
             };
             await _postareRepository.AddPostare(postare);
         }
