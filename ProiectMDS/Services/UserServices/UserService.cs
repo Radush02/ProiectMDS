@@ -11,7 +11,10 @@ using ProiectMDS.Models.DTOs;
 using ProiectMDS.Models.Enum;
 using ProiectMDS.Services;
 using System;
+using System.ComponentModel;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net;
+using System.Numerics;
 using System.Security.Claims;
 using System.Text;
 using System.Web;
@@ -154,35 +157,76 @@ namespace ProiectMDS.Services
                 <meta name='viewport' content='width=device-width, initial-scale=1.0'>
                 <title>Email Confirmation</title>
                 <style>
-                    body {
-                        font-family: Arial, sans-serif;
-                        background-color: #f4f4f4;
-                        color: #333;
-                    }
-                    .container {
-                        max-width: 600px;
-                        margin: 0 auto;
-                        padding: 20px;
-                        background-color: #fff;
-                        border-radius: 5px;
-                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                    }
-                    .btn {
-                        display: inline-block;
-                        padding: 10px 20px;
-                        background-color: #007bff;
-                        color: #fff;
-                        text-decoration: none;
-                        border-radius: 5px;
-                    }
-                </style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #f4f4f4;
+        color: rgb(0, 0, 0);
+        margin: 0;
+        padding: 0;
+      }
+      h2 {
+        color: #6450a3ff;
+        font-family: Times;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 204, 255, 0.1);
+        text-align: center;
+      }
+      .header {
+        margin-bottom: 20px;
+      }
+      .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #1bd1ff;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 14px;
+        box-shadow: 3px 4px 8px rgba(8, 172, 236, 0.2);
+        transition: all 0.3s ease;
+      }
+      .btn:hover {
+        background-color: #6450a3ff;
+        box-shadow: 4px 6px 12px rgba(44, 0, 189, 0.3);
+        color: #fff;
+      }
+      .footer {
+        margin-top: 20px;
+        font-size: 12px;
+        color: #666;
+      }
+      .separator {
+        border-top: 1px solid rgb(199, 246, 255);
+        margin: 20px auto;
+        width: 80%;
+      }
+    </style>
             </head>
             <body>
-                <div class='container'>
-                    <h2>Confirmare email</h2>
-                    <p>Confirmati adresa de email apasand pe butonul de mai jos:</p>
-                    <a href='" + url + @"' class='btn'>Confirma Email</a>
-                </div>
+                 <div class='container'>
+      <div class='header'>
+        <h2>Verify your email</h2>
+      </div>
+      <div class='separator'></div>
+      <p>Hi there,</p>
+      <p>Please confirm your email address by clicking the button below:</p>
+      <br />
+      <a href = '" + url + @"' class='btn'>Confirm Email</a>
+      <br />
+      <br />
+      <p>If you didn't make this request, you can ignore this message.</p>
+      <div class='footer'>
+        <div class='separator'></div>
+        <p>
+          This is an automated notification, please do not reply to this
+          message.
+        </p>
+      </div>
+    </div>
             </body>
             </html>
         ";
