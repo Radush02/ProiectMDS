@@ -35,6 +35,10 @@ namespace ProiectMDS.Repositories
             var p = await _dbContext.Postare.FirstOrDefaultAsync(i => i.PostareId == id);
             return p;
         }
+        public async Task<int> CountPostare()
+        {
+            return await _dbContext.Postare.CountAsync();
+        }
         public async Task<IEnumerable<Postare>> getPostare()
         {
             return await _dbContext.Postare.ToListAsync();

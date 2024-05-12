@@ -46,6 +46,7 @@ export class AddCarComponent implements OnInit {
       talon: ['', Validators.required],
       carteIdentitateMasina: ['', Validators.required],
       asigurare: ['', Validators.required],
+      imagini: [null, Validators.required],
     });
   }
   ngOnInit(): void {}
@@ -85,17 +86,14 @@ export class AddCarComponent implements OnInit {
     if (this.carForm.invalid) {
       return;
     }
-
-    this.carService.addCar(this.carForm.value)
+    console.log(this.carForm.value);
+    this.carService.addCar(this.carForm.value) // Pass this.carForm.value, not this.carForm
       .subscribe(
         (response: any) => { 
-
           console.log('Mașina a fost adăugată cu succes!', response);
-          
           this.carForm.reset(); 
         },
         (error:any) => {
-         
           console.error('A apărut o eroare în timpul adăugării mașinii:', error);
           this.errorMessage = 'A apărut o eroare în timpul adăugării mașinii. Vă rugăm să încercați din nou.';
         }

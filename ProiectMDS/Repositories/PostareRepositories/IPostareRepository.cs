@@ -9,6 +9,7 @@ namespace ProiectMDS.Repositories
         Task DeletePostare(int id);
         Task<Postare> PostareById(int postareId);
         Task<IEnumerable<Postare>> getPostare();
+        Task<int> CountPostare();
         Task UpdatePostare(Postare postare);
         Task<IEnumerable<Postare>> PostareByTitlu(string titlu);
         Task<IEnumerable<Postare>> PostareByPret(int pretMinim, int pretMaxim);

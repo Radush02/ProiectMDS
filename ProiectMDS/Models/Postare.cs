@@ -27,6 +27,7 @@ namespace ProiectMDS.Models
         public string carteIdentitateMasina { get; set; }
 
         public string asigurare {  get; set; }
+        public int nrImagini { get; set; }
 
         public virtual User User {  get; set; }
 
