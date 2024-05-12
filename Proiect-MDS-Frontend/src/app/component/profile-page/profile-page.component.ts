@@ -12,6 +12,7 @@ import { jwtDecode } from 'jwt-decode';
 import { UserService } from '../../services/user.service';
 import { HttpClientModule } from '@angular/common/http';
 import { S3Service } from '../../services/s3.service';
+import { CookieService } from 'ngx-cookie-service';
 @Component({
   selector: 'app-profile-page',
   standalone: true,
@@ -34,10 +35,11 @@ export class ProfilePageComponent {
   };
 
   constructor(
-    private router: Router,
+    public router: Router,
     private dialog: MatDialog,
     private userServices: UserService,
-    private s3Service: S3Service
+    private s3Service: S3Service,
+    private cookieService: CookieService
   ) {
     let username = this.getProfile();
     console.log(username);
@@ -45,7 +47,7 @@ export class ProfilePageComponent {
   getImageUrl(imageName: string): string {
     return this.s3Service.getObjectUrl('dawbucket', imageName + '_pfp.png');
   }
-  username="";
+  username = '';
   getProfile() {
     const token = localStorage.getItem('token');
     if (token) {

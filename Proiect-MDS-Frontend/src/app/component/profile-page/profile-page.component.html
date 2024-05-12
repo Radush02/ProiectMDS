@@ -1,14 +1,52 @@
 <body>
   <div class="container">
-    <div class="logo">
-      <img src="assets/style_assets/logo_main.png" alt="logo" width="20%" />
-    </div>
+    <ul class="menu">
+      <img
+        src="assets/style_assets/logo_main_for_menu.png"
+        alt="logo"
+        class="logo-image"
+      />
+      <div class="right_items">
+        <li>
+          <button (click)="this.router.navigate(['findCar'])">
+            Find a car
+          </button>
+        </li>
+        <li>
+          <button (click)="this.router.navigate(['addCar'])">Add a car</button>
+        </li>
+        <li>
+          <button (click)="this.router.navigate(['customerSupport'])">
+            Customer Support
+          </button>
+        </li>
+        <li>
+          <button (click)="this.router.navigate(['landingPage'])">Home</button>
+        </li>
+        <li>
+          <button (click)="this.router.navigate(['profilePage'])">
+            <img
+              src="{{ getImageUrl(this.username) }}"
+              width="100px"
+              height="100px"
+              style="display: block; margin-left: auto; margin-right: auto"
+              class="profile-image"
+            />
+          </button>
+        </li>
+      </div>
+    </ul>
 
     <br /><br /><br />
     <div class="profile_information">
       <h2>Profile information</h2>
       <!-- <img src="profile?.linkPozaProfil" alt="Profile Image" width="100px" /> -->
-      <img src="{{getImageUrl(this.username)}}" width="100px" height="100px" style="display: block; margin-left: auto; margin-right: auto;">
+      <img
+        src="{{ getImageUrl(this.username) }}"
+        width="100px"
+        height="100px"
+        style="display: block; margin-left: auto; margin-right: auto"
+      />
       <br />
       <label class="name">First name: {{ profile.prenume }}</label>
       <br />
