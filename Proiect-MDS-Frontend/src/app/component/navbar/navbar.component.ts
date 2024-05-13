@@ -32,6 +32,7 @@ export class NavbarComponent {
     linkPozaProfil: '',
     carteIdentitate: false,
     permis: false,
+    puncteFidelitate: 0,
   };
 
   constructor(
@@ -75,6 +76,7 @@ export class NavbarComponent {
           linkPozaProfil: response.linkPozaProfil,
           carteIdentitate: response.carteIdentitate,
           permis: response.permis,
+          puncteFidelitate: response.puncteFidelitate,
         };
       });
     } else {
