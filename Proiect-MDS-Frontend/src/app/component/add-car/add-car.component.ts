@@ -12,19 +12,26 @@ import { CarService } from '../../services/add-car.service';
 import { CookieService } from 'ngx-cookie-service';
 import { jwtDecode } from 'jwt-decode';
 import { OpenaiService } from '../../services/openai.service';
+import { NavbarComponent } from '../navbar/navbar.component';
 @Component({
   selector: 'app-add-car',
   templateUrl: './add-car.component.html',
-  imports: [CommonModule, RouterOutlet, HttpClientModule, ReactiveFormsModule],
-  providers: [CarService,OpenaiService],
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    HttpClientModule,
+    ReactiveFormsModule,
+    NavbarComponent,
+  ],
+  providers: [CarService, OpenaiService],
   styleUrls: ['./add-car.component.css'],
   standalone: true,
 })
 export class AddCarComponent implements OnInit {
   carForm: FormGroup;
   errorMessage = '';
-  suggestion='';
-  loading=false;
+  suggestion = '';
+  loading = false;
   constructor(
     private fb: FormBuilder,
     private httpClient: HttpClient,
@@ -33,7 +40,9 @@ export class AddCarComponent implements OnInit {
     private cookieService: CookieService,
     private openaiService: OpenaiService
   ) {
-    const decodedToken: { [key: string]: any } = jwtDecode(this.cookieService.get('token'))
+    const decodedToken: { [key: string]: any } = jwtDecode(
+      this.cookieService.get('token')
+    );
     this.carForm = this.fb.group({
       userId: [decodedToken['id']],
       titlu: ['', Validators.required],
@@ -50,19 +59,21 @@ export class AddCarComponent implements OnInit {
   }
   ngOnInit(): void {}
 
-  async enhanceDescription(){
-    this.loading=true;
-    if(this.carForm.value.descriere==''){
+  async enhanceDescription() {
+    this.loading = true;
+    if (this.carForm.value.descriere == '') {
       alert('Includeti o descriere!');
       return;
     }
-    console.log({prompt:this.carForm.value.descriere});
-    this.openaiService.response({prompt:this.carForm.value.descriere}).subscribe((response:any) => {
-      this.suggestion=response.prompt;
-    });
+    console.log({ prompt: this.carForm.value.descriere });
+    this.openaiService
+      .response({ prompt: this.carForm.value.descriere })
+      .subscribe((response: any) => {
+        this.suggestion = response.prompt;
+      });
 
     console.log(this.suggestion);
-    this.loading=false;
+    this.loading = false;
   }
   // enhanceDescription(){
   //   if(this.carForm.value.descriere==''){
@@ -86,20 +97,17 @@ export class AddCarComponent implements OnInit {
       return;
     }
 
-    this.carService.addCar(this.carForm.value)
-      .subscribe(
-        (response: any) => { 
+    this.carService.addCar(this.carForm.value).subscribe(
+      (response: any) => {
+        console.log('Mașina a fost adăugată cu succes!', response);
 
-          console.log('Mașina a fost adăugată cu succes!', response);
-          
-          this.carForm.reset(); 
-        },
-        (error:any) => {
-         
-          console.error('A apărut o eroare în timpul adăugării mașinii:', error);
-          this.errorMessage = 'A apărut o eroare în timpul adăugării mașinii. Vă rugăm să încercați din nou.';
-        }
-      );
+        this.carForm.reset();
+      },
+      (error: any) => {
+        console.error('A apărut o eroare în timpul adăugării mașinii:', error);
+        this.errorMessage =
+          'A apărut o eroare în timpul adăugării mașinii. Vă rugăm să încercați din nou.';
+      }
+    );
   }
 }
-

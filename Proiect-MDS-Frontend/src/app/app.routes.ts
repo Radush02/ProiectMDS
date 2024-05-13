@@ -9,6 +9,7 @@ import { ProfilePageComponent } from './component/profile-page/profile-page.comp
 import { CustomerSupportComponent } from './component/customer-support/customer-support.component';
 import { PasswordResetComponent } from './component/password-reset/password-reset.component';
 import { ForgotPasswordComponent } from './component/forgot-password/forgot-password.component';
+import { NavbarComponent } from './component/navbar/navbar.component';
 export const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
@@ -21,4 +22,5 @@ export const routes: Routes = [
   { path: 'customerSupport', component: CustomerSupportComponent },
   { path: 'resetPassword', component: PasswordResetComponent },
   { path: 'forgotPassword', component: ForgotPasswordComponent },
+  { path: 'navbar', component: NavbarComponent },
 ];

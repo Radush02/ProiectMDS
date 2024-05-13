@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
-
+import { NavbarComponent } from '../navbar/navbar.component';
 @Component({
   selector: 'app-customer-support',
   standalone: true,
-  imports: [],
+  imports: [NavbarComponent],
   templateUrl: './customer-support.component.html',
-  styleUrl: './customer-support.component.css'
+  styleUrl: './customer-support.component.css',
 })
-export class CustomerSupportComponent {
-
-}
+export class CustomerSupportComponent {}

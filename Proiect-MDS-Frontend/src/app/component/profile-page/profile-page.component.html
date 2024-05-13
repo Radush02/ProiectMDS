@@ -1,42 +1,6 @@
 <body>
   <div class="container">
-    <ul class="menu">
-      <img
-        src="assets/style_assets/logo_main_for_menu.png"
-        alt="logo"
-        class="logo-image"
-      />
-      <div class="right_items">
-        <li>
-          <button (click)="this.router.navigate(['findCar'])">
-            Find a car
-          </button>
-        </li>
-        <li>
-          <button (click)="this.router.navigate(['addCar'])">Add a car</button>
-        </li>
-        <li>
-          <button (click)="this.router.navigate(['customerSupport'])">
-            Customer Support
-          </button>
-        </li>
-        <li>
-          <button (click)="this.router.navigate(['landingPage'])">Home</button>
-        </li>
-        <li>
-          <button (click)="this.router.navigate(['profilePage'])">
-            <img
-              src="{{ getImageUrl(this.username) }}"
-              width="100px"
-              height="100px"
-              style="display: block; margin-left: auto; margin-right: auto"
-              class="profile-image"
-            />
-          </button>
-        </li>
-      </div>
-    </ul>
-
+    <app-navbar />
     <br /><br /><br />
     <div class="profile_information">
       <h2>Profile information</h2>

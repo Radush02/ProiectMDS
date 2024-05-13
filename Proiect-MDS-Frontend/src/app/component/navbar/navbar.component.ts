@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
@@ -13,16 +13,15 @@ import { UserService } from '../../services/user.service';
 import { HttpClientModule } from '@angular/common/http';
 import { S3Service } from '../../services/s3.service';
 import { CookieService } from 'ngx-cookie-service';
-import { NavbarComponent } from '../navbar/navbar.component';
 @Component({
-  selector: 'app-profile-page',
+  selector: 'app-navbar',
   standalone: true,
-  imports: [MatButtonModule, MatIcon, HttpClientModule, NavbarComponent],
+  imports: [MatButtonModule, MatIcon, HttpClientModule],
   providers: [UserService, S3Service],
-  templateUrl: './profile-page.component.html',
-  styleUrl: './profile-page.component.css',
+  templateUrl: './navbar.component.html',
+  styleUrl: './navbar.component.css',
 })
-export class ProfilePageComponent {
+export class NavbarComponent {
   profile: Profile = {
     nume: 'dummyLastName',
     prenume: 'dummyFirstName',
@@ -82,8 +81,4 @@ export class ProfilePageComponent {
       console.error('Token not found in local storage');
     }
   }
-
-  //   editProfile(profile: Profile): void {
-  //     this.router.navigate(['editPage']);
-  //   }
 }

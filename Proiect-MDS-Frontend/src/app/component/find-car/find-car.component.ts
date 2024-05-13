@@ -16,11 +16,17 @@ import { Profile } from '../../Profile';
 import { jwtDecode } from 'jwt-decode';
 import { UserService } from '../../services/user.service';
 import { S3Service } from '../../services/s3.service';
-
+import { NavbarComponent } from '../navbar/navbar.component';
 @Component({
   selector: 'app-find-car',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, HttpClientModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    HttpClientModule,
+    ReactiveFormsModule,
+    NavbarComponent,
+  ],
   providers: [PostService, UserService, S3Service],
   templateUrl: './find-car.component.html',
   styleUrl: './find-car.component.css',
