@@ -1,7 +1,8 @@
+<app-navbar />
 <div class="container">
   <div class="logo">
-      <img src="assets/style_assets/logo_main.png" alt="logo" />
-    </div>
+    <img src="assets/style_assets/logo_main.png" alt="logo" />
+  </div>
   <div class="add-car-container">
     <form (ngSubmit)="addCar()" [formGroup]="carForm">
       <label for="titlu">Titlu:</label><br />
@@ -20,8 +21,17 @@
         name="descriere"
         required
       /><br />
-      <button id='enhance' *ngIf="suggestion==''" (click)="enhanceDescription()">Imbunatateste descrierea cu OpenAI</button>
-      <div *ngIf="suggestion!=''">Sugestie de descriere generata de AI<br>{{suggestion}}</div><br>
+      <button
+        id="enhance"
+        *ngIf="suggestion == ''"
+        (click)="enhanceDescription()"
+      >
+        Imbunatateste descrierea cu OpenAI
+      </button>
+      <div *ngIf="suggestion != ''">
+        Sugestie de descriere generata de AI<br />{{ suggestion }}
+      </div>
+
       <label for="pret">Pret:</label>
       <input
         formControlName="pret"
@@ -103,5 +113,5 @@
     </form>
   </div>
 
-  <div style="clear:both"></div>
+  <div style="clear: both"></div>
 </div>

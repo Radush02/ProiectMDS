@@ -23,11 +23,11 @@ import {
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css',
 })
-export class LandingPageComponent implements OnInit{
-  constructor(public router: Router,private cookieService:CookieService) {}
+export class LandingPageComponent implements OnInit {
+  constructor(public router: Router, private cookieService: CookieService) {}
   ngOnInit(): void {
-      if (this.cookieService.get('token')=="") {
-        this.router.navigate(['/login']);
-      }
+    if (this.cookieService.get('token') == '') {
+      this.router.navigate(['/login']);
+    }
   }
 }

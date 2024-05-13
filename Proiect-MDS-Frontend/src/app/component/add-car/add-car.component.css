@@ -27,6 +27,12 @@ input[type="number"]::-webkit-outer-spin-button {
   justify-content: center;
   align-items: center;
 }
+app-navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
 
 form {
   border-radius: 15px;
@@ -91,11 +97,11 @@ input[type="radio"] {
   border: 2px solid rgba(0, 213, 255, 0.979);
   border-radius: 5px;
 }
-@media screen and (min-width: 770px){
+@media screen and (min-width: 770px) {
   .add-car-container {
     width: 30vw;
     height: 100vh;
-    top:100px;
+    top: 100px;
     position: relative;
   }
   form {
@@ -107,11 +113,10 @@ input[type="radio"] {
     font-size: 0.88rem;
     align-items: center;
   }
-  .logo{
+  .logo {
     width: 50vw;
-    
   }
-  .logo img{
+  .logo img {
     width: 90%;
     position: relative;
     left: 10%;
@@ -128,7 +133,6 @@ input[type="radio"] {
     margin-top: 10px;
   }
 
-
   button,
   input[type="submit"] {
     position: relative;
@@ -142,7 +146,7 @@ input[type="radio"] {
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
-  label{
+  label {
     font-size: 0.7rem;
   }
 
