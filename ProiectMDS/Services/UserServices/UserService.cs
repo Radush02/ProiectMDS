@@ -8,16 +8,22 @@ using Microsoft.IdentityModel.Tokens;
 using ProiectMDS.Exceptions;
 using ProiectMDS.Models;
 using ProiectMDS.Models.DTOs;
+using ProiectMDS.Models.DTOs.UserDTOs;
 using ProiectMDS.Models.Enum;
+using ProiectMDS.Repositories;
 using ProiectMDS.Services;
 using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Numerics;
+using System.Reflection.PortableExecutable;
+using System.Runtime.InteropServices;
 using System.Security.Claims;
 using System.Text;
 using System.Web;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ProiectMDS.Services
 {
@@ -27,14 +33,16 @@ namespace ProiectMDS.Services
         private readonly SignInManager<User> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly IS3Service _s3Service;
+        private readonly IPostareRepository _postareRepository;
 
 
-        public UserService(UserManager<User> userManager, SignInManager<User> signInManager, IS3Service s3Service,IEmailSender emailSender)
+        public UserService(UserManager<User> userManager, SignInManager<User> signInManager, IS3Service s3Service,IEmailSender emailSender,IPostareRepository postareRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _s3Service = s3Service;
             _emailSender = emailSender;
+            _postareRepository = postareRepository;
         }
         public async Task ConfirmEmail(string username, string token)
         {
@@ -87,6 +95,24 @@ namespace ProiectMDS.Services
                 throw new WrongDetailsException("Token invalid");
             }
         }
+        public async Task uploadDocument(string username, string document, IFormFile file)
+        {
+            var user = await _userManager.FindByNameAsync(username);
+            if (document == "permis")
+            {
+                user.permis = _s3Service.GetFileUrl(username + "_permis.png");
+            }
+            else if (document == "carteIdentitate")
+            {
+                user.carteIdentitate = _s3Service.GetFileUrl(username + "_carteIdentitate.png");
+            }
+            else
+            {
+                throw new WrongDetailsException("Tipul de document nu exista");
+            }
+            await _userManager.UpdateAsync(user);
+            await _s3Service.UploadFileAsync(username + "_" + document + ".png", file);
+        }   
         public async Task forgotPassword(ForgotPasswordDTO userDTO)
         {
             var userByName = await _userManager.FindByNameAsync(userDTO.Username);
@@ -101,46 +127,10 @@ namespace ProiectMDS.Services
             }
             var token = await _userManager.GeneratePasswordResetTokenAsync(userByName);
             var encodedToken = HttpUtility.UrlEncode(token);
-            var url = "https://localhost:4200/resetPassword?username=" + userByName.UserName + "&token=" + encodedToken;
-            var emailHtml = @"
-            <!DOCTYPE html>
-            <html lang='en'>
-            <head>
-                <meta charset='UTF-8'>
-                <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-                <title>Password reset</title>
-                <style>
-                    body {
-                        font-family: Arial, sans-serif;
-                        background-color: #f4f4f4;
-                        color: #333;
-                    }
-                    .container {
-                        max-width: 600px;
-                        margin: 0 auto;
-                        padding: 20px;
-                        background-color: #fff;
-                        border-radius: 5px;
-                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                    }
-                    .btn {
-                        display: inline-block;
-                        padding: 10px 20px;
-                        background-color: #007bff;
-                        color: #fff;
-                        text-decoration: none;
-                        border-radius: 5px;
-                    }
-                </style>
-            </head>
-            <body>
-                <div class='container'>
-                    <h2>Confirmare resetare parola</h2>
-                    <p>Confirmati resetarea parolei apasand pe butonul de mai jos. Daca nu ati cerut dvs. acest lucru, puteti ignora mail-ul.</p>
-                     <a href='" + url + @"' class='btn'>Resetare parola</a>
-                </div>
-            </body>
-            </html>";
+            var url = "http://localhost:4200/resetPassword?username=" + userByName.UserName + "&token=" + encodedToken;
+            string emailHtml = await File.ReadAllTextAsync("Templates/ForgotEmailTemplate.html");
+            emailHtml = emailHtml.Replace("{{confirmationUrl}}", url);
+            emailHtml = emailHtml.Replace("{{username}}", userByName.UserName);
             await _emailSender.SendEmailAsync(userByName.Email, "Resetare parola", emailHtml);
         }
         public async Task sendConfirmationEmail(RegisterDTO newUser)
@@ -148,97 +138,31 @@ namespace ProiectMDS.Services
             User user = await _userManager.FindByNameAsync(newUser.username);
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             var encodedToken = HttpUtility.UrlEncode(token);
-            var url = "https://localhost:7215/api/user/confirmEmail?username=" + user.UserName + "&token=" + encodedToken;
-            var emailHtml = @"
-            <!DOCTYPE html>
-            <html lang='en'>
-            <head>
-                <meta charset='UTF-8'>
-                <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-                <title>Email Confirmation</title>
-                <style>
-      body {
-        font-family: Arial, Helvetica, sans-serif;
-        background-color: #f4f4f4;
-        color: rgb(0, 0, 0);
-        margin: 0;
-        padding: 0;
-      }
-      h2 {
-        color: #6450a3ff;
-        font-family: Times;
-      }
-      .container {
-        max-width: 600px;
-        margin: 0 auto;
-        padding: 20px;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 204, 255, 0.1);
-        text-align: center;
-      }
-      .header {
-        margin-bottom: 20px;
-      }
-      .btn {
-        display: inline-block;
-        padding: 10px 20px;
-        background-color: #1bd1ff;
-        color: #fff;
-        text-decoration: none;
-        border-radius: 14px;
-        box-shadow: 3px 4px 8px rgba(8, 172, 236, 0.2);
-        transition: all 0.3s ease;
-      }
-      .btn:hover {
-        background-color: #6450a3ff;
-        box-shadow: 4px 6px 12px rgba(44, 0, 189, 0.3);
-        color: #fff;
-      }
-      .footer {
-        margin-top: 20px;
-        font-size: 12px;
-        color: #666;
-      }
-      .separator {
-        border-top: 1px solid rgb(199, 246, 255);
-        margin: 20px auto;
-        width: 80%;
-      }
-    </style>
-            </head>
-            <body>
-                 <div class='container'>
-      <div class='header'>
-        <h2>Verify your email</h2>
-      </div>
-      <div class='separator'></div>
-      <p>Hi there,</p>
-      <p>Please confirm your email address by clicking the button below:</p>
-      <br />
-      <a href = '" + url + @"' class='btn'>Confirm Email</a>
-      <br />
-      <br />
-      <p>If you didn't make this request, you can ignore this message.</p>
-      <div class='footer'>
-        <div class='separator'></div>
-        <p>
-          This is an automated notification, please do not reply to this
-          message.
-        </p>
-      </div>
-    </div>
-            </body>
-            </html>
-        ";
+            var url = "http://localhost:7215/api/user/confirmEmail?username=" + user.UserName + "&token=" + encodedToken;
+            string emailHtml = await File.ReadAllTextAsync("Templates/ConfirmationEmailTemplate.html");
+            emailHtml = emailHtml.Replace("{{confirmationUrl}}", url);
+            emailHtml = emailHtml.Replace("{{username}}", newUser.username);
             await _emailSender.SendEmailAsync(user.Email, "Confirmare email", emailHtml);
+        }
+        public async Task<SafeUserDTO> getUserProfile(string username)
+        {
+            var u = await _userManager.FindByNameAsync(username) ?? throw new NotFoundException("Userul nu a fost gasit");
+            int nrPostari = await _postareRepository.NrPostareByUser(u.Id);
+            Console.WriteLine(nrPostari);
+            return new SafeUserDTO()
+            {
+                nume = u.nume,
+                prenume = u.prenume,
+                username = u.UserName,
+                nrTelefon = u.PhoneNumber,
+                linkPozaProfil = u.pozaProfil,
+                dataNasterii = u.dataNasterii,
+                nrPostari = nrPostari
+            };
         }
         public async Task<UserDTO> getUserDetails (string username)
         {
-            var user = await _userManager.FindByNameAsync(username);
-            if(user == null)
-            {
-                throw new NotFoundException("Userul nu a fost gasit");
-            }
+            var user = await _userManager.FindByNameAsync(username) ?? throw new NotFoundException("Userul nu a fost gasit");
             var userInfo = new UserDTO
             {
                 username = user.UserName,

@@ -9,4 +9,5 @@ export interface Profile {
   dataNasterii: string;
   carteIdentitate: boolean;
   permis: boolean;
+  puncteFidelitate: number;
 }

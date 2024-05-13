@@ -1,9 +1,12 @@
+    <app-navbar />
 <body>
   <div class="container">
-    <app-navbar />
+
+
     <br /><br /><br />
     <div class="profile_information">
       <h2>Profile information</h2>
+      <br />
       <!-- <img src="profile?.linkPozaProfil" alt="Profile Image" width="100px" /> -->
       <img
         src="{{ getImageUrl(this.username) }}"
@@ -25,6 +28,8 @@
 
       <label>Driver's license: {{ profile.permis ? "Uploaded" : "-" }}</label>
       <br />
+      <label>Credits: {{ profile.puncteFidelitate }}</label
+      ><br />
     </div>
     <!-- <button mat-icon-button color="primary" (click)="editProfile(profile)">
   <mat-icon>edit</mat-icon>

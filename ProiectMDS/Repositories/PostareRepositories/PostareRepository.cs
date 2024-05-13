@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProiectMDS.Data;
+using ProiectMDS.Exceptions;
 using ProiectMDS.Models;
 using ProiectMDS.Models.DTOs;
 using System.Linq;
@@ -34,6 +35,10 @@ namespace ProiectMDS.Repositories
         {
             var p = await _dbContext.Postare.FirstOrDefaultAsync(i => i.PostareId == id);
             return p;
+        }
+        public async Task<int> NrPostareByUser(int userId)
+        {
+            return await _dbContext.Postare.CountAsync(p => p.UserId == userId);
         }
         public async Task<int> CountPostare()
         {

@@ -46,6 +46,9 @@ export class UserService {
       null
     );
   }
+  getUser(username: string): Observable<any> {
+    return this.http.get(`${this.apiKey}/User/getUser?username=${username}`);
+  }
   sendConfirmationEmail(info:any):Observable<any>{
     return this.http.post(`${this.apiKey}/User/sendConfirmationEmail`,info);
   }

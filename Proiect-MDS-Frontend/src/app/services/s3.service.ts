@@ -24,4 +24,21 @@ export class S3Service {
       Key: key,
     });
   }
+  getFilesFromFolder(bucket: string, folder: string): Promise<string[]> {
+    const params = {
+      Bucket: bucket,
+      Prefix: folder,
+    };
+
+    return new Promise((resolve, reject) => {
+      this.s3.listObjectsV2(params, (err, data) => {
+        if (err) {
+          reject(err);
+        } else {
+          const files = data.Contents ? data.Contents.map((file) => file.Key).filter((key): key is string => Boolean(key)) : [];
+          resolve(files);
+        }
+      });
+    });
+  }
 }

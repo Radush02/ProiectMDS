@@ -33,6 +33,7 @@ export class ProfilePageComponent {
     linkPozaProfil: '',
     carteIdentitate: false,
     permis: false,
+    puncteFidelitate: 0,
   };
 
   constructor(
@@ -76,6 +77,7 @@ export class ProfilePageComponent {
           linkPozaProfil: response.linkPozaProfil,
           carteIdentitate: response.carteIdentitate,
           permis: response.permis,
+          puncteFidelitate: response.puncteFidelitate,
         };
       });
     } else {

@@ -30,8 +30,9 @@ import { NavbarComponent } from '../navbar/navbar.component';
 export class AddCarComponent implements OnInit {
   carForm: FormGroup;
   errorMessage = '';
-  suggestion = '';
-  loading = false;
+  suggestion='';
+  selectedFiles: File[] = [];
+  loading=false;
   constructor(
     private fb: FormBuilder,
     private httpClient: HttpClient,
@@ -45,17 +46,24 @@ export class AddCarComponent implements OnInit {
     );
     this.carForm = this.fb.group({
       userId: [decodedToken['id']],
-      titlu: ['', Validators.required],
-      descriere: ['', Validators.required],
-      pret: ['', Validators.required],
-      firma: ['', Validators.required],
-      model: ['', Validators.required],
-      kilometraj: ['', Validators.required],
-      anFabricatie: ['', Validators.required],
-      talon: ['', Validators.required],
-      carteIdentitateMasina: ['', Validators.required],
-      asigurare: ['', Validators.required],
+      titlu: [null, Validators.required],
+      descriere: [null, Validators.required],
+      pret: [null, Validators.required],
+      firma: [null, Validators.required],
+      model: [null, Validators.required],
+      kilometraj: [null, Validators.required],
+      anFabricatie: [null, Validators.required],
+      talon: [null, Validators.required],
+      carteIdentitateMasina: [null, Validators.required],
+      asigurare: [null, Validators.required],
+      imagini: [null, Validators.required],
     });
+  }
+  onFileSelected(event: any) {
+    const files: FileList = event.target.files;
+    for (let i = 0; i < files.length; i++) {
+      this.selectedFiles.push(files.item(i)!);
+    }
   }
   ngOnInit(): void {}
 
@@ -75,31 +83,31 @@ export class AddCarComponent implements OnInit {
     console.log(this.suggestion);
     this.loading = false;
   }
-  // enhanceDescription(){
-  //   if(this.carForm.value.descriere==''){
-  //     alert('Includeti o descriere!');
-  //   }
-  //   const enhanceButton = document.getElementById('enhance') as HTMLButtonElement;
-  //   if (enhanceButton) {
-  //     enhanceButton.disabled = true;
-  //   }
-  //   this.openaiService.response(this.carForm.value.descriere,this.descriptionContext)
-  //   .then((response:any) => {
-  //     this.suggestion=response.choises[0].message.content;
-  //   })
-  //   .catch((error:any) => {
-  //     console.error(error);
-  //     this.errorMessage = 'A aparut o eroare';
-  //   });
-  // }
   addCar() {
     if (this.carForm.invalid) {
       return;
     }
+    var form = new FormData();
+    form.append('userId', this.carForm.value.userId);
+    form.append('titlu', this.carForm.value.titlu);
+    form.append('descriere', this.carForm.value.descriere);
+    form.append('pret', this.carForm.value.pret);
+    form.append('firma', this.carForm.value.firma);
+    form.append('model', this.carForm.value.model);
+    form.append('kilometraj', this.carForm.value.kilometraj);
+    form.append('anFabricatie', this.carForm.value.anFabricatie);
+    form.append('talon', this.carForm.value.talon);
+    form.append('carteIdentitateMasina', this.carForm.value.carteIdentitateMasina);
+    form.append('asigurare', this.carForm.value.asigurare);
+    for (let i = 0; i < this.selectedFiles.length; i++) {
+      form.append('imagini', this.selectedFiles[i]);
+    }
 
-    this.carService.addCar(this.carForm.value).subscribe(
-      (response: any) => {
-        console.log('Mașina a fost adăugată cu succes!', response);
+    console.log(form.get('imagini'));
+    console.log(this.carForm.value);
+    this.carService.addCar(form)
+      .subscribe(
+        (response: any) => { 
 
         this.carForm.reset();
       },
