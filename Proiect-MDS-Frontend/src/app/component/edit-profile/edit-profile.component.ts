@@ -177,6 +177,7 @@ export class EditProfileComponent {
       linkPozaProfil: this.selectedFile?.name,
       carteIdentitate: false,
       permis: false,
+      puncteFidelitate: this.editForm.get('puncteFidelitate')?.value,
     };
     //send data
     this.router.navigate(['profilePage']);
