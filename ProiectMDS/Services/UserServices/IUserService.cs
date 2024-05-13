@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using ProiectMDS.Models;
 using ProiectMDS.Models.DTOs;
+using ProiectMDS.Models.DTOs.UserDTOs;
 
 namespace ProiectMDS.Services
 {
@@ -14,5 +15,7 @@ namespace ProiectMDS.Services
         Task sendConfirmationEmail(RegisterDTO newUser);
         Task resetPassword(ResetPasswordDTO user);
         Task forgotPassword(ForgotPasswordDTO userDTO);
+        Task uploadDocument(string username, string document, IFormFile file);
+        Task<SafeUserDTO> getUserProfile(string username);
     }
 }

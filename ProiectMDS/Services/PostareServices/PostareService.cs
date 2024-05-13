@@ -18,13 +18,8 @@ namespace ProiectMDS.Services
 
         public async Task AddPostare(PostareDTO postareDTO)
         {
-            for(int i = 0; i < postareDTO.imagini.Count; i++)
-            {
-                var fileName = postareDTO.imagini[i].FileName;
-                var extension = Path.GetExtension(fileName);
-                var numeFisier = $"{postareDTO.userId}_{i + 1}{extension}";
-                await _s3Service.UploadFileAsync(numeFisier, postareDTO.imagini[i]);
-            }   
+            int idx = await _postareRepository.CountPostare();
+  
             var postare = new Postare()
             {
                 UserId = postareDTO.userId,
@@ -41,6 +36,12 @@ namespace ProiectMDS.Services
                 nrImagini = postareDTO.imagini.Count
             };
             await _postareRepository.AddPostare(postare);
+
+            for (int i = 0; i < postareDTO.imagini.Count; i++)
+            {
+                var fileName = $"post{idx}/{postareDTO.imagini[i].FileName}";
+                await _s3Service.UploadFileAsync(fileName, postareDTO.imagini[i]);
+            }
         }
 
         public async Task DeletePostare(int id)
@@ -128,7 +129,10 @@ namespace ProiectMDS.Services
             });
             return rez;
         }
-
+        public async Task<int> NrPostareByUser(int userId)
+        {
+            return await _postareRepository.NrPostareByUser(userId);
+        }
         public async Task<IEnumerable<PostareDTO>> PostareByModel(string model)
         {
             var p = await _postareRepository.PostareByModel(model);

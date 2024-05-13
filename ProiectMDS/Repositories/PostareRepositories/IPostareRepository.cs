@@ -10,6 +10,7 @@ namespace ProiectMDS.Repositories
         Task<Postare> PostareById(int postareId);
         Task<IEnumerable<Postare>> getPostare();
         Task<int> CountPostare();
+        Task<int> NrPostareByUser(int userId);
         Task UpdatePostare(Postare postare);
         Task<IEnumerable<Postare>> PostareByTitlu(string titlu);
         Task<IEnumerable<Postare>> PostareByPret(int pretMinim, int pretMaxim);

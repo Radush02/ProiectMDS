@@ -14,6 +14,7 @@ namespace ProiectMDS.Services
         Task<IEnumerable<PostareDTO>> PostareByAn(int anMinim, int anMaxim);
         Task<IEnumerable<PostareDTO>> PostareByFirma(String firma);
         Task<IEnumerable<PostareDTO>> PostareByModel(String model);
+        Task<int> NrPostareByUser(int userId);
 
     }
 }

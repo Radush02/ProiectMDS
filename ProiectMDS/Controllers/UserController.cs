@@ -131,5 +131,31 @@ namespace ProiectMDS.Controllers
                 return BadRequest(e.Message);
             }
         }
+        [HttpGet("getUser")]
+        [AllowAnonymous]
+        public async Task<IActionResult> getUser(string username)
+        {
+            try
+            {
+                var result = await _userService.getUserProfile(username);
+                return Ok(result);
+            }catch(NotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+        }
+        [HttpPost("uploadDocument")]
+        [AllowAnonymous]
+        public async Task<IActionResult> uploadDocument(string username, string document, IFormFile file)
+        {
+            try
+            {
+                await _userService.uploadDocument(username, document, file);
+                return Ok();
+            }catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }   
     }
 }
