@@ -1,0 +1,28 @@
+.container {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .profile_information {
+    position: absolute;
+    left: 15%;
+    background-color: rgba(0, 0, 0, 0.25);
+    border-radius: 25px;
+    width: 30%;
+    height: 62%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label,
+  h2 {
+    font-size: 1rem;
+    color: white;
+    flex: 1;
+    padding-left: 5%;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+  }
+  

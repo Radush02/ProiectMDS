@@ -21,7 +21,7 @@
         required
       /><br />
       <button id='enhance' *ngIf="suggestion==''" (click)="enhanceDescription()">Imbunatateste descrierea cu OpenAI</button>
-      <div *ngIf="suggestion!=''">Sugestie de descriere generata de AI<br>{{suggestion}}</div>
+      <div *ngIf="suggestion!=''">Sugestie de descriere generata de AI<br>{{suggestion}}</div><br>
       <label for="pret">Pret:</label>
       <input
         formControlName="pret"
@@ -86,7 +86,17 @@
         name="asigurare"
         required
       /><br />
-
+      <label for="imagini">
+        <input
+          formControlName="imagini"
+          type="file"
+          id="imagini"
+          name="imagini"
+          required
+          multiple
+          (change)="onFileSelected($event)"
+        />
+      </label>
       <input type="submit" value="Adaugă mașina" />
 
       <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>

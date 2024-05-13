@@ -1,0 +1,27 @@
+<div *ngIf="loaded==false">Loading</div>
+<div *ngIf="loaded==true">
+    <div class="profile_information">
+        <h2>Profile information</h2>
+        <!-- <img src="profile?.linkPozaProfil" alt="Profile Image" width="100px" /> -->
+        <img
+          src="{{ getImageUrl(this.user) }}"
+          width="100px"
+          height="100px"
+          style="display: block; margin-left: auto; margin-right: auto"
+        />
+        <br />
+        <label class="name">First name: {{ userInfo.prenume }}</label>
+        <br />
+        <label class="name" (click)="test()">Last name: {{ userInfo.nume }}</label>
+        <br />
+        <label>Username: {{ userInfo.username }}</label> <br />
+        <label>Phone number: {{ userInfo.nrTelefon }}</label> <br />
+        <label>Birth date: {{ userInfo.dataNasterii }}</label> <br />
+        <label>Ads: {{ userInfo.nrPostari }}</label
+        ><br />
+      </div>
+      <!-- <button mat-icon-button color="primary" (click)="editProfile(profile)">
+    <mat-icon>edit</mat-icon>
+  </button> -->
+      <!-- <app-edit-profile [profile]="this.profile"></app-edit-profile> -->
+</div>
