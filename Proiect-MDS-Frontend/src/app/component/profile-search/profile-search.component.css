@@ -1,0 +1,45 @@
+.container {
+  .container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    top: 0px;
+    width: 100vw;
+    height: 100vh;
+  }
+}
+.error-message {
+  padding: 5px;
+  margin: 5px 0;
+  color: red;
+  border: 2px solid red;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+app-navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+.button1 {
+  padding: 1vh;
+  border: none;
+  border-radius: 15px;
+  font-size: 20px;
+  background-color: rgba(100, 80, 163, 0.25);
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: 1vw;
+}
+
+.button1:hover {
+  background-color: black;
+}
+input[type="text"] {
+  padding: 0.6vh;
+  border: none;
+  border-radius: 8px;
+}

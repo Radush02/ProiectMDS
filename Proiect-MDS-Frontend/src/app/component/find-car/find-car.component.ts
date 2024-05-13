@@ -42,6 +42,7 @@ export class FindCarComponent {
     linkPozaProfil: '',
     carteIdentitate: false,
     permis: false,
+    puncteFidelitate: 0,
   };
   findForm!: FormGroup;
   errorMessage = '';
@@ -201,6 +202,7 @@ export class FindCarComponent {
           linkPozaProfil: response.linkPozaProfil,
           carteIdentitate: response.carteIdentitate,
           permis: response.permis,
+          puncteFidelitate: response.puncteFidelitate,
         };
       });
     } else {

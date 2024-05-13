@@ -3,11 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { S3Service } from '../../services/s3.service';
-
+import { NavbarComponent } from '../navbar/navbar.component';
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NavbarComponent],
   providers: [UserService, S3Service],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
