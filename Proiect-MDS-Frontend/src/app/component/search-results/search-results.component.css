@@ -1,0 +1,23 @@
+*{
+    color: white;
+}
+
+/* #nav-bar{
+    position: relative;
+    bottom:30vh;
+}
+#search-results{
+    position: relative;
+    bottom:30vh;
+} */
+
+.search-results ul li {
+    transition: background-color 0.3s ease; /* Adăugăm o tranziție de 0.3 secunde pentru culoarea de fundal */
+    padding: 1%;
+    border-radius: 10px;
+  }
+  
+  .search-results ul li:hover {
+    background-color: rgba(0, 0, 0, 0.75); /* Folosim rgba pentru a specifica o culoare neagră cu opacitate de 75% */
+    cursor: pointer;
+  }

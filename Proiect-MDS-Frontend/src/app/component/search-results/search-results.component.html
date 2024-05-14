@@ -1,0 +1,19 @@
+
+<app-navbar id="nav-bar"/>
+<div class="search-results" id="search-results">
+    <h2>Rezultatele căutării</h2>
+    <div *ngIf="results && results.length > 0; else noResults">
+      <ul>
+        <li *ngFor="let result of results" (click)="redirectToListingPage(result.titlu)" >
+          <h3>{{ result.titlu }}</h3>
+          <p>Descriere:{{ result.descriere }}</p>
+          <p>Pret: {{ result.pret }}</p>
+          <img src="{{ result.image }}" alt="car-image" />
+        </li>
+      </ul>
+    </div>
+  
+    <ng-template #noResults>
+      <p>Nu au fost găsite rezultate pentru căutarea dumneavoastră.</p>
+    </ng-template>
+  </div>

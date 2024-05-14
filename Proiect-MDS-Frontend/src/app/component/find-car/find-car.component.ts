@@ -42,7 +42,7 @@ export class FindCarComponent {
     linkPozaProfil: '',
     carteIdentitate: false,
     permis: false,
-    puncteFidelitate: 0,
+    puncteFidelitate:0
   };
   findForm!: FormGroup;
   errorMessage = '';
@@ -120,33 +120,35 @@ export class FindCarComponent {
         let baseUrl = window.location.origin + window.location.pathname;
         let resultsPageUrl = baseUrl + '/search-results';
 
-        let resultsPage = window.open(resultsPageUrl);
-        if (resultsPage) {
-          resultsPage.onload = () => {
-            if (resultsPage) {
-              resultsPage.document.write(
-                '<html><head><title>Rezultate căutare</title></head><body>'
-              );
-              resultsPage.document.write('<h1>Rezultate căutare</h1>');
-              resultsPage.document.write('<ul>');
-              rez.forEach((car: carDTO) => {
-                if (resultsPage)
-                  resultsPage.document.write(
-                    `<li>${car.titlu} - ${car.model}-${car.firma} - ${car.anFabricatie} -${car.descriere}</li>`
-                  );
-              });
-              resultsPage.document.write('</ul></body></html>');
-              resultsPage.document.close();
-              if (resultsPage) {
-                resultsPage.postMessage(rez, baseUrl);
-              }
-            }
-          };
-        } else {
-          alert(
-            'Popup blockat! Te rugăm să permiti pop-up-uri pentru a afișa rezultatele.'
-          );
-        }
+        let resultsPage = this.router.navigate(['/searchResults'], { state: { results: rez } });
+
+        // let resultsPage = window.open(resultsPageUrl);
+        // if (resultsPage) {
+        //   resultsPage.onload = () => {
+        //     if (resultsPage) {
+        //       resultsPage.document.write(
+        //         '<html><head><title>Rezultate căutare</title></head><body>'
+        //       );
+        //       resultsPage.document.write('<h1>Rezultate căutare</h1>');
+        //       resultsPage.document.write('<ul>');
+        //       rez.forEach((car: carDTO) => {
+        //         if (resultsPage)
+        //           resultsPage.document.write(
+        //             `<li>${car.titlu} - ${car.model}-${car.firma} - ${car.anFabricatie} -${car.descriere}</li>`
+        //           );
+        //       });
+        //       resultsPage.document.write('</ul></body></html>');
+        //       resultsPage.document.close();
+        //       if (resultsPage) {
+        //         resultsPage.postMessage(rez, baseUrl);
+        //       }
+        //     }
+        //   };
+        // } else {
+        //   alert(
+        //     'Popup blockat! Te rugăm să permiti pop-up-uri pentru a afișa rezultatele.'
+        //   );
+        // }
       }
     );
   }

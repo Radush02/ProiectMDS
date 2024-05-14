@@ -11,7 +11,10 @@ import { PasswordResetComponent } from './component/password-reset/password-rese
 import { ForgotPasswordComponent } from './component/forgot-password/forgot-password.component';
 import { NavbarComponent } from './component/navbar/navbar.component';
 import { ProfileComponent } from './component/profile/profile.component';
+import { SearchResultsComponent } from './component/search-results/search-results.component';
+import { ListingComponent } from './component/listing/listing.component';
 import { ProfileSearchComponent } from './component/profile-search/profile-search.component';
+
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -26,6 +29,9 @@ export const routes: Routes = [
   { path: 'resetPassword', component: PasswordResetComponent },
   { path: 'forgotPassword', component: ForgotPasswordComponent },
   { path: 'navbar', component: NavbarComponent },
+  { path: 'searchResults', component: SearchResultsComponent },
+  { path: 'listing/:titlu', component: ListingComponent},
+  { path: 'listing', component: ListingComponent},
   { path: 'profile', component: ProfileComponent },
-  { path: 'profileSearch', component: ProfileSearchComponent },
+  { path: 'profileSearch', component: ProfileSearchComponent }
 ];
