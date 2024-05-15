@@ -19,6 +19,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Numerics;
 using System.Reflection.PortableExecutable;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security.Claims;
 using System.Text;
@@ -34,15 +35,17 @@ namespace ProiectMDS.Services
         private readonly IEmailSender _emailSender;
         private readonly IS3Service _s3Service;
         private readonly IPostareRepository _postareRepository;
+        private readonly IOpenAIService _openAIService;
 
 
-        public UserService(UserManager<User> userManager, SignInManager<User> signInManager, IS3Service s3Service,IEmailSender emailSender,IPostareRepository postareRepository)
+        public UserService(UserManager<User> userManager, SignInManager<User> signInManager,IOpenAIService openAIService, IS3Service s3Service,IEmailSender emailSender,IPostareRepository postareRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _s3Service = s3Service;
             _emailSender = emailSender;
             _postareRepository = postareRepository;
+            _openAIService = openAIService;
         }
         public async Task ConfirmEmail(string username, string token)
         {
@@ -57,9 +60,16 @@ namespace ProiectMDS.Services
                 throw new WrongDetailsException("Token invalid");
             }
         }
-        public async Task uploadPhoto(RegisterDTO newUser)
+        public async Task<bool> uploadPhoto(RegisterDTO newUser)
         {
+            string res = (await _openAIService.profilePictureFilter(newUser.pozaProfil)).prompt;
+            if(res != "Yes.")
+            {
+                await failureEmail(newUser, res);
+                return false;
+            }
             await _s3Service.UploadFileAsync(newUser.username + "_pfp.png", newUser.pozaProfil);
+            return true;
         }
         public async Task<IdentityResult> RegisterAsync(RegisterDTO newUser)
         {
@@ -143,6 +153,13 @@ namespace ProiectMDS.Services
             emailHtml = emailHtml.Replace("{{confirmationUrl}}", url);
             emailHtml = emailHtml.Replace("{{username}}", newUser.username);
             await _emailSender.SendEmailAsync(user.Email, "Confirmare email", emailHtml);
+        }
+        public async Task failureEmail(RegisterDTO newUser,string reason)
+        {
+            string emailHtml = await File.ReadAllTextAsync("Templates/FailureEmailTemplate.html");
+            emailHtml = emailHtml.Replace("{{username}}", newUser.username);
+            emailHtml = emailHtml.Replace("{{reason}}", reason);
+            await _emailSender.SendEmailAsync(newUser.email, "Inregistrare esuata", emailHtml);
         }
         public async Task<SafeUserDTO> getUserProfile(string username)
         {

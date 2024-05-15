@@ -5,6 +5,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { UserService } from '../../services/user.service';
 import { S3Service } from '../../services/s3.service';
 import { CommonModule } from '@angular/common';
+import { jwtDecode } from 'jwt-decode';
 @Component({
   selector: 'app-profile-search',
   standalone: true,
@@ -16,6 +17,8 @@ import { CommonModule } from '@angular/common';
 export class ProfileSearchComponent {
   username = '';
   errorMessage = '';
+  u:{[key: string]: any}=jwtDecode(this.cookieService.get('token'));
+  user=this.u['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier']
   constructor(
     public router: Router,
     private cookieService: CookieService,
@@ -33,7 +36,9 @@ export class ProfileSearchComponent {
     if (username) {
       this.userService.getUser(username).subscribe(
         (result) => {
-          this.router.navigate(['/profile'], {
+          if(this.user.toUpperCase()===username.toUpperCase())
+            this.router.navigate(['/profilePage']);
+          else this.router.navigate(['/profile'], {
             queryParams: { user: username },
           });
         },

@@ -143,30 +143,34 @@ export class RegisterComponent implements OnInit {
       formData.append('pozaProfil', this.selectedFile, this.selectedFile.name);
     }
     this.router.navigate(['/login']);
+    this.dialog.open(MessagePopUpComponent, {
+      data: 'Register confirmation will be sent as soon as we validate your profile picture is appropiate.\n Please verify your email.',
+      });
     this.registerService.register(formData).subscribe(
       () => {
-        this.registerService.uploadPhoto(formData).subscribe(
-          () => {
-            console.log('poza incarcata');
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
-        this.registerService.sendConfirmationEmail(formData).subscribe(
+      this.registerService.uploadPhoto(formData).subscribe(
+        (uploadResult: boolean) => {
+        if (uploadResult) {
+          this.registerService.sendConfirmationEmail(formData).subscribe(
           () => {
             console.log('email trimis');
-            let dialogRef = this.dialog.open(MessagePopUpComponent, {
-              data: '  Register confirmation email sent. Please verify your email. ',
-            });
+
           },
           (error) => {
             console.log(error);
           }
-        );
+          );
+        } else {
+          console.log('Invalid photo');
+        }
+        },
+        (error) => {
+        console.log(error);
+        }
+      );
       },
       (registerError) => {
-        alert(registerError.error.join('\n'));
+      alert(registerError.error.join('\n'));
       }
     );
   }
