@@ -35,6 +35,10 @@ namespace ProiectMDS.Repositories
         public async Task<Card> CardById(int id)
         {
             var c = await _dbcontext.Card.FirstOrDefaultAsync(i => i.CardId == id);
+            if(c == null)
+            {
+                throw new Exception($"Nu exista card cu id-ul {id}");
+            }
             return c;
         }
 

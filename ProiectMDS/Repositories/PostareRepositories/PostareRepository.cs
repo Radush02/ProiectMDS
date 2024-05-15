@@ -34,6 +34,10 @@ namespace ProiectMDS.Repositories
         public async Task<Postare> PostareById(int id)
         {
             var p = await _dbContext.Postare.FirstOrDefaultAsync(i => i.PostareId == id);
+            if (p == null)
+            {
+                throw new Exception($"Nu exista postare cu id-ul {id}");
+            }
             return p;
         }
         public async Task<int> NrPostareByUser(int userId)
