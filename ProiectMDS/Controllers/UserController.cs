@@ -83,9 +83,13 @@ namespace ProiectMDS.Controllers
         {
             try
             {
-                await _userService.uploadPhoto(user);
-                return Ok();
-            }catch(Exception e)
+                var res = await _userService.uploadPhoto(user);
+                if(res== true)
+                    return Ok(res);
+                else
+                    return BadRequest(res);
+            }
+            catch(Exception e)
             {
                 return BadRequest(e.Message);
             }
