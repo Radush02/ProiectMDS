@@ -167,7 +167,8 @@ namespace ProiectMDS.Services
             int nrPostari = await _postareRepository.NrPostareByUser(u.Id);
             Console.WriteLine(nrPostari);
             return new SafeUserDTO()
-            {
+            { 
+                id=u.Id,
                 nume = u.nume,
                 prenume = u.prenume,
                 username = u.UserName,

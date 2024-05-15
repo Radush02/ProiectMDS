@@ -1,12 +1,18 @@
-*{
-    color: white;
+* {
+  color: white;
 }
 
-#nav-bar{
-    position: relative;
-    bottom:30vh;
+/* #nav-bar {
+  position: relative;
+  bottom: 30vh;
+} */
+#listing {
+  position: relative;
+  bottom: 30vh;
 }
-#listing{
-    position: relative;
-    bottom:30vh;
+app-navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
 }

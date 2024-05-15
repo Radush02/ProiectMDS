@@ -13,7 +13,7 @@ namespace ProiectMDS.Services
         OpenAIClient client;
 
         public OpenAIService(){
-            client = new OpenAIClient();
+           client = new OpenAIClient();
         }
 
         public async Task<OpenAIDTO> profilePictureFilter(IFormFile file)
