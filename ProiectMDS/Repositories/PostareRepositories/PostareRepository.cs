@@ -34,6 +34,10 @@ namespace ProiectMDS.Repositories
         public async Task<Postare> PostareById(int id)
         {
             var p = await _dbContext.Postare.FirstOrDefaultAsync(i => i.PostareId == id);
+            if (p == null)
+            {
+                throw new Exception($"Nu exista postare cu id-ul {id}");
+            }
             return p;
         }
         public async Task<int> NrPostareByUser(int userId)
@@ -92,6 +96,13 @@ namespace ProiectMDS.Repositories
         public async Task<IEnumerable<Postare>> PostareByTitlu(string titlu)
         {
             var p = await _dbContext.Postare.Where(pr => pr.titlu.ToLower().Contains(titlu.ToLower())).ToListAsync();
+
+            return p;
+        }
+
+        public async Task<IEnumerable<Postare>> PostareByUserId(int userId)
+        {
+            var p = await _dbContext.Postare.Where(pr => pr.UserId == userId).ToListAsync();
 
             return p;
         }

@@ -36,6 +36,10 @@ namespace ProiectMDS.Repositories
         public async Task<Review> ReviewById(int id)
         {
             var r = await _dbcontext.Review.FirstOrDefaultAsync(i => i.ReviewId == id);
+            if(r == null)
+            {
+                throw new Exception($"Nu exista review cu id-ul {id}");
+            }
             return r;
         }
 
@@ -75,6 +79,10 @@ namespace ProiectMDS.Repositories
         public async Task<int> UserByPostareId(int postareId)
         {
             var p = await _dbcontext.Postare.FirstOrDefaultAsync(i => i.PostareId == postareId);
+            if(p == null)
+            {
+                throw new Exception($"Nu exista postare cu id-ul {postareId}");
+            }
             return p.UserId;
         }
     }

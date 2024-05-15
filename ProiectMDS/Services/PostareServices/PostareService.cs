@@ -255,5 +255,32 @@ namespace ProiectMDS.Services
 
             await _postareRepository.UpdatePostare(p);
         }
+
+        public async Task<IEnumerable<PostareDTO>> PostareByUserId(int userId)
+        {
+            var p = await _postareRepository.PostareByUserId(userId);
+
+            if (p == null)
+            {
+                throw new NotFoundException($"Nu exista postare cu userId {userId}.");
+            }
+
+            IEnumerable<PostareDTO> rez;
+            rez = p.Select(po => new PostareDTO
+            {
+                userId = po.UserId,
+                titlu = po.titlu,
+                descriere = po.descriere,
+                pret = po.pret,
+                firma = po.firma,
+                model = po.model,
+                kilometraj = po.kilometraj,
+                anFabricatie = po.anFabricatie,
+                talon = po.talon,
+                carteIdentitateMasina = po.carteIdentitateMasina,
+                asigurare = po.asigurare
+            });
+            return rez;
+        }
     }
 }

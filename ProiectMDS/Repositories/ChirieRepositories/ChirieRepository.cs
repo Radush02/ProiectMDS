@@ -17,6 +17,10 @@ namespace ProiectMDS.Repositories
         public async Task<User> UserById(int userId)
         {
             var user = await _dbContext.User.FirstOrDefaultAsync(x => x.Id == userId);
+            if(user  == null)
+            {
+                throw new Exception($"Nu exista user cu id-ul {userId}");
+            }
             return user;
         }
 
@@ -49,6 +53,10 @@ namespace ProiectMDS.Repositories
         public async Task<Chirie> ChirieById(int id)
         {
             var c = await _dbContext.Chirie.FirstOrDefaultAsync(i => i.ChirieId == id);
+            if(c == null)
+            {
+                throw new Exception($"Nu exista chirie cu id-ul {id}");
+            }
             return c;
         }
 
@@ -82,6 +90,10 @@ namespace ProiectMDS.Repositories
         public async Task<int> UserByPostareId(int postareId)
         {
             var p = await _dbContext.Postare.FirstOrDefaultAsync(i => i.PostareId == postareId);
+            if(p == null)
+            {
+                throw new Exception($"Nu exista postare cu id-ul {postareId}");
+            }
             return p.UserId;
         }
     }

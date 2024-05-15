@@ -96,6 +96,13 @@ namespace ProiectMDS.Controllers
         {
             var p = await _postareService.NrPostareByUser(userId);
             return Ok(p);
-        }   
+        }
+
+        [HttpGet("userId")]
+        public async Task<IActionResult> PostareByUserId(int userId)
+        {
+            var p = await _postareService.PostareByUserId(userId);
+            return Ok(p);
+        }
     }
 }
