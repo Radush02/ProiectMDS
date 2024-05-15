@@ -79,7 +79,7 @@ namespace ProiectMDS.Services.ChirieServices
             rez = c.Select(ch => new ChirieDTO
             {
                 userId = ch.UserId,
-                postareId = ch.PostareId,
+                postareId = ch.PostareId,   
                 dataStart = ch.dataStart,
                 dataStop = ch.dataStop
             });

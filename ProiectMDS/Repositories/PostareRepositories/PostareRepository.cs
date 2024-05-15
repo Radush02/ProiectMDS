@@ -95,6 +95,13 @@ namespace ProiectMDS.Repositories
 
             return p;
         }
+
+        public async Task<IEnumerable<Postare>> PostareByUserId(int userId)
+        {
+            var p = await _dbContext.Postare.Where(pr => pr.UserId == userId).ToListAsync();
+
+            return p;
+        }
     }
 }
 
