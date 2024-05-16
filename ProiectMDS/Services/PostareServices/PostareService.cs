@@ -282,5 +282,29 @@ namespace ProiectMDS.Services
             });
             return rez;
         }
+        public async Task<PostareDTO> postareById(int id)
+        {
+            var post = await _postareRepository.PostareById(id);
+            if (post == null)
+            {
+                throw new NotFoundException($"Nu exista postare cu id-ul {id}");
+            }
+            var postDTO = new PostareDTO
+            {
+                userId = post.UserId,
+                titlu = post.titlu,
+                descriere = post.descriere,
+                pret = post.pret,
+                firma = post.firma,
+                model = post.model,
+                kilometraj = post.kilometraj,
+                anFabricatie = post.anFabricatie,
+                talon = post.talon,
+                carteIdentitateMasina = post.carteIdentitateMasina,
+                asigurare = post.asigurare
+            };
+            return postDTO;
+        }
     }
+
 }

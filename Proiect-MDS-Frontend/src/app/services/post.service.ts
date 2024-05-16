@@ -16,6 +16,9 @@ export class PostService {
   public getPosts(): Observable<any> {
     return this.http.get<any>(this.apiKey);
   }
+  public getPostById(id: number): Observable<any> {
+    return this.http.get<any>(this.apiKey + id);
+  }
   public getPostsByAge(minAge: any, maxRange: any): Observable<any> {
     if (minAge == null && maxRange == null)
       return this.http.get<any>(this.apiKey);

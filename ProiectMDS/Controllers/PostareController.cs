@@ -104,5 +104,11 @@ namespace ProiectMDS.Controllers
             var p = await _postareService.PostareByUserId(userId);
             return Ok(p);
         }
+        [HttpGet("carid/{id}")]
+        public async Task<IActionResult> PostareById(int id)
+        {
+            var p = await _postareService.postareById(id);
+            return Ok(p);
+        }
     }
 }

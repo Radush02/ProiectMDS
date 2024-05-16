@@ -15,6 +15,7 @@ import { SearchResultsComponent } from './component/search-results/search-result
 import { ListingComponent } from './component/listing/listing.component';
 import { ProfileSearchComponent } from './component/profile-search/profile-search.component';
 import { NewLandingPageComponent } from './component/new-landing-page/new-landing-page.component';
+import { CarimgComponent } from './component/carimg/carimg.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -35,4 +36,5 @@ export const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'profileSearch', component: ProfileSearchComponent },
   { path: 'newLandingPage', component: NewLandingPageComponent },
+  { path: 'carimg', component: CarimgComponent }
 ];
