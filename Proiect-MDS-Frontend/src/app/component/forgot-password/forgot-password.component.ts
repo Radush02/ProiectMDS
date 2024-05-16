@@ -1,41 +1,68 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, ActivatedRoute, RouterOutlet } from '@angular/router';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { validatorEmail } from '../../validators/user.validator';
 
 @Component({
   selector: 'app-forgot-password',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, HttpClientModule, ReactiveFormsModule, FormsModule,HttpClientModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, HttpClientModule],
   providers: [UserService],
   templateUrl: './forgot-password.component.html',
-  styleUrl: './forgot-password.component.css'
+  styleUrls: ['./forgot-password.component.css'],
 })
-export class ForgotPasswordComponent implements OnInit{
+export class ForgotPasswordComponent implements OnInit {
   forgotPasswordForm: FormGroup;
-  constructor(public router: Router,private fb: FormBuilder,private params: ActivatedRoute,private userService: UserService) {
+  errorMessage: string = '';
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute,
+    private userService: UserService
+  ) {
     this.forgotPasswordForm = this.fb.group({
-      Email: [null, Validators.required],
-      Username: [null, Validators.required]
+      username: ['', Validators.required],
+      email: ['', [Validators.required, validatorEmail]],
     });
   }
 
-  sendEmail() {
+  ngOnInit() {}
 
-    console.log(this.forgotPasswordForm.value);
-    this.userService.forgotPassword(this.forgotPasswordForm.value).subscribe((data) => {
-      console.log(data);
-      this.router.navigate(['/login']);
-    }, (error) => {
-      console.log(error);
-    });
+  sendEmail(event: Event) {
+    event.preventDefault();
+
+    if (this.forgotPasswordForm.invalid) {
+      this.markFormGroupTouched(this.forgotPasswordForm);
+      return;
+    }
+
+    this.userService.forgotPassword(this.forgotPasswordForm.value).subscribe(
+      (data) => {
+        console.log(data);
+        this.router.navigate(['/login']);
+      },
+      (error) => {
+        console.log(error);
+        this.errorMessage = error.error;
+      }
+    );
   }
-  ngOnInit() {
-    this.forgotPasswordForm = this.fb.group({
-      Email: [null, Validators.required],
-      Username: [null, Validators.required]
+  private markFormGroupTouched(formGroup: FormGroup) {
+    Object.values(formGroup.controls).forEach((control) => {
+      control.markAsTouched();
+      if ((control as any).controls) {
+        this.markFormGroupTouched(control as FormGroup);
+      }
     });
   }
 }
