@@ -13,6 +13,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { jwtDecode } from 'jwt-decode';
 import { OpenaiService } from '../../services/openai.service';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { S3Service } from '../../services/s3.service';
 @Component({
   selector: 'app-add-car',
   templateUrl: './add-car.component.html',
@@ -39,7 +40,8 @@ export class AddCarComponent implements OnInit {
     public router: Router,
     private carService: CarService,
     private cookieService: CookieService,
-    private openaiService: OpenaiService
+    private openaiService: OpenaiService,
+    private s3Service: S3Service
   ) {
     const decodedToken: { [key: string]: any } = jwtDecode(
       this.cookieService.get('token')
@@ -107,8 +109,8 @@ export class AddCarComponent implements OnInit {
     console.log(this.carForm.value);
     this.carService.addCar(form)
       .subscribe(
-        (response: any) => { 
-
+        (response: any) => {
+          this.s3Service.uploadFile('dawbucket', `thumbnail${response}`, this.selectedFiles[0]);
         this.carForm.reset();
       },
       (error: any) => {

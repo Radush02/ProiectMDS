@@ -16,7 +16,7 @@ namespace ProiectMDS.Services
             _s3Service = s3Service;
         }
 
-        public async Task AddPostare(PostareDTO postareDTO)
+        public async Task<int> AddPostare(PostareDTO postareDTO)
         {
             int idx = await _postareRepository.CountPostare();
   
@@ -42,6 +42,7 @@ namespace ProiectMDS.Services
                 var fileName = $"post{idx}/{postareDTO.imagini[i].FileName}";
                 await _s3Service.UploadFileAsync(fileName, postareDTO.imagini[i]);
             }
+            return idx;
         }
 
         public async Task DeletePostare(int id)
@@ -268,6 +269,7 @@ namespace ProiectMDS.Services
             IEnumerable<PostareDTO> rez;
             rez = p.Select(po => new PostareDTO
             {
+                id = po.PostareId,
                 userId = po.UserId,
                 titlu = po.titlu,
                 descriere = po.descriere,
