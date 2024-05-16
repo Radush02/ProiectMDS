@@ -14,7 +14,7 @@ import { ProfileComponent } from './component/profile/profile.component';
 import { SearchResultsComponent } from './component/search-results/search-results.component';
 import { ListingComponent } from './component/listing/listing.component';
 import { ProfileSearchComponent } from './component/profile-search/profile-search.component';
-
+import { NewLandingPageComponent } from './component/new-landing-page/new-landing-page.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -30,8 +30,9 @@ export const routes: Routes = [
   { path: 'forgotPassword', component: ForgotPasswordComponent },
   { path: 'navbar', component: NavbarComponent },
   { path: 'searchResults', component: SearchResultsComponent },
-  { path: 'listing/:titlu', component: ListingComponent},
-  { path: 'listing', component: ListingComponent},
+  { path: 'listing/:titlu', component: ListingComponent },
+  { path: 'listing', component: ListingComponent },
   { path: 'profile', component: ProfileComponent },
-  { path: 'profileSearch', component: ProfileSearchComponent }
+  { path: 'profileSearch', component: ProfileSearchComponent },
+  { path: 'newLandingPage', component: NewLandingPageComponent },
 ];

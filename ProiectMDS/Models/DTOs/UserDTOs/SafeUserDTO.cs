@@ -2,6 +2,7 @@
 {
     public class SafeUserDTO
     {
+        public int id { get; set; }
         public string nume { get; set; }
 
         public string prenume { get; set; }

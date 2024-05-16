@@ -30,5 +30,22 @@
     <mat-icon>edit</mat-icon>
   </button> -->
     <!-- <app-edit-profile [profile]="this.profile"></app-edit-profile> -->
+    <div class="posts_information">
+      <h2>User Posts</h2>
+      <br />
+      <br />
+      <div class="posts" *ngIf="posts.length > 0">
+        <div class="post" *ngFor="let post of posts">
+          <h4>{{ post.titlu }}</h4>
+          <p>
+            {{ post.firma }} {{ post.model }} {{ post.anFabricatie }}
+            {{ post.kilometraj }}km Price:{{ post.pret }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="posts.length === 0">
+      <p>No posts to display.</p>
+    </div>
   </div>
 </div>
