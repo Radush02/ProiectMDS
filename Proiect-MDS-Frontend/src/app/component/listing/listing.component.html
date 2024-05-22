@@ -1,5 +1,19 @@
 <app-navbar />
 <div *ngFor="let result of results">
+  <div class="container mt-5">
+    <carousel>
+      <slide>
+        <img src="../../../assets/style_assets/logo_main.png" alt="First slide" class="d-block w-100">
+      </slide>
+      <slide>
+        <img src="../../../assets/style_assets/logo_main.png" alt="Second slide" class="d-block w-100">
+      </slide>
+      <slide>
+        <img src="../../../assets/style_assets/logo_main.png" alt="Third slide" class="d-block w-100">
+      </slide>
+    </carousel>
+  </div>
+  
   <h3>{{ result.titlu }}</h3>
   <p>Descriere:{{ result.descriere }}</p>
 </div>

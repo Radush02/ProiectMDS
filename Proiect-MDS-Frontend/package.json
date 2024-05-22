@@ -21,6 +21,7 @@
     "@angular/platform-browser-dynamic": "^17.1.0",
     "@angular/router": "^17.1.0",
     "aws-sdk": "^2.1615.0",
+    "bootstrap": "^5.3.3",
     "dotenv": "^16.4.5",
     "jwt-decode": "^4.0.0",
     "ngx-bootstrap": "^12.0.0",
