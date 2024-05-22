@@ -20,7 +20,6 @@ import { CarimgComponent } from './component/carimg/carimg.component';
 export const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'landingPage', component: LandingPageComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'editPage', component: EditProfileComponent },
   { path: 'findCar', component: FindCarComponent },
@@ -31,10 +30,9 @@ export const routes: Routes = [
   { path: 'forgotPassword', component: ForgotPasswordComponent },
   { path: 'navbar', component: NavbarComponent },
   { path: 'searchResults', component: SearchResultsComponent },
-  { path: 'listing/:titlu', component: ListingComponent },
-  { path: 'listing', component: ListingComponent },
+  { path: 'listing', component: CarimgComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'profileSearch', component: ProfileSearchComponent },
-  { path: 'newLandingPage', component: NewLandingPageComponent },
+  { path: 'home', component: NewLandingPageComponent },
   { path: 'carimg', component: CarimgComponent }
 ];

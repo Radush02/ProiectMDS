@@ -1,8 +1,14 @@
 <app-navbar />
-<div>
-    <div>
-        <div *ngFor="let image of images">
-            <img [src]="image" alt="Image">
-        </div>
+<div class="container mt-5">
+    <div class="carousel-container">
+        <carousel>
+            <slide *ngFor="let image of images">
+                <img [src]="image" alt="Image">
+            </slide>
+        </carousel>
+    </div>
+    <div *ngIf="loaded===true" style="color:white;">
+        <h3>{{ result.titlu }}</h3>
+        <p>Descriere:{{ result.descriere }}</p>
     </div>
 </div>

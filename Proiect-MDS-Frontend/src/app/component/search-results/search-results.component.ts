@@ -19,7 +19,7 @@ export class SearchResultsComponent implements OnInit {
   }
 
   redirectToListingPage(titlu: any): void {
-    this.router.navigate(['/listing', titlu], { state: { results: this.results } });
+    this.router.navigate(['/listing'], { queryParams: { id: titlu } });
   }  
 }
 

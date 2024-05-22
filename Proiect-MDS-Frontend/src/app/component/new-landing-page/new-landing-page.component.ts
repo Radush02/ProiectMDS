@@ -253,9 +253,13 @@ export class NewLandingPageComponent implements OnInit {
       console.log(this.posts);
     });
   }
+  redirectToListingPage(titlu: any): void {
+    this.router.navigate(['/listing'], { queryParams: { id: titlu } });
+  }
 }
 
 interface carDTO {
+  id:number;
   titlu: string;
   descriere: string;
   pret: number;

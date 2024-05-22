@@ -62,6 +62,7 @@ namespace ProiectMDS.Services
             IEnumerable<PostareDTO> rez;
             rez = p.Select(po => new PostareDTO
             {
+                id = po.PostareId,
                 userId = po.UserId,
                 titlu = po.titlu,
                 descriere = po.descriere,
@@ -89,6 +90,7 @@ namespace ProiectMDS.Services
             IEnumerable<PostareDTO> rez;
             rez = p.Select(po => new PostareDTO
             {
+                id= po.PostareId,
                 userId = po.UserId,
                 titlu = po.titlu,
                 descriere = po.descriere,
@@ -116,6 +118,7 @@ namespace ProiectMDS.Services
             IEnumerable<PostareDTO> rez;
             rez = p.Select(po => new PostareDTO
             {
+                id=po.PostareId,
                 userId = po.UserId,
                 titlu = po.titlu,
                 descriere = po.descriere,
@@ -145,7 +148,7 @@ namespace ProiectMDS.Services
 
             IEnumerable<PostareDTO> rez;
             rez = p.Select(po => new PostareDTO
-            {
+            {id = po.PostareId,
                 userId = po.UserId,
                 titlu = po.titlu,
                 descriere = po.descriere,
@@ -171,7 +174,7 @@ namespace ProiectMDS.Services
             }
             IEnumerable<PostareDTO> rez;
             rez = p.Select(po => new PostareDTO
-            {
+            {id = po.PostareId,
                 userId = po.UserId,
                 titlu = po.titlu,
                 descriere = po.descriere,
@@ -192,6 +195,7 @@ namespace ProiectMDS.Services
             IEnumerable<PostareDTO> rez;
             rez = p.Select(po => new PostareDTO
             {
+                id=po.PostareId,
                 userId = po.UserId,
                 titlu = po.titlu,
                 descriere = po.descriere,
@@ -218,7 +222,7 @@ namespace ProiectMDS.Services
 
             IEnumerable<PostareDTO> rez;
             rez = p.Select(po => new PostareDTO
-            {
+            {id = po.PostareId,
                 userId = po.UserId,
                 titlu = po.titlu,
                 descriere = po.descriere,
@@ -269,6 +273,7 @@ namespace ProiectMDS.Services
             IEnumerable<PostareDTO> rez;
             rez = p.Select(po => new PostareDTO
             {
+              
                 id = po.PostareId,
                 userId = po.UserId,
                 titlu = po.titlu,
@@ -293,6 +298,7 @@ namespace ProiectMDS.Services
             }
             var postDTO = new PostareDTO
             {
+                id=post.PostareId,
                 userId = post.UserId,
                 titlu = post.titlu,
                 descriere = post.descriere,

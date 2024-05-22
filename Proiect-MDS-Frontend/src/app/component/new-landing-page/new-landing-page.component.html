@@ -80,7 +80,7 @@
     <br />
     <br />
     <div class="posts" *ngIf="posts.length > 0">
-      <div class="post" *ngFor="let post of posts">
+      <div class="post" *ngFor="let post of posts" (click)="redirectToListingPage(post.id-1)">
         <h4>{{ post.titlu }}</h4>
         <p>
           {{ post.firma }} {{ post.model }} {{ post.anFabricatie }}

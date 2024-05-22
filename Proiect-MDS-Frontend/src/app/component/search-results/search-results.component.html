@@ -5,7 +5,7 @@
     <ul>
       <li
         *ngFor="let result of results"
-        (click)="redirectToListingPage(result.titlu)"
+        (click)="redirectToListingPage(result.id-1)"
       >
         <h3>{{ result.titlu }}</h3>
         <p>Descriere:{{ result.descriere }}</p>
