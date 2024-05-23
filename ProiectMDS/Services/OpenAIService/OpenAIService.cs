@@ -5,15 +5,20 @@ using OpenAI.Models;
 using OpenAI.Chat;
 using ProiectMDS.Exceptions;
 using ProiectMDS.Models;
+using System.Text.Json;
+using ProiectMDS.Repositories;
+
 namespace ProiectMDS.Services
 {
     public class OpenAIService:IOpenAIService
     {
 
         OpenAIClient client;
+        IPostareRepository _postareRepository;
 
-        public OpenAIService(){
+        public OpenAIService(IPostareRepository postareRepository){
            client = new OpenAIClient();
+            _postareRepository = postareRepository;
         }
 
         public async Task<OpenAIDTO> profilePictureFilter(IFormFile file)
@@ -43,7 +48,81 @@ namespace ProiectMDS.Services
             }
         }
 
+        private static string ultCaract(string originalString, string substring)
+        {
+            int index = originalString.LastIndexOf(substring);
+            if (index == -1)
+                return originalString;
+            return originalString.Remove(index, substring.Length);
+        }
+        private async Task<string> CreateCarQuery(dynamic parameters)
+        {
+            string query = "SELECT * FROM [dbo].[postare] WHERE 1=1";
+            Console.WriteLine(parameters);
+            Console.WriteLine(parameters.GetType());
+            if (parameters.TryGetProperty("brand", out JsonElement brand) && brand.ValueKind != JsonValueKind.Null)
+                query += $" AND firma = '{brand.GetString()}'";
+            if (parameters.TryGetProperty("model", out JsonElement model) && model.ValueKind != JsonValueKind.Null)
+                query += $" AND model = '{model.GetString()}'";
+            if (parameters.TryGetProperty("color", out JsonElement color) && color.ValueKind == JsonValueKind.Array && color.GetArrayLength() > 0)
+            {
+                query += " AND (";
+                foreach (var colorElement in color.EnumerateArray())
+                {
+                    if (colorElement.ValueKind != JsonValueKind.Null)
+                        query += $" culoare LIKE '{colorElement.GetString()}' OR";
+                }
+                query = ultCaract(query, " OR") + ")";
+            }
+            if (parameters.TryGetProperty("minMakeYear", out JsonElement minYear) && minYear.ValueKind != JsonValueKind.Null)
+                query += $" AND anFabricatie >= {minYear.GetInt32()}";
+            if (parameters.TryGetProperty("maxMakeYear", out JsonElement maxYear) && maxYear.ValueKind != JsonValueKind.Null)
+                query += $" AND anFabricatie <= {maxYear.GetInt32()}";
+            if (parameters.TryGetProperty("mileage", out JsonElement mileage) && mileage.ValueKind != JsonValueKind.Null)
+                query += $" AND kilometraj <= {mileage.GetInt32()}";
+            if (parameters.TryGetProperty("price", out JsonElement price) && price.ValueKind != JsonValueKind.Null)
+                query += $" AND pret <= {price.GetDecimal()}";
+            if (parameters.TryGetProperty("minprice", out JsonElement minPrice) && minPrice.ValueKind != JsonValueKind.Null)
+                query += $" AND pret >= {minPrice.GetDecimal()}";
 
+            return query;
+        }
+        public async Task<IEnumerable<Postare>> GetInfo(string prompt)
+        {
+            var messages = new List<Message>
+            {
+                new Message(Role.System,"You are a helpful assistant that will help users find their dream car. The user can mention anything about it from just the make or the model, to any specific details they might want."),
+                new Message(Role.User, prompt)
+            };
+            Tool.ClearRegisteredTools();
+            var tools = new List<Tool>
+            {
+                Tool.FromFunc<Dictionary<string, object>, Task<string>>("create_car_query", CreateCarQuery,"Create a SQL SSMS query that gets all the cars with the criteria specified by the user."+
+                           "The user might speak other languages other than English. Convert any colors in English. The parameters are: price(number),minprice(number),brand(string),model(string),mileage(number),minMakeYear(number),maxMakeYear(number),color(array of strings).")
+            };
+
+            var chatRequest = new ChatRequest(messages, tools: tools, toolChoice: "auto");
+            var response = await client.ChatEndpoint.GetCompletionAsync(chatRequest);
+
+            if (response.FirstChoice.Message.ToolCalls != null)
+            {
+                foreach (var toolCall in response.FirstChoice.Message.ToolCalls)
+                {
+                    Console.WriteLine($"{response.FirstChoice.Message.Role}: {toolCall.Function.Name} | Finish Reason: {response.FirstChoice.FinishReason}");
+                    Console.WriteLine($"{toolCall.Function.Arguments}");
+
+                    var functionResult = await toolCall.InvokeFunctionAsync<string>();
+                    messages.Add(new Message(Role.Tool, functionResult));
+                    Console.WriteLine($"{Role.Tool}: {functionResult}");
+                    return await _postareRepository.executeQuery(functionResult);
+                }
+            }
+            else
+            {
+                throw new Exception("I can only help you find cars");
+            }
+            throw new Exception("Please give me more details");
+        }
         public async Task<OpenAIDTO> GetDescription(OpenAIDTO prompt)  
         {
             var messages = new List<Message>
