@@ -18,8 +18,8 @@ namespace ProiectMDS.Controllers
         [HttpPost]
         public async Task<IActionResult> AddPostare([FromForm] PostareDTO postareDTO)
         {
-            await _postareService.AddPostare(postareDTO);
-            return Ok();
+            
+            return Ok(await _postareService.AddPostare(postareDTO));
         }
         [HttpGet]
         public async Task<IActionResult> getAllPostari()
@@ -102,6 +102,12 @@ namespace ProiectMDS.Controllers
         public async Task<IActionResult> PostareByUserId(int userId)
         {
             var p = await _postareService.PostareByUserId(userId);
+            return Ok(p);
+        }
+        [HttpGet("carid/{id}")]
+        public async Task<IActionResult> PostareById(int id)
+        {
+            var p = await _postareService.postareById(id);
             return Ok(p);
         }
     }

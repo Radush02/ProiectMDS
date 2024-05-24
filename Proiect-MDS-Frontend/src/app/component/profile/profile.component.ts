@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { S3Service } from '../../services/s3.service';
@@ -33,7 +33,8 @@ export class ProfileComponent implements OnInit {
     private params: ActivatedRoute,
     private userService: UserService,
     private s3Service: S3Service,
-    private PostService: PostService
+    private PostService: PostService,
+    private router: Router
   ) {
     this.params.queryParams.subscribe((params) => {
       this.user = params['user'];
@@ -59,6 +60,9 @@ export class ProfileComponent implements OnInit {
   getUrl(fileImageName: string) {
     return this.s3Service.getObjectUrl('dawbucket', fileImageName);
   }
+  goto(id:number){
+    this.router.navigate(['/carimg'], { queryParams: { id: id } });
+  }
   test() {
     this.s3Service
       .getFilesFromFolder('dawbucket', 'post5/')
@@ -83,7 +87,8 @@ interface userDTO {
   nrPostari: number;
 }
 interface carDTO {
-  id: number;
+  id:number;
+  userid: number;
   titlu: string;
   descriere: string;
   pret: number;

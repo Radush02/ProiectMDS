@@ -16,7 +16,7 @@ namespace ProiectMDS.Services
             _s3Service = s3Service;
         }
 
-        public async Task AddPostare(PostareDTO postareDTO)
+        public async Task<int> AddPostare(PostareDTO postareDTO)
         {
             int idx = await _postareRepository.CountPostare();
   
@@ -42,6 +42,7 @@ namespace ProiectMDS.Services
                 var fileName = $"post{idx}/{postareDTO.imagini[i].FileName}";
                 await _s3Service.UploadFileAsync(fileName, postareDTO.imagini[i]);
             }
+            return idx;
         }
 
         public async Task DeletePostare(int id)
@@ -61,6 +62,7 @@ namespace ProiectMDS.Services
             IEnumerable<PostareDTO> rez;
             rez = p.Select(po => new PostareDTO
             {
+                id = po.PostareId,
                 userId = po.UserId,
                 titlu = po.titlu,
                 descriere = po.descriere,
@@ -88,6 +90,7 @@ namespace ProiectMDS.Services
             IEnumerable<PostareDTO> rez;
             rez = p.Select(po => new PostareDTO
             {
+                id= po.PostareId,
                 userId = po.UserId,
                 titlu = po.titlu,
                 descriere = po.descriere,
@@ -115,6 +118,7 @@ namespace ProiectMDS.Services
             IEnumerable<PostareDTO> rez;
             rez = p.Select(po => new PostareDTO
             {
+                id=po.PostareId,
                 userId = po.UserId,
                 titlu = po.titlu,
                 descriere = po.descriere,
@@ -144,7 +148,7 @@ namespace ProiectMDS.Services
 
             IEnumerable<PostareDTO> rez;
             rez = p.Select(po => new PostareDTO
-            {
+            {id = po.PostareId,
                 userId = po.UserId,
                 titlu = po.titlu,
                 descriere = po.descriere,
@@ -170,7 +174,7 @@ namespace ProiectMDS.Services
             }
             IEnumerable<PostareDTO> rez;
             rez = p.Select(po => new PostareDTO
-            {
+            {id = po.PostareId,
                 userId = po.UserId,
                 titlu = po.titlu,
                 descriere = po.descriere,
@@ -191,6 +195,7 @@ namespace ProiectMDS.Services
             IEnumerable<PostareDTO> rez;
             rez = p.Select(po => new PostareDTO
             {
+                id=po.PostareId,
                 userId = po.UserId,
                 titlu = po.titlu,
                 descriere = po.descriere,
@@ -217,7 +222,7 @@ namespace ProiectMDS.Services
 
             IEnumerable<PostareDTO> rez;
             rez = p.Select(po => new PostareDTO
-            {
+            {id = po.PostareId,
                 userId = po.UserId,
                 titlu = po.titlu,
                 descriere = po.descriere,
@@ -268,6 +273,8 @@ namespace ProiectMDS.Services
             IEnumerable<PostareDTO> rez;
             rez = p.Select(po => new PostareDTO
             {
+              
+                id = po.PostareId,
                 userId = po.UserId,
                 titlu = po.titlu,
                 descriere = po.descriere,
@@ -282,5 +289,30 @@ namespace ProiectMDS.Services
             });
             return rez;
         }
+        public async Task<PostareDTO> postareById(int id)
+        {
+            var post = await _postareRepository.PostareById(id);
+            if (post == null)
+            {
+                throw new NotFoundException($"Nu exista postare cu id-ul {id}");
+            }
+            var postDTO = new PostareDTO
+            {
+                id=post.PostareId,
+                userId = post.UserId,
+                titlu = post.titlu,
+                descriere = post.descriere,
+                pret = post.pret,
+                firma = post.firma,
+                model = post.model,
+                kilometraj = post.kilometraj,
+                anFabricatie = post.anFabricatie,
+                talon = post.talon,
+                carteIdentitateMasina = post.carteIdentitateMasina,
+                asigurare = post.asigurare
+            };
+            return postDTO;
+        }
     }
+
 }

@@ -24,6 +24,23 @@ export class S3Service {
       Key: key,
     });
   }
+  uploadFile(bucket: string, key: string, file: File): Promise<void> {
+    const params = {
+      Bucket: bucket,
+      Key: key,
+      Body: file,
+    };
+
+    return new Promise((resolve, reject) => {
+      this.s3.upload(params, (err: any) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
+    });
+  }
   getFilesFromFolder(bucket: string, folder: string): Promise<string[]> {
     const params = {
       Bucket: bucket,

@@ -43,6 +43,7 @@ namespace ProiectMDS.Services
             }
         }
 
+
         public async Task<OpenAIDTO> GetDescription(OpenAIDTO prompt)  
         {
             var messages = new List<Message>

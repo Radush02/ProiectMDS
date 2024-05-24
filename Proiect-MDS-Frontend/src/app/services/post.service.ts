@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
-  HttpClient,
-  HttpClientModule,
-  HttpErrorResponse,
+  HttpClient
 } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { environment } from '../../environments/environments';
@@ -15,6 +13,9 @@ export class PostService {
   constructor(private http: HttpClient) {}
   public getPosts(): Observable<any> {
     return this.http.get<any>(this.apiKey);
+  }
+  public getPostById(id: number): Observable<any> {
+    return this.http.get<any>(this.apiKey+'carid/' + id);
   }
   public getPostsByAge(minAge: any, maxRange: any): Observable<any> {
     if (minAge == null && maxRange == null)

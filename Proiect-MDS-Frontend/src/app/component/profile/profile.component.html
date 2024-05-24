@@ -35,8 +35,9 @@
       <br />
       <br />
       <div class="posts" *ngIf="posts.length > 0">
-        <div class="post" *ngFor="let post of posts">
+        <div class="post" (click)="goto(post.id-1)" *ngFor="let post of posts">
           <h4>{{ post.titlu }}</h4>
+          <img src="{{getUrl('thumbnail' + (post.id - 1))}}" alt="Car Image" width="100px" />
           <p>
             {{ post.firma }} {{ post.model }} {{ post.anFabricatie }}
             {{ post.kilometraj }}km Price:{{ post.pret }}

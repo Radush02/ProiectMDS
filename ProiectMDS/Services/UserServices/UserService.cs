@@ -200,6 +200,10 @@ namespace ProiectMDS.Services
         public async Task<string> LoginAsync(LoginDTO login)
         {
             var user = await _userManager.FindByNameAsync(login.username);
+            if (user == null)
+            {
+                throw new NotFoundException("Nu exista userul");
+            }
             if(user.EmailConfirmed == false)
             {
                 throw new NotFoundException("Emailul nu a fost confirmat, va rugam sa verificati emailul pentru link-ul de confirmare");

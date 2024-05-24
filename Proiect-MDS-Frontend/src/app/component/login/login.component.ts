@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
           'Strict'
         );
         this.errorMessage = 'Connected';
-        this.router.navigate(['landingPage']);
+        this.router.navigate(['home']);
         localStorage.setItem('token', response.token);
         console.log(localStorage);
       },
@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
   }
   ngOnInit() {
     if(this.cookieService.get('token') !== ''){
-      this.router.navigate(['landingPage']);
+      this.router.navigate(['home']);
     }
     this.loginForm = this.fb.group({
       userName: ['', Validators.required],

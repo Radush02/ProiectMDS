@@ -153,7 +153,9 @@ export class RegisterComponent implements OnInit {
         if (uploadResult) {
           this.registerService.sendConfirmationEmail(formData).subscribe(
           () => {
-            console.log('email trimis');
+            this.dialog.open(MessagePopUpComponent, {
+              data: 'Email sent. Please check your e-mail.',
+              });
 
           },
           (error) => {
@@ -161,7 +163,9 @@ export class RegisterComponent implements OnInit {
           }
           );
         } else {
-          console.log('Invalid photo');
+          this.dialog.open(MessagePopUpComponent, {
+            data: 'Your profile picture is NSFW. Please check your email for more details.',
+            });
         }
         },
         (error) => {

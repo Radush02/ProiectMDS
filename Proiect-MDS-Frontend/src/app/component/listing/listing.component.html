@@ -1,5 +1,13 @@
 <app-navbar />
 <div *ngFor="let result of results">
+  <div class="container mt-5">
+    <carousel>
+      <slide *ngFor="let image of images">
+        <img src="{{ image }}" alt="Image">
+      </slide>
+    </carousel>
+  </div>
+  
   <h3>{{ result.titlu }}</h3>
   <p>Descriere:{{ result.descriere }}</p>
 </div>

@@ -4,7 +4,7 @@ namespace ProiectMDS.Services
 {
     public interface IPostareService
     {
-        Task AddPostare(PostareDTO postareDTO);
+        Task<int> AddPostare(PostareDTO postareDTO);
         Task DeletePostare(int id);
         Task UpdatePostare(PostareDTO postare);
         Task<IEnumerable<PostareDTO>> getAllPostari();
@@ -16,6 +16,7 @@ namespace ProiectMDS.Services
         Task<IEnumerable<PostareDTO>> PostareByModel(String model);
         Task<int> NrPostareByUser(int userId);
         Task<IEnumerable<PostareDTO>> PostareByUserId(int userId);
+        Task<PostareDTO> postareById(int id);
 
     }
 }
