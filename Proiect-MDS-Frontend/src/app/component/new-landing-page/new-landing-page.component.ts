@@ -18,6 +18,7 @@ import { UserService } from '../../services/user.service';
 import { S3Service } from '../../services/s3.service';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { OnInit } from '@angular/core';
+import { OpenaiService } from '../../services/openai.service';
 @Component({
   selector: 'app-new-landing-page',
   standalone: true,
@@ -28,7 +29,7 @@ import { OnInit } from '@angular/core';
     ReactiveFormsModule,
     NavbarComponent,
   ],
-  providers: [PostService, UserService, S3Service, UserService],
+  providers: [PostService, UserService, S3Service, UserService,OpenaiService],
   templateUrl: './new-landing-page.component.html',
   styleUrl: './new-landing-page.component.css',
 })
@@ -53,7 +54,8 @@ export class NewLandingPageComponent implements OnInit {
     private fb: FormBuilder,
     private PostService: PostService,
     private s3Service: S3Service,
-    private userService: UserService
+    private userService: UserService,
+    private openaiService: OpenaiService
   ) {
     const anCurent = new Date().getFullYear();
     this.rangeAn = this.rangeAni(1900, anCurent);
@@ -124,34 +126,6 @@ export class NewLandingPageComponent implements OnInit {
         let resultsPage = this.router.navigate(['/searchResults'], {
           state: { results: rez },
         });
-
-        // let resultsPage = window.open(resultsPageUrl);
-        // if (resultsPage) {
-        //   resultsPage.onload = () => {
-        //     if (resultsPage) {
-        //       resultsPage.document.write(
-        //         '<html><head><title>Rezultate căutare</title></head><body>'
-        //       );
-        //       resultsPage.document.write('<h1>Rezultate căutare</h1>');
-        //       resultsPage.document.write('<ul>');
-        //       rez.forEach((car: carDTO) => {
-        //         if (resultsPage)
-        //           resultsPage.document.write(
-        //             `<li>${car.titlu} - ${car.model}-${car.firma} - ${car.anFabricatie} -${car.descriere}</li>`
-        //           );
-        //       });
-        //       resultsPage.document.write('</ul></body></html>');
-        //       resultsPage.document.close();
-        //       if (resultsPage) {
-        //         resultsPage.postMessage(rez, baseUrl);
-        //       }
-        //     }
-        //   };
-        // } else {
-        //   alert(
-        //     'Popup blockat! Te rugăm să permiti pop-up-uri pentru a afișa rezultatele.'
-        //   );
-        // }
       }
     );
   }
@@ -255,6 +229,16 @@ export class NewLandingPageComponent implements OnInit {
   }
   redirectToListingPage(titlu: any): void {
     this.router.navigate(['/listing'], { queryParams: { id: titlu } });
+  }
+  customSearch() {
+    let prmpt = document.getElementById('customSearch') as HTMLInputElement;
+    console.log(prmpt.value);
+    this.openaiService.customSearch({prompt:prmpt.value}).subscribe((response) => {
+      console.log(response);
+      this.router.navigate(['/searchResults'], {
+        state: { results: response },
+      });
+    });
   }
 }
 

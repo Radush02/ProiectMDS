@@ -7,6 +7,7 @@ using ProiectMDS.Exceptions;
 using ProiectMDS.Models;
 using System.Text.Json;
 using ProiectMDS.Repositories;
+using ProiectMDS.Models.DTOs;
 
 namespace ProiectMDS.Services
 {
@@ -87,7 +88,7 @@ namespace ProiectMDS.Services
 
             return query;
         }
-        public async Task<IEnumerable<Postare>> GetInfo(string prompt)
+        public async Task<IEnumerable<PostareDTO>> GetInfo(string prompt)
         {
             var messages = new List<Message>
             {
@@ -114,7 +115,26 @@ namespace ProiectMDS.Services
                     var functionResult = await toolCall.InvokeFunctionAsync<string>();
                     messages.Add(new Message(Role.Tool, functionResult));
                     Console.WriteLine($"{Role.Tool}: {functionResult}");
-                    return await _postareRepository.executeQuery(functionResult);
+                    var rez = await _postareRepository.executeQuery(functionResult);
+                    if (rez == null)
+                        throw new Exception("No cars found");
+                    return rez.Select(po => new PostareDTO
+                    {
+
+                        id = po.PostareId,
+                        userId = po.UserId,
+                        titlu = po.titlu,
+                        descriere = po.descriere,
+                        pret = po.pret,
+                        firma = po.firma,
+                        model = po.model,
+                        kilometraj = po.kilometraj,
+                        anFabricatie = po.anFabricatie,
+                        talon = po.talon,
+                        carteIdentitateMasina = po.carteIdentitateMasina,
+                        culoare = po.culoare,
+                        asigurare = po.asigurare
+                    });
                 }
             }
             else

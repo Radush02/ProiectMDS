@@ -4,6 +4,11 @@
     <img src="assets/style_assets/logo_main.png" alt="logo" />
   </div> -->
   <div class="register-container">
+    <div>
+      <label for="customSearch">Cautare personalizata:</label><br />
+      <input type="text" id="customSearch" />
+      <button (click)="customSearch()">Cauta</button>
+      </div>
     <form (ngSubmit)="applyFilter()" [formGroup]="findForm">
       <label for="marca">Marca masina:</label><br />
       <input
@@ -74,6 +79,7 @@
 
       <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
     </form>
+
   </div>
   <div class="posts_information">
     <h2>User Posts</h2>
