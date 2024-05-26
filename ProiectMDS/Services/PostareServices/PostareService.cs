@@ -33,6 +33,7 @@ namespace ProiectMDS.Services
                 talon = postareDTO.talon,
                 carteIdentitateMasina = postareDTO.carteIdentitateMasina,
                 asigurare = postareDTO.asigurare,
+                culoare = postareDTO.culoare,
                 nrImagini = postareDTO.imagini.Count
             };
             await _postareRepository.AddPostare(postare);
@@ -73,6 +74,7 @@ namespace ProiectMDS.Services
                 anFabricatie = po.anFabricatie,
                 talon = po.talon,
                 carteIdentitateMasina = po.carteIdentitateMasina,
+                culoare = po.culoare,
                 asigurare = po.asigurare
             });
             return rez;
@@ -101,6 +103,7 @@ namespace ProiectMDS.Services
                 anFabricatie = po.anFabricatie,
                 talon = po.talon,
                 carteIdentitateMasina = po.carteIdentitateMasina,
+                culoare = po.culoare,
                 asigurare = po.asigurare
             });
             return rez;
@@ -129,6 +132,7 @@ namespace ProiectMDS.Services
                 anFabricatie = po.anFabricatie,
                 talon = po.talon,
                 carteIdentitateMasina = po.carteIdentitateMasina,
+                culoare = po.culoare,
                 asigurare = po.asigurare
             });
             return rez;
@@ -159,6 +163,7 @@ namespace ProiectMDS.Services
                 anFabricatie = po.anFabricatie,
                 talon = po.talon,
                 carteIdentitateMasina = po.carteIdentitateMasina,
+                culoare = po.culoare,
                 asigurare = po.asigurare
             });
             return rez;
@@ -185,6 +190,7 @@ namespace ProiectMDS.Services
                 anFabricatie = po.anFabricatie,
                 talon = po.talon,
                 carteIdentitateMasina = po.carteIdentitateMasina,
+                culoare = po.culoare,
                 asigurare = po.asigurare
             });
             return rez;
@@ -206,6 +212,7 @@ namespace ProiectMDS.Services
                 anFabricatie = po.anFabricatie,
                 talon = po.talon,
                 carteIdentitateMasina = po.carteIdentitateMasina,
+                culoare = po.culoare,
                 asigurare = po.asigurare
             });
             return rez;
@@ -233,6 +240,7 @@ namespace ProiectMDS.Services
                 anFabricatie = po.anFabricatie,
                 talon = po.talon,
                 carteIdentitateMasina = po.carteIdentitateMasina,
+                culoare = po.culoare,
                 asigurare = po.asigurare
             });
             return rez;
@@ -257,6 +265,7 @@ namespace ProiectMDS.Services
             p.talon = postareDTO.talon;
             p.carteIdentitateMasina = postareDTO.carteIdentitateMasina;
             p.asigurare = postareDTO.asigurare;
+            p.culoare = postareDTO.culoare;
 
             await _postareRepository.UpdatePostare(p);
         }
@@ -285,6 +294,7 @@ namespace ProiectMDS.Services
                 anFabricatie = po.anFabricatie,
                 talon = po.talon,
                 carteIdentitateMasina = po.carteIdentitateMasina,
+                culoare = po.culoare,
                 asigurare = po.asigurare
             });
             return rez;
@@ -309,6 +319,7 @@ namespace ProiectMDS.Services
                 anFabricatie = post.anFabricatie,
                 talon = post.talon,
                 carteIdentitateMasina = post.carteIdentitateMasina,
+                culoare = post.culoare,
                 asigurare = post.asigurare
             };
             return postDTO;

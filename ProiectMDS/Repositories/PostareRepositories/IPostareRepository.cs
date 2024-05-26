@@ -19,5 +19,6 @@ namespace ProiectMDS.Repositories
         Task<IEnumerable<Postare>> PostareByFirma(string firma);
         Task<IEnumerable<Postare>> PostareByModel(string model);
         Task<IEnumerable<Postare>> PostareByUserId(int userId);
+        Task<IEnumerable<Postare>> executeQuery(string query);
     }
 }

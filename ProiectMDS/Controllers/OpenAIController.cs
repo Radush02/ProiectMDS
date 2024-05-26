@@ -24,5 +24,15 @@ namespace ProiectMDS.Controllers
             }
             return NotFound();
         }
+        [HttpPost("getCars")]
+        public async Task<IActionResult> getCars([FromBody] OpenAIDTO prompt)
+        {
+            var result = await _openAIService.GetInfo(prompt.prompt);
+            if(result != null)
+            {
+                return Ok(result);
+            }
+            return NotFound();
+        }
     }
 }

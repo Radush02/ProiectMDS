@@ -30,6 +30,11 @@ namespace ProiectMDS.Repositories
 
             await _dbContext.SaveChangesAsync();
         }
+        public async Task<IEnumerable<Postare>> executeQuery(string query)
+        {
+            string sql = $"{query}";
+            return await _dbContext.Postare.FromSqlRaw(sql).ToListAsync();
+        }
 
         public async Task<Postare> PostareById(int id)
         {

@@ -23,6 +23,7 @@ namespace ProiectMDS.Models
         public int anFabricatie {  get; set; }
 
         public string talon {  get; set; }
+        public string culoare { get; set; }
 
         public string carteIdentitateMasina { get; set; }
 

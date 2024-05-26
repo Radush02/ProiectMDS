@@ -12,5 +12,7 @@ export class OpenaiService {
     response(prompt:any):Observable<any>{
         return this.httpClient.post<any>(this.apiKey+'getdescription',prompt);
     }
-    
+    customSearch(prompt:any):Observable<any>{
+        return this.httpClient.post<any>(this.apiKey+'getCars',prompt);
+    }
 }
