@@ -9,17 +9,30 @@ namespace ProiectMDS.Services
     {
         private readonly IPostareRepository _postareRepository;
         private readonly IS3Service _s3Service;
+        private readonly IGoogleService _googleService;
 
-        public PostareService(IPostareRepository postareRepository, IS3Service s3Service)
+        public PostareService(IPostareRepository postareRepository, IS3Service s3Service,IGoogleService googleService)
         {
             _postareRepository = postareRepository;
             _s3Service = s3Service;
+            _googleService = googleService;
         }
 
         public async Task<int> AddPostare(PostareDTO postareDTO)
         {
             int idx = await _postareRepository.CountPostare();
-  
+            string aux;
+            double lat,longitudine;
+            try
+            {
+                Console.WriteLine(postareDTO.culoare);
+                aux = await _googleService.check(postareDTO.culoare);
+                (lat,longitudine) = await _googleService.GetCoordinatesAsync(postareDTO.locatie);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
             var postare = new Postare()
             {
                 UserId = postareDTO.userId,
@@ -33,8 +46,13 @@ namespace ProiectMDS.Services
                 talon = postareDTO.talon,
                 carteIdentitateMasina = postareDTO.carteIdentitateMasina,
                 asigurare = postareDTO.asigurare,
-                culoare = postareDTO.culoare,
-                nrImagini = postareDTO.imagini.Count
+                culoare = aux,
+                nrImagini = postareDTO.imagini.Count,
+                adresa_user = postareDTO.locatie,
+                latitudine = lat,
+                longitudine = longitudine,
+                adresa_formala = await _googleService.getLocationFromCoordinates(lat, longitudine)
+             
             };
             await _postareRepository.AddPostare(postare);
 
@@ -75,7 +93,10 @@ namespace ProiectMDS.Services
                 talon = po.talon,
                 carteIdentitateMasina = po.carteIdentitateMasina,
                 culoare = po.culoare,
-                asigurare = po.asigurare
+                asigurare = po.asigurare,
+                locatie = po.adresa_user,
+                locatie_formala = po.adresa_formala,
+                linkMaps = _googleService.getLocationURL(po.adresa_formala)
             });
             return rez;
         }
@@ -104,7 +125,10 @@ namespace ProiectMDS.Services
                 talon = po.talon,
                 carteIdentitateMasina = po.carteIdentitateMasina,
                 culoare = po.culoare,
-                asigurare = po.asigurare
+                asigurare = po.asigurare,
+                locatie = po.adresa_user,
+                locatie_formala = po.adresa_formala,
+                linkMaps = _googleService.getLocationURL(po.adresa_formala)
             });
             return rez;
         }
@@ -133,7 +157,10 @@ namespace ProiectMDS.Services
                 talon = po.talon,
                 carteIdentitateMasina = po.carteIdentitateMasina,
                 culoare = po.culoare,
-                asigurare = po.asigurare
+                asigurare = po.asigurare,
+                locatie = po.adresa_user,
+                locatie_formala = po.adresa_formala,
+                linkMaps = _googleService.getLocationURL(po.adresa_formala)
             });
             return rez;
         }
@@ -164,7 +191,10 @@ namespace ProiectMDS.Services
                 talon = po.talon,
                 carteIdentitateMasina = po.carteIdentitateMasina,
                 culoare = po.culoare,
-                asigurare = po.asigurare
+                asigurare = po.asigurare,
+                locatie = po.adresa_user,
+                locatie_formala = po.adresa_formala,
+                linkMaps = _googleService.getLocationURL(po.adresa_formala)
             });
             return rez;
         }
@@ -191,7 +221,10 @@ namespace ProiectMDS.Services
                 talon = po.talon,
                 carteIdentitateMasina = po.carteIdentitateMasina,
                 culoare = po.culoare,
-                asigurare = po.asigurare
+                asigurare = po.asigurare,
+                locatie = po.adresa_user,
+                locatie_formala = po.adresa_formala,
+                linkMaps = _googleService.getLocationURL(po.adresa_formala)
             });
             return rez;
         }
@@ -213,7 +246,10 @@ namespace ProiectMDS.Services
                 talon = po.talon,
                 carteIdentitateMasina = po.carteIdentitateMasina,
                 culoare = po.culoare,
-                asigurare = po.asigurare
+                asigurare = po.asigurare,
+                locatie = po.adresa_user,
+                locatie_formala = po.adresa_formala,
+                linkMaps = _googleService.getLocationURL(po.adresa_formala)
             });
             return rez;
         }
@@ -241,7 +277,10 @@ namespace ProiectMDS.Services
                 talon = po.talon,
                 carteIdentitateMasina = po.carteIdentitateMasina,
                 culoare = po.culoare,
-                asigurare = po.asigurare
+                asigurare = po.asigurare,
+                locatie = po.adresa_user,
+                locatie_formala = po.adresa_formala,
+                linkMaps = _googleService.getLocationURL(po.adresa_formala)
             });
             return rez;
         }
@@ -295,7 +334,10 @@ namespace ProiectMDS.Services
                 talon = po.talon,
                 carteIdentitateMasina = po.carteIdentitateMasina,
                 culoare = po.culoare,
-                asigurare = po.asigurare
+                asigurare = po.asigurare,
+                locatie = po.adresa_user,
+                locatie_formala = po.adresa_formala,
+                linkMaps = _googleService.getLocationURL(po.adresa_formala)
             });
             return rez;
         }
@@ -320,7 +362,10 @@ namespace ProiectMDS.Services
                 talon = post.talon,
                 carteIdentitateMasina = post.carteIdentitateMasina,
                 culoare = post.culoare,
-                asigurare = post.asigurare
+                asigurare = post.asigurare,
+                locatie = post.adresa_user,
+                locatie_formala = post.adresa_formala,
+                linkMaps = _googleService.getLocationURL(post.adresa_formala)
             };
             return postDTO;
         }

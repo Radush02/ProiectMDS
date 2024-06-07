@@ -29,6 +29,10 @@ namespace ProiectMDS.Models
 
         public string asigurare {  get; set; }
         public int nrImagini { get; set; }
+        public double latitudine { get; set; }
+        public double longitudine { get; set; }
+        public string adresa_user { get; set; }
+        public string adresa_formala { get; set; }
 
         public virtual User User {  get; set; }
 

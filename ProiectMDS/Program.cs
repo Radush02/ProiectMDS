@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using ProiectMDS.Repositories;
 using ProiectMDS.Services.ChirieServices;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -40,6 +41,8 @@ builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
 
 builder.Services.AddScoped<IOpenAIService, OpenAIService>();
+builder.Services.AddScoped<IGoogleService,GoogleService>();
+
 builder.Services.Configure<SendGridSettings>(builder.Configuration.GetSection("SendGridSettings"));
 builder.Services.AddSendGrid(options=>
     options.ApiKey=builder.Configuration.GetSection("SendGridSettings").GetValue<string>("SendGridKey")

@@ -72,6 +72,14 @@
         name="anFabricatie"
         required
       /><br />
+      <label for="culoare">Culoare:</label>
+      <input
+        formControlName="culoare"
+        type="text"
+        id="culoare"
+        name="culoare"
+        required>
+      <br />
       <label for="talon">Talon:</label>
       <input
         formControlName="talon"
@@ -106,7 +114,15 @@
           multiple
           (change)="onFileSelected($event)"
         />
-      </label>
+      </label><br/>
+      <label for="adresa">Adresa:</label>
+      <input
+        formControlName="adresa"
+        type="text"
+        id="adresa"
+        name="adresa"
+        required>
+      <br />
       <input type="submit" value="Adaugă mașina" />
 
       <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
