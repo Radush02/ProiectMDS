@@ -153,7 +153,8 @@ namespace ProiectMDS.Services
                 " Make the description as presentable as possible, including bullet points (where possible)," +
                 " new lines, missing details you think the owner might want to include, or any other enhancements you can think of."+
                 "If the user specifies just the car and the year, come up with details of the car buyers might want to know of."+
-                "Reply with 'I don't know how to respond' if you think what the user said doesn't look like a car advertisal description."),
+                "Reply with 'I don't know how to respond' if you think what the user said doesn't look like a car advertisal description."+
+                "The users are always people, not companies."),
                 new Message(Role.User, prompt.prompt)
             };
             var chatRequest = new ChatRequest(messages, Model.GPT3_5_Turbo);

@@ -59,6 +59,11 @@ export class AddCarComponent implements OnInit {
       carteIdentitateMasina: [null, Validators.required],
       asigurare: [null, Validators.required],
       imagini: [null, Validators.required],
+      adresa: [null, Validators.required],
+      culoare: [null, Validators.required],
+      linkMaps: ["value", Validators.required],
+      adresa_formala: ["value", Validators.required],
+
     });
   }
   onFileSelected(event: any) {
@@ -104,9 +109,15 @@ export class AddCarComponent implements OnInit {
     for (let i = 0; i < this.selectedFiles.length; i++) {
       form.append('imagini', this.selectedFiles[i]);
     }
-
+    form.append('locatie', this.carForm.value.adresa);
+    form.append('culoare', this.carForm.value.culoare);
+    this.carForm.value.linkMaps="value";
+    this.carForm.value.adresa_formala="value";
+    form.append('locatie_formala',this.carForm.value.adresa_formala);
+    form.append('linkMaps',this.carForm.value.linkMaps);
     console.log(form.get('imagini'));
     console.log(this.carForm.value);
+    console.log(form);
     this.carService.addCar(form)
       .subscribe(
         (response: any) => {

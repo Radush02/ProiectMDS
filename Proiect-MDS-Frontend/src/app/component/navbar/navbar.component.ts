@@ -48,6 +48,10 @@ export class NavbarComponent {
   getImageUrl(imageName: string): string {
     return this.s3Service.getObjectUrl('dawbucket', imageName + '_pfp.png');
   }
+  logout(){
+    this.cookieService.delete('token');
+    this.router.navigate(['/login']);
+  }
   username = '';
   getProfile() {
     const token = localStorage.getItem('token');
