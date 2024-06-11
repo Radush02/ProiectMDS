@@ -5,16 +5,19 @@
 /* #nav-bar{
     position: relative;
     bottom:30vh;
-}
+}*/
 #search-results{
     position: relative;
-    bottom:30vh;
-} */
+    /* bottom:-15%; */
+    padding: 5%;
+    padding-top: 10%;
+} 
 app-navbar {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
+  z-index: 999;
 }
 .search-results ul li {
   transition: background-color 0.3s ease; /* Adăugăm o tranziție de 0.3 secunde pentru culoarea de fundal */

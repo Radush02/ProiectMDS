@@ -10,6 +10,13 @@ input[type="number"]::-webkit-outer-spin-button {
   bottom: 6vh;
 }
 
+#customSearch {
+  border-radius: 15px;
+  padding-left: 2vw;
+  font-size: 1.00rem;
+  align-items: center;
+}
+
 .container {
   display: flex;
   justify-content: center;
@@ -20,17 +27,22 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .register-container {
-  width: 40vw;
+  width: 20vw;
   margin: 0;
   overflow: hidden;
   background: transparent;
-  height: 30vh;
+  position: relative;
+  height: 10vh;
 }
 app-navbar {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
+}
+
+#form-cautare{
+  top: 0vh;
 }
 
 form {

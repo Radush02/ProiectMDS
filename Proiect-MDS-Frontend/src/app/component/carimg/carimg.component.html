@@ -1,27 +1,39 @@
-<app-navbar />
+<app-navbar></app-navbar>
 <div class="container mt-5">
-    <div class="carousel-container">
-        <carousel>
-            <slide *ngFor="let image of images">
-                <img [src]="image" alt="Image">
-            </slide>
-        </carousel>
-    </div>
-    <div *ngIf="loaded===true" style="color:white;">
-        <h3>{{ result.titlu }}</h3>
-        <p>Descriere:{{ result.descriere }}</p>
-        <div style="overflow:hidden;max-width:100%;width:500px;height:500px;">
-            <div id="gmap-canvas" style="height:100%; width:100%;max-width:100%;"><iframe style="height:100%;width:100%;border:0;"
-                frameborder="0"
-                id="map" [src]="result.linkMaps"></iframe>
-            </div><a class="embed-ded-maphtml" href="https://www.bootstrapskins.com/themes" id="grab-maps-authorization">premium
-              bootstrap themes</a>
-            <style>
-              #gmap-canvas img {
-                max-height: none;
-                max-width: none !important;
-                background: none !important;
-              }
-            </style>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="carousel-container rounded">
+                <carousel>
+                    <slide *ngFor="let image of images">
+                        <img [src]="image" alt="Image">
+                    </slide>
+                </carousel>
+            </div>
+            <div class="info-container mt-3" *ngIf="loaded === true" style="color:white;">
+                <h3>{{ result.titlu }}</h3>
+                <p>Descriere: {{ result.descriere }}</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+          <div class="user-panel">
+            <img src="https://via.placeholder.com/125" alt="User Picture" class="user-picture">
+            <p class="post-by">Anunt postat de:</p>
+            <p class="username">DummyUser</p>
+            <button class="profile-button">Vezi Profil</button>
+        </div>
+            <div style="overflow:hidden;max-width:100%;width:500px;height:500px;">
+                <div id="gmap-canvas" style="height:100%; width:100%;max-width:100%;">
+                    <iframe style="height:300px;width:100%;border:0;" frameborder="0" id="map" [src]="result.linkMaps"></iframe>
+                </div>
+                <a class="embed-ded-maphtml" href="https://www.bootstrapskins.com/themes" id="grab-maps-authorization">premium bootstrap themes</a>
+                <style>
+                    #gmap-canvas img {
+                        max-height: none;
+                        max-width: none !important;
+                        background: none !important;
+                    }
+                </style>
+            </div>
+        </div>
     </div>
 </div>
