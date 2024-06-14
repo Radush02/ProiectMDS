@@ -154,8 +154,9 @@ namespace ProiectMDS.Services.ChirieServices
             renterEmailHtml = renterEmailHtml.Replace("{{seller}}", owner.UserName);
             renterEmailHtml = renterEmailHtml.Replace("{{data-start}}", chirie.dataStart.ToString("yyyy-MM-dd"));
             renterEmailHtml = renterEmailHtml.Replace("{{data-stop}}", chirie.dataStop.ToString("yyyy-MM-dd"));
-            renterEmailHtml = renterEmailHtml.Replace("{{harta}}", _googleService.getLocationURL(postare.adresa_formala));
-            renterEmailHtml = renterEmailHtml.Replace("{{adresa-text}}", postare.adresa_formala);
+            renterEmailHtml = renterEmailHtml.Replace("{{maps_img}}", _googleService.getLocationImageFromCoordinates(postare.latitudine,postare.longitudine));
+            renterEmailHtml = renterEmailHtml.Replace("{{adresa-text}}", postare.adresa_formala)
+                .Replace("{{latitudine}}", postare.latitudine.ToString()).Replace("{{longitudine}}",postare.longitudine.ToString());
             await _emailSender.SendEmailAsync(renter.Email, "Confirmare email", renterEmailHtml);
 
             string ownerEmailHtml = await File.ReadAllTextAsync("Templates/OwnerEmailTemplate.html");
