@@ -2,16 +2,25 @@
 using ProiectMDS.Models;
 using ProiectMDS.Repositories;
 using ProiectMDS.Exceptions;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Identity;
+using System.Web;
 
 namespace ProiectMDS.Services.ChirieServices
 {
     public class ChirieService : IChirieService
     {
         private readonly IChirieRepository _chirieRepository;
+        private readonly IEmailSender _emailSender;
+        private readonly UserManager<User> _userManager;
+        private readonly IGoogleService _googleService;
 
-        public ChirieService(IChirieRepository chirieRepository)
+        public ChirieService(IChirieRepository chirieRepository, IEmailSender emailSender, UserManager<User> userManager, IGoogleService googleService)
         {
             _chirieRepository = chirieRepository;
+            _emailSender = emailSender;
+            _userManager = userManager;
+            _googleService = googleService;
         }
 
         public async Task AddChirie(ChirieDTO chirieDTO, int postareId, int userId)
@@ -26,7 +35,7 @@ namespace ProiectMDS.Services.ChirieServices
 
             if (userId == await _chirieRepository.UserByPostareId(postareId))
             {
-                throw new Exception("Nu poti da review unei postari publicate de tine!");
+                throw new Exception("Nu poti inchiria o postare pusa de tine!");
             }
 
             await _chirieRepository.AddChirie(chirie);
@@ -124,6 +133,39 @@ namespace ProiectMDS.Services.ChirieServices
             c.dataStop = chirie.dataStop;
 
             await _chirieRepository.UpdateChirie(c);
+        }
+
+        public async Task rentConfirmationEmail(ChirieDTO chirie)
+        {
+            User renter = await _chirieRepository.UserById(chirie.userId);
+            int ownerId = await _chirieRepository.UserByPostareId(chirie.postareId);
+            User owner = await _chirieRepository.UserById(ownerId);
+            Postare postare = await _chirieRepository.PostareById(chirie.postareId);
+
+            if(postare == null || postare.adresa_formala == null || postare.adresa_formala == "")
+            {
+                throw new Exception();
+            }
+
+            string renterEmailHtml = await File.ReadAllTextAsync("Templates/RenterEmailTemplate.html");
+            renterEmailHtml = renterEmailHtml.Replace("{{username}}", renter.UserName);
+            renterEmailHtml = renterEmailHtml.Replace("{{firma}}", postare.firma);
+            renterEmailHtml = renterEmailHtml.Replace("{{model}}", postare.model);
+            renterEmailHtml = renterEmailHtml.Replace("{{seller}}", owner.UserName);
+            renterEmailHtml = renterEmailHtml.Replace("{{data-start}}", chirie.dataStart.ToString("yyyy-MM-dd"));
+            renterEmailHtml = renterEmailHtml.Replace("{{data-stop}}", chirie.dataStop.ToString("yyyy-MM-dd"));
+            renterEmailHtml = renterEmailHtml.Replace("{{harta}}", _googleService.getLocationURL(postare.adresa_formala));
+            renterEmailHtml = renterEmailHtml.Replace("{{adresa-text}}", postare.adresa_formala);
+            await _emailSender.SendEmailAsync(renter.Email, "Confirmare email", renterEmailHtml);
+
+            string ownerEmailHtml = await File.ReadAllTextAsync("Templates/OwnerEmailTemplate.html");
+            ownerEmailHtml = ownerEmailHtml.Replace("{{username}}", owner.UserName);
+            ownerEmailHtml = ownerEmailHtml.Replace("{{cumparator}}", renter.UserName);
+            ownerEmailHtml = ownerEmailHtml.Replace("{{firma}}", postare.firma);
+            ownerEmailHtml = ownerEmailHtml.Replace("{{model}}", postare.model);
+            ownerEmailHtml = ownerEmailHtml.Replace("{{data-start}}", chirie.dataStart.ToString("yyyy-MM-dd"));
+            ownerEmailHtml = ownerEmailHtml.Replace("{{data-stop}}", chirie.dataStop.ToString("yyyy-MM-dd"));
+            //await _emailSender.SendEmailAsync(owner.Email, "Confirmare email", ownerEmailHtml);
         }
     }
 }

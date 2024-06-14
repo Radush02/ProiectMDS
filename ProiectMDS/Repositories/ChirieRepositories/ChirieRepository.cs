@@ -68,21 +68,21 @@ namespace ProiectMDS.Repositories
 
         public async Task<IEnumerable<Chirie>> ChirieByDataStart(DateTime dataStart)
         {
-            var c = await _dbContext.Chirie.Where(ch => ch.dataStart == dataStart).ToListAsync();
+            var c = await _dbContext.Chirie.Where(ch => ch.dataStart >= dataStart).ToListAsync();
 
             return c;
         }
 
         public async Task<IEnumerable<Chirie>> ChirieByDataStop(DateTime dataStop)
         {
-            var c = await _dbContext.Chirie.Where(ch => ch.dataStop == dataStop).ToListAsync();
+            var c = await _dbContext.Chirie.Where(ch => ch.dataStop <= dataStop).ToListAsync();
 
             return c;
         }
 
         public async Task<IEnumerable<Chirie>> ChirieByData(DateTime dataStart, DateTime dataStop)
         {
-            var c = await _dbContext.Chirie.Where(ch => ch.dataStop == dataStop && ch.dataStart == dataStart).ToListAsync();
+            var c = await _dbContext.Chirie.Where(ch => ch.dataStop >= dataStop && ch.dataStart <= dataStart).ToListAsync();
 
             return c;
         }
@@ -95,6 +95,16 @@ namespace ProiectMDS.Repositories
                 throw new Exception($"Nu exista postare cu id-ul {postareId}");
             }
             return p.UserId;
+        }
+
+        public async Task<Postare> PostareById(int postareId)
+        {
+            var postare = await _dbContext.Postare.FirstOrDefaultAsync(x => x.PostareId == postareId);
+            if (postare == null)
+            {
+                throw new Exception($"Nu exista postare cu id-ul {postareId}");
+            }
+            return postare;
         }
     }
 }

@@ -10,5 +10,6 @@ namespace ProiectMDS.Services.ChirieServices
         Task<IEnumerable<ChirieDTO>> ChirieByDataStart(DateTime dataStart);
         Task<IEnumerable<ChirieDTO>> ChirieByDataStop(DateTime dataStop);
         Task<IEnumerable<ChirieDTO>> ChirieByData(DateTime dataStart, DateTime dataStop);
+        Task rentConfirmationEmail(ChirieDTO chirie);
     }
 }

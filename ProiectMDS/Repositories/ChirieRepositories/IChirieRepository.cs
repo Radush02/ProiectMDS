@@ -15,5 +15,6 @@ namespace ProiectMDS.Repositories
         Task<User> UserById(int id);
         Task UpdatePuncteFidelitate(User user);
         Task<int> UserByPostareId(int postareId);
+        Task<Postare> PostareById(int id);
     }
 }
