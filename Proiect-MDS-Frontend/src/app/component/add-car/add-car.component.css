@@ -170,3 +170,92 @@ input[type="radio"] {
     font-size: 0.5rem;
   }
 }
+
+@media screen and (max-width: 414px) {
+
+  .container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 0px;
+    justify-content: center;
+    align-items: center;
+  }
+  app-navbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  form {
+    border-radius: 10px;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-top: 1vh;
+    background-color: transparent;
+    font-size: 0.72rem;
+    align-items: center;
+  }
+
+  label {
+    color: white;
+    font-size: 0.72rem;
+  }
+  input {
+    background-color: #6450a3;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="submit"],#enhance {
+    width: 100%;
+    padding: 0.5vh;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 8px;
+    margin-top: 10px;
+  }
+
+  /* button, */
+  input[type="submit"] {
+    position: relative;
+    width: 100%;
+    left: 0%;
+    padding: 1vh;
+    border: none;
+    border-radius: 15px;
+    background-color: #6450a3;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  /* button:hover, */
+  input[type="submit"]:hover {
+    background-color: black;
+  }
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  input[type="radio"] {
+    background-color: #6450a3;
+    color: white;
+  }
+  .suggestion {
+    padding: 5px;
+    margin: 5px 0;
+    color: rgba(0, 213, 255, 0.979);
+    border: 2px solid rgba(0, 213, 255, 0.979);
+    border-radius: 5px;
+  }
+
+  .add-car-container{
+    width: 60%;
+    padding-top: 10vh;
+  }
+
+
+  
+}

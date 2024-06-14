@@ -1,3 +1,15 @@
+<script>
+  function toggleMenu() {
+  const dropdownMenu = document.getElementById('dropdownMenu');
+  if (dropdownMenu.style.display === 'flex') {
+    dropdownMenu.style.display = 'none';
+  } else {
+    dropdownMenu.style.display = 'flex';
+  }
+}
+</script>
+
+
 <nav>
   <img
     src="assets/style_assets/logo_main_for_menu.png"
@@ -8,24 +20,19 @@
   />
   <div class="right_items">
     <li>
-      <button (click)="this.router.navigate(['findCar'])">Find a car</button>
+      <button (click)="this.router.navigate(['findCar'])">Find car</button>
     </li>
     <li>
-      <button (click)="this.router.navigate(['addCar'])">Add a car</button>
+      <button (click)="this.router.navigate(['addCar'])">Add car</button>
     </li>
     <li>
-      <button (click)="this.router.navigate(['profileSearch'])">
-        Find a user
-      </button>
+      <button (click)="this.router.navigate(['profileSearch'])">Find user</button>
     </li>
     <li>
-      <button (click)="this.router.navigate(['customerSupport'])">
-        Customer Support
-      </button>
+      <button (click)="this.router.navigate(['customerSupport'])">Customer Support</button>
     </li>
     <li>
-      <button (click)="logout()">
-      Logout</button>
+      <button (click)="logout()">Logout</button>
     </li>
     <li>
       <button (click)="this.router.navigate(['home'])">Home</button>
@@ -40,6 +47,31 @@
           class="profile-image"
         />
       </button>
+    </li>
+  </div>
+  <div class="hamburger-menu" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <div class="dropdown-menu" id="dropdownMenu">
+    <li>
+      <button (click)="this.router.navigate(['findCar'])">Find car</button>
+    </li>
+    <li>
+      <button (click)="this.router.navigate(['addCar'])">Add car</button>
+    </li>
+    <li>
+      <button (click)="this.router.navigate(['profileSearch'])">Find user</button>
+    </li>
+    <li>
+      <button (click)="this.router.navigate(['customerSupport'])">Customer Support</button>
+    </li>
+    <li>
+      <button (click)="logout()">Logout</button>
+    </li>
+    <li>
+      <button (click)="this.router.navigate(['home'])">Home</button>
     </li>
   </div>
 </nav>

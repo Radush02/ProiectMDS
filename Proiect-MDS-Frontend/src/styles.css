@@ -2,21 +2,24 @@
 
 *{
   font-family: 'Inter', sans-serif;
+  
 }
 
 html {
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  /* overflow: hidden; */
+  background: #6450a3;
 }
 body {
   margin: 0;
   padding: 0;
-  height: 100vh;
+  height: 120vh;
+  width: 100;
   background: linear-gradient(to bottom, #6450a3, black);
   background-size: 500%;
   background-repeat: no-repeat;
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
 }
