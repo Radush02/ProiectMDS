@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Cors.Infrastructure;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using ProiectMDS.Models;
 using ProiectMDS.Models.DTOs;
@@ -64,6 +65,21 @@ namespace ProiectMDS.Controllers
         {
             await _chirieService.ChirieByData(dataStart, dataStop);
             return Ok();
+        }
+
+        [HttpPost("rentConfirmationEmail")]
+        [AllowAnonymous]
+        public async Task<IActionResult> rentConfirmationEmail([FromForm] ChirieDTO chirie)
+        {
+            try
+            {
+                await _chirieService.rentConfirmationEmail(chirie);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }
