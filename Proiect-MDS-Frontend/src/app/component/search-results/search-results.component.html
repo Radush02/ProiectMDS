@@ -8,7 +8,7 @@
         (click)="redirectToListingPage(result.id-1)"
       >
         <h3>{{ result.titlu }}</h3>
-        <p>Descriere:{{ result.descriere }}</p>
+        <p class="truncate">Descriere:{{ result.descriere }}</p>
         <p>Pret: {{ result.pret }}</p>
         <img src="{{ result.image }}" alt="car-image" />
       </li>

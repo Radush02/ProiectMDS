@@ -13,6 +13,7 @@ import { UserService } from '../../services/user.service';
 import { HttpClientModule } from '@angular/common/http';
 import { S3Service } from '../../services/s3.service';
 import { CookieService } from 'ngx-cookie-service';
+import {  HostListener } from '@angular/core';
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -45,12 +46,35 @@ export class NavbarComponent {
     let username = this.getProfile();
     console.log(username);
   }
+
+  isMenuOpen = false;
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  closeMenu() {
+    this.isMenuOpen = false;
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClick(event: MouseEvent) {
+    if (!this.isMenuOpen) {
+      return;
+    }
+    const target = event.target as HTMLElement;
+    if (!target.closest('.dropdown-menu') && !target.closest('.hamburger-menu')) {
+      this.closeMenu();
+    }
+  }
+
   getImageUrl(imageName: string): string {
     return this.s3Service.getObjectUrl('dawbucket', imageName + '_pfp.png');
   }
   logout(){
     this.cookieService.delete('token');
     this.router.navigate(['/login']);
+    this.closeMenu(); // Închide meniul după logout
   }
   username = '';
   getProfile() {

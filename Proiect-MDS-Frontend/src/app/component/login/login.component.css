@@ -79,3 +79,24 @@ img{
     border-radius: 5px;
   }
   
+
+  @media only screen and (min-device-width: 280px) and (max-device-width: 450px) and (min-device-height: 612px) and (max-device-height: 813px){
+    .container {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto; /* Setează două rânduri */
+  }
+  .logo {
+      grid-row: 1; /* Poziționează logo-ul în primul rând */
+      top: 0%; /* Resetăm poziționarea pentru portret */
+  }
+  .login-container {
+      grid-row: 2; /* Poziționează login-container în al doilea rând */
+      width: 93vw; /* Ajustează lățimea pentru a se potrivi mai bine pe ecranul mai mic */
+      top: 0vh; /* Resetăm poziționarea pentru portret */
+
+  }
+  img{
+    width: 10000%;
+    height: 10000%;
+  }
+  }

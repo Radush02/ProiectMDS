@@ -4,6 +4,8 @@ input[type="number"]::-webkit-outer-spin-button {
   margin: 0;
 }
 
+
+
 .logo {
   grid-column: 1;
   position: relative;
@@ -202,4 +204,76 @@ img {
   background-color: rgba(0, 0, 0, 0.75);
   transition: background-color 1s ease;
   cursor: pointer;
+}
+
+
+@media screen and (max-width: 414px) {
+
+body{
+  background: #6450a3;
+}
+
+  .container {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10vh;
+    height: auto;
+  }
+
+  .register-container {
+    width: 80vw;
+    height: auto;
+    top: 0;
+    position: relative;
+  }
+
+  form {
+    padding: 2vw;
+    font-size: 0.9rem;
+  }
+
+  .logo {
+    width: 70vw;
+  }
+
+  .logo img {
+    width: 80%;
+    left: 10%;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="submit"] {
+    padding: 0.8vh;
+    margin-bottom: 5px;
+  }
+
+  button,
+  input[type="submit"] {
+    width: 50%;
+    left: 25%;
+    padding: 1vh;
+  }
+
+  label {
+    font-size: 0.8rem;
+  }
+
+  .error-message {
+    font-size: 0.6rem;
+  }
+
+  .posts_information {
+    padding: 2%;
+    margin-left: 5vw;
+  }
+
+  .posts {
+    height: auto;
+    width: 80vw;
+  }
+
+  .post {
+    padding: 5px;
+  }
 }
