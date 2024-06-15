@@ -1,0 +1,77 @@
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using ProiectMDS.Models.DTOs;
+using ProiectMDS.Services;
+using ProiectMDS.Services.SupportServices;
+
+namespace ProiectMDS.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class SupportController : Controller
+    {
+        private readonly ISupportService _supportService;
+        public SupportController(ISupportService supportService)
+        {
+            _supportService = supportService;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddSupport(SupportDTO supportDTO)
+        {
+            await _supportService.AddSupport(supportDTO);
+            return Ok();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> getAllSupports()
+        {
+            var supports = await _supportService.getAllSupports();
+            return Ok(supports);
+        }
+
+        [HttpGet("SupportByUserId/{userId}")]
+        public async Task<IActionResult> getSupportByUserId(int userId)
+        {
+            var supports = await _supportService.getSupportByUserId(userId);
+            return Ok(supports);
+        }
+
+        [HttpGet("SupportBySupportId/{supportId}")]
+        public async Task<IActionResult> getSupportBySupportId(int supportId)
+        {
+            var supports = await _supportService.getSupportBySupportId(supportId);
+            return Ok(supports);
+        }
+
+        [HttpPost("ClientSupportEmail")]
+        [AllowAnonymous]
+        public async Task<IActionResult> clientEmail([FromForm] SupportDTO support)
+        {
+            try
+            {
+                await _supportService.clientEmail(support);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPost("AdminSupportEmail")]
+        [AllowAnonymous]
+        public async Task<IActionResult> adminEmail([FromForm] SupportDTO support)
+        {
+            try
+            {
+                await _supportService.adminEmail(support);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+    }
+}

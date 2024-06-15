@@ -20,6 +20,7 @@ namespace ProiectMDS.Data
 
         public DbSet<Chirie> Chirie { get; set; }
         public object CardDTO { get; internal set; }
+        public DbSet<Support> Support { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -13,7 +13,8 @@ using SendGrid.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using ProiectMDS.Repositories;
 using ProiectMDS.Services.ChirieServices;
-
+using ProiectMDS.Repositories.SupportRepositories;
+using ProiectMDS.Services.SupportServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,6 +40,9 @@ builder.Services.AddScoped<IPostareService, PostareService>();
 
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
+
+builder.Services.AddScoped<ISupportRepository, SupportRepository>();
+builder.Services.AddScoped<ISupportService, SupportService>();
 
 builder.Services.AddScoped<IOpenAIService, OpenAIService>();
 builder.Services.AddScoped<IGoogleService,GoogleService>();
