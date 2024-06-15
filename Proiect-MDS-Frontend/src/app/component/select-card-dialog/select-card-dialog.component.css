@@ -1,0 +1,18 @@
+.mat-dialog-title {
+    background-color: #1976d2;
+    color: white;
+  }
+  
+  .mat-dialog-content {
+    min-width: 300px;
+  }
+  
+  .mat-form-field {
+    width: 100%;
+  }
+  
+  .mat-dialog-actions {
+    justify-content: flex-end;
+    margin-top: 10px;
+  }
+  
