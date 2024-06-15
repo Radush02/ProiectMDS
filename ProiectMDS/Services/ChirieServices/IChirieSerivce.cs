@@ -4,7 +4,7 @@ namespace ProiectMDS.Services.ChirieServices
 {
     public interface IChirieService
     {
-        Task AddChirie(ChirieDTO chirieDTO, int postareId, int userId);
+        Task AddChirie(ChirieDTO chirieDTO);
         Task DeleteChirie(int id);
         Task UpdateChirie(ChirieDTO chirieDTO, int id);
         Task<IEnumerable<ChirieDTO>> ChirieByDataStart(DateTime dataStart);

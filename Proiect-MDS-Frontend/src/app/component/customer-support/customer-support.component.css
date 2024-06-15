@@ -2,12 +2,10 @@
   color: white;
 }
 .container {
-padding-top: 200px;
-position: relative;
+  padding-top: 200px;
+  position: relative;
 }
-.text {
-  /* margin-left: 10%; */
-}
+
 app-navbar {
   position: absolute;
   top: 0;

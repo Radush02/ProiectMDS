@@ -74,7 +74,7 @@ export class NavbarComponent {
   logout(){
     this.cookieService.delete('token');
     this.router.navigate(['/login']);
-    this.closeMenu(); // Închide meniul după logout
+    this.closeMenu(); 
   }
   username = '';
   getProfile() {

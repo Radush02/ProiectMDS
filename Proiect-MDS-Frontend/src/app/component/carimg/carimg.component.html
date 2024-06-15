@@ -1,71 +1,88 @@
-<app-navbar></app-navbar>
+<app-navbar />
 <div class="container mt-5" id="cnt">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="carousel-container rounded">
-                <carousel>
-                    <slide *ngFor="let image of images">
-                        <img [src]="image" alt="Image">
-                    </slide>
-                </carousel>
-            </div>
-            <div class="info-container mt-3" *ngIf="loaded === true" style="color:white;">
-                
-                <div class="filters-container" id="titludesc">
-                    <div class="filter">
-                        Firma: {{result.firma}} 
-                    </div>
-                    <div class="filter">
-                        Model: {{result.model}} 
-                    </div>
-                    <div class="filter">
-                        An: {{result.anFabricatie}} 
-                    </div>
-                    <div class="filter">
-                        Culoare: {{result.culoare}} 
-                    </div>
-                    <div class="filter">
-                        KM:{{result.kilometraj}} 
-                    </div>
-                    <div class="filter">
-                        Talon: {{result.talon}} 
-                    </div>
-                    <div class="filter">
-                        Asigurare: {{result.asigurare}} 
-                    </div>
-                    <div class="filter">
-                        CI: {{result.carteIdentitateMasina}} 
-                    </div>
-                </div>
-                <h3 id="titludesc">{{ result.titlu }}</h3>
-                <p id="titludesc">{{ result.descriere }}</p>
-            </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="carousel-container rounded">
+        <carousel>
+          <slide *ngFor="let image of images">
+            <img [src]="image" alt="Image" />
+          </slide>
+        </carousel>
+      </div>
+      <div
+        class="info-container mt-3"
+        *ngIf="loaded === true"
+        style="color: white"
+      >
+        <div class="filters-container" id="titludesc">
+          <div class="filter">Firma: {{ result.firma }}</div>
+          <div class="filter">Model: {{ result.model }}</div>
+          <div class="filter">An: {{ result.anFabricatie }}</div>
+          <div class="filter">Culoare: {{ result.culoare }}</div>
+          <div class="filter">KM:{{ result.kilometraj }}</div>
+          <div class="filter">Talon: {{ result.talon }}</div>
+          <div class="filter">Asigurare: {{ result.asigurare }}</div>
+          <div class="filter">CI: {{ result.carteIdentitateMasina }}</div>
         </div>
-        <div class="col-md-6">
-          <div class="user-panel" id="titludesc">
-            <img src="https://via.placeholder.com/125" alt="User Picture" class="user-picture">
-            <p class="post-by">Anunt postat de:</p>
-            <p class="username">DummyUser</p>
-            <button class="profile-button">Vezi Profil</button>
-        </div>
-            <div style="overflow:hidden;max-width:100%;width:500px;height:400px;">
-                <div id="gmap-canvas" style="height:100%; width:100%;max-width:100%;">
-                    <iframe style="height:300px;width:100%;border:0;padding-top: 0px; @media screen and (min-width: 414px){ padding-top: 30px;
-                        
-                    }" frameborder="0" id="map" [src]="result.linkMaps"></iframe>
-                </div>
-                <a class="embed-ded-maphtml" href="https://www.bootstrapskins.com/themes" id="grab-maps-authorization">premium bootstrap themes</a>
-                <style>
-                    #gmap-canvas img {
-                        max-height: none;
-                        max-width: none !important;
-                        background: none !important;
-                    }
-                </style>
-                <div class="buton-rent">
-                    <button class="btn btn-outline-light rent-car">RENT CAR</button>
-                </div>
-            </div>
-        </div>
+        <h3 id="titludesc">{{ result.titlu }}</h3>
+        <p id="titludesc">{{ result.descriere }}</p>
+      </div>
     </div>
+    <div class="col-md-6">
+      <div class="user-panel" id="titludesc">
+        <img
+          src="https://via.placeholder.com/125"
+          alt="User Picture"
+          class="user-picture"
+        />
+        <p class="post-by">Anunt postat de:</p>
+        <p class="username">DummyUser</p>
+        <button class="profile-button">Vezi Profil</button>
+      </div>
+      <div
+        style="overflow: hidden; max-width: 100%; width: 500px; height: 400px"
+      >
+        <div
+          id="gmap-canvas"
+          style="height: 100%; width: 100%; max-width: 100%"
+        >
+          <iframe
+            style="
+              height: 300px;
+              width: 100%;
+              border: 0;
+              padding-top: 0px;
+              @media screen and (min-width: 414px) {
+                padding-top: 30px;
+              }
+            "
+            frameborder="0"
+            id="map"
+            [src]="result.linkMaps"
+          ></iframe>
+        </div>
+        <a
+          class="embed-ded-maphtml"
+          href="https://www.bootstrapskins.com/themes"
+          id="grab-maps-authorization"
+          >premium bootstrap themes</a
+        >
+        <style>
+          #gmap-canvas img {
+            max-height: none;
+            max-width: none !important;
+            background: none !important;
+          }
+        </style>
+        <div class="buton-rent">
+          <button
+            class="btn btn-outline-light rent-car"
+            (click)="openRentCarDialog()"
+          >
+            RENT CAR
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

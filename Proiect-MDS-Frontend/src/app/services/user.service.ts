@@ -1,10 +1,13 @@
-import { Injectable } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
+import { HttpClientModule } from '@angular/common/http';
 
 import { CookieService } from 'ngx-cookie-service';
 import { jwtDecode } from 'jwt-decode';
 import { environment } from '../../environments/environments';
+
+
 
 @Injectable({
   providedIn: 'root',
@@ -62,4 +65,10 @@ export class UserService {
     console.log(info);
     return this.http.post(`${this.apiKey}/User/forgotPassword`,info);
   }
+
+
+  
+  
+
+  
 }

@@ -23,17 +23,17 @@ namespace ProiectMDS.Services.ChirieServices
             _googleService = googleService;
         }
 
-        public async Task AddChirie(ChirieDTO chirieDTO, int postareId, int userId)
+        public async Task AddChirie(ChirieDTO chirieDTO)
         {
             var chirie = new Chirie()
             {
-                PostareId = postareId,
-                UserId = userId,
+                PostareId = chirieDTO.postareId,
+                UserId = chirieDTO.userId,
                 dataStart = chirieDTO.dataStart,
                 dataStop = chirieDTO.dataStop
             };
 
-            if (userId == await _chirieRepository.UserByPostareId(postareId))
+            if (chirieDTO.userId == await _chirieRepository.UserByPostareId(chirieDTO.postareId))
             {
                 throw new Exception("Nu poti inchiria o postare pusa de tine!");
             }
@@ -166,7 +166,7 @@ namespace ProiectMDS.Services.ChirieServices
             ownerEmailHtml = ownerEmailHtml.Replace("{{model}}", postare.model);
             ownerEmailHtml = ownerEmailHtml.Replace("{{data-start}}", chirie.dataStart.ToString("yyyy-MM-dd"));
             ownerEmailHtml = ownerEmailHtml.Replace("{{data-stop}}", chirie.dataStop.ToString("yyyy-MM-dd"));
-            //await _emailSender.SendEmailAsync(owner.Email, "Confirmare email", ownerEmailHtml);
+            await _emailSender.SendEmailAsync(owner.Email, "Confirmare email", ownerEmailHtml);
         }
     }
 }

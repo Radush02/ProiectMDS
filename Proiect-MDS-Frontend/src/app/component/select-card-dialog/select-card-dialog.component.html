@@ -1,0 +1,26 @@
+<h1>Adăugare card nou</h1>
+
+<mat-form-field>
+  <input
+    matInput
+    placeholder="Nume Card"
+    [(ngModel)]="newCard.name"
+    name="name"
+    required
+  />
+</mat-form-field>
+
+<mat-form-field>
+  <textarea
+    matInput
+    placeholder="Detalii Card"
+    [(ngModel)]="newCard.details"
+    name="details"
+    required
+  ></textarea>
+</mat-form-field>
+
+<button mat-raised-button color="primary" (click)="onAddCard()">
+  Adaugă Card
+</button>
+<button mat-button (click)="onNoClick()">Anulează</button>

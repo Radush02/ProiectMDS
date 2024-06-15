@@ -19,9 +19,9 @@ namespace ProiectMDS.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddChirie(ChirieDTO chirieDTO, int postareId, int userId)
+        public async Task<IActionResult> AddChirie(ChirieDTO chirieDTO)
         {
-            await _chirieService.AddChirie(chirieDTO, postareId, userId);
+            await _chirieService.AddChirie(chirieDTO);
             return Ok();
         }
 
@@ -69,7 +69,7 @@ namespace ProiectMDS.Controllers
 
         [HttpPost("rentConfirmationEmail")]
         [AllowAnonymous]
-        public async Task<IActionResult> rentConfirmationEmail([FromForm] ChirieDTO chirie)
+        public async Task<IActionResult> rentConfirmationEmail(ChirieDTO chirie)
         {
             try
             {
