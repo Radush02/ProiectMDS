@@ -7,5 +7,6 @@
         Task<string> getLocationFromCoordinates(double latitude, double longitude);
         Task<string> GetIdfromLocationAsync(string location);
         string getLocationURL(string location);
+        string getLocationImageFromCoordinates(double latitude, double longitude);
     }
 }
