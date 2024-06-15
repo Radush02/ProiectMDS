@@ -12,55 +12,99 @@ import { ChirieService } from '../../services/chirie.service';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
 import { CardService } from '../../services/card.service';
+//import { AddChirieService } from '../../services/add-chirie.service';
 import { UserService } from '../../services/user.service';
-;
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { jwtDecode } from 'jwt-decode';
+import { Profile } from '../../Profile';
+import { Observable, Observer } from 'rxjs';
+import { MessagePopUpComponent } from '../message-pop-up/message-pop-up.component';
 
 @Component({
   selector: 'app-carimg',
   standalone: true,
-  imports: [CommonModule,NavbarComponent,CarouselModule, HttpClientModule],
-  providers: [S3Service, PostService,ChirieService, UserService, CardService],
+  imports: [CommonModule, NavbarComponent, CarouselModule, HttpClientModule],
+  providers: [S3Service, PostService, ChirieService, UserService, CardService],
   templateUrl: './carimg.component.html',
-  styleUrl: './carimg.component.css'
+  styleUrls: ['./carimg.component.css'],
 })
-export class CarimgComponent implements OnInit{
+export class CarimgComponent implements OnInit {
+  profile: Profile = {
+    nume: 'dummyLastName',
+    prenume: 'dummyFirstName',
+    email: 'dummyEmail',
+    username: 'dummyUsername',
+    nrTelefon: 'dummyPhoneNumber',
+    dataNasterii: '2000-01-01',
+    linkPozaProfil: '',
+    carteIdentitate: false,
+    permis: false,
+    puncteFidelitate: 0,
+  };
   loggedInUserId: number | null = null;
-  carId=0;
-  images: string[];
-  result:any;
-  loaded=false;
-  constructor(private s3Service: S3Service,private postService:PostService,private params:ActivatedRoute,private sanitizer: DomSanitizer, private dialog: MatDialog, private chirieService: ChirieService, private userService: UserService, private cardService: CardService) {
+  carId = 0;
+  images: string[] = [];
+  result: any;
+  loaded = false;
+  username: string = '';
+  userId2: number = 0;
+  postId: number = 0;
+
+  constructor(
+    private s3Service: S3Service,
+    private postService: PostService,
+    private params: ActivatedRoute,
+    private sanitizer: DomSanitizer,
+    private dialog: MatDialog,
+    private chirieService: ChirieService,
+    //private addChirieService: AddChirieService,
+    private userService: UserService,
+    private cardService: CardService,
+    public router: Router,
+    private cookieService: CookieService
+  ) {
     this.params.queryParams.subscribe((params) => {
       this.carId = params['id'];
     });
-    this.images = [];
   }
 
-  
-
   openRentCarDialog(): void {
-    // const userId = this.userService.getUserId();
+    console.log('postId:', this.postId);
     const selectCardDialogRef = this.dialog.open(SelectCardDialogComponent);
-  
-    selectCardDialogRef.afterClosed().subscribe(card => {
+
+    selectCardDialogRef.afterClosed().subscribe((card) => {
       if (card) {
         const postareId = card.id;
-  
+
         const datePickerDialogRef = this.dialog.open(DatePickerDialogComponent);
-  
-        datePickerDialogRef.afterClosed().subscribe(dates => {
+
+        datePickerDialogRef.afterClosed().subscribe((dates) => {
           if (dates) {
+            // Format dates to 'yyyy-mm-dd' format
+            const formattedStartDate = this.formatDate(dates.startDate);
+            const formattedEndDate = this.formatDate(dates.endDate);
+
             const chirie = {
-              // userId: userId,
-              postareId: postareId,
-              dataStart: dates.dataStart,
-              dataStop: dates.dataStop
+              userId: this.userId2,
+              postareId: this.postId,
+              dataStart: formattedStartDate,
+              dataStop: formattedEndDate,
             };
-  
+            console.log(chirie);
             this.chirieService.addChirie(chirie).subscribe(
               (response) => {
                 console.log('Chirie adăugată:', response);
-                // Poți adăuga aici orice altă logică necesară după ce s-a făcut cererea POST cu succes
+                this.chirieService.rentEmailConfirmation(chirie).subscribe(
+                  () => {
+                    this.dialog.open(MessagePopUpComponent, {
+                      data: 'Email sent. Please check your e-mail.',
+                    });
+                  },
+                  (error) => {
+                    console.log(error);
+                  }
+                );
               },
               (error) => {
                 console.error('Eroare la adăugarea chiriei:', error);
@@ -71,45 +115,23 @@ export class CarimgComponent implements OnInit{
       }
     });
   }
-  
-  
 
-  getCar(id:number){
-    id++;
+  // Helper method to format date to 'yyyy-mm-dd' format
+  private formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2); // Adding 1 because getMonth() returns 0-based index
+    const day = ('0' + date.getDate()).slice(-2);
+    return `${year}-${month}-${day}`;
+  }
+
+  getCar(id: number) {
+    id++; // Adjusting the id for your use case
     this.postService.getPostById(id).subscribe(
       (result) => {
         this.result = result;
-        this.result.linkMaps = this.sanitizer.bypassSecurityTrustResourceUrl(this.result.linkMaps);
-        console.log(this.result);
-        this.loaded=true;
-      },
-      (error) => {
-        console.error('Car not found:', error);
-      }
-    );
-  }
-  getUrl(fileImageName: string) {
-    return this.s3Service.getObjectUrl('dawbucket', fileImageName);
-  }
-
-  getUserId(id: number) {
-    this.postService.getPostById(id).subscribe(
-      (result) => {
-        // Asigură-te că obiectul result este definit și conține proprietatea userId
-        if (result && result.userId !== undefined) {
-          // Salvează userId într-o variabilă sau folosește-l direct
-          const userId = result.userId;
-          console.log('userId:', userId);
-  
-          // În cazul în care vrei să faci ceva cu userId (de exemplu, să-l întorci)
-          console.log('userId:', userId)
-          return userId;
-        } else {
-          console.error('userId not found in result object');
-        }
-  
-        this.result = result;
-        this.result.linkMaps = this.sanitizer.bypassSecurityTrustResourceUrl(this.result.linkMaps);
+        this.result.linkMaps = this.sanitizer.bypassSecurityTrustResourceUrl(
+          this.result.linkMaps
+        );
         console.log(this.result);
         this.loaded = true;
       },
@@ -117,25 +139,64 @@ export class CarimgComponent implements OnInit{
         console.error('Car not found:', error);
       }
     );
+  }
+
+  getUrl(fileImageName: string) {
+    return this.s3Service.getObjectUrl('dawbucket', fileImageName);
+  }
+
+  getCurrentUserIdPostId(): Observable<number> {
+    return new Observable<number>((observer: Observer<number>) => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        const decodedToken: { [key: string]: any } = jwtDecode(token);
+        this.username =
+          decodedToken[
+            'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'
+          ];
+        const role =
+          decodedToken[
+            'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
+          ];
+
+        console.log('Username:', this.username);
+        console.log('Role:', role);
+        this.userService.getUser(this.username).subscribe(
+          (response) => {
+            console.log('raspuns get current user', response.id);
+            this.userId2 = response.id;
+            this.getPostId(this.carId);
+            observer.next(response.id);
+
+            observer.complete();
+          },
+          (error) => {
+            console.error('Error fetching user:', error);
+            observer.error(error);
+          }
+        );
+      } else {
+        console.error('Token not found in local storage');
+        observer.error('Token not found in local storage');
+      }
+    });
   }
 
   getPostId(id: number) {
     this.postService.getPostById(id).subscribe(
       (result) => {
-        // Asigură-te că obiectul result este definit și conține proprietatea id
         if (result && result.id !== undefined) {
-          // Salvează id-ul într-o variabilă sau folosește-l direct
-          const postId = result.id;
-          console.log('postId:', postId);
-  
-          // În cazul în care vrei să faci ceva cu id-ul (de exemplu, să-l întorci)
-          return postId;
+          this.postId = result.id;
+          console.log('postId:', this.postId);
+          this.load();
         } else {
           console.error('postId not found in result object');
         }
-  
+
         this.result = result;
-        this.result.linkMaps = this.sanitizer.bypassSecurityTrustResourceUrl(this.result.linkMaps);
+        this.result.linkMaps = this.sanitizer.bypassSecurityTrustResourceUrl(
+          this.result.linkMaps
+        );
         console.log(this.result);
         this.loaded = true;
       },
@@ -144,49 +205,19 @@ export class CarimgComponent implements OnInit{
       }
     );
   }
-  // getLoggedInUserId(): void {
-  //   this.loggedInUserId = this.userService.getUserId();
-  //   if (this.loggedInUserId !== null) {
-  //     console.log('Logged in user ID:', this.loggedInUserId);
-  //     // Poți face alte operații cu this.loggedInUserId aici
-  //   } else {
-  //     console.log('Utilizatorul nu este autentificat sau nu se poate obține userId.');
-  //   }
-  // }
-  
-  
-
 
   load() {
-    // this.getLoggedInUserId();
-    this.getPostId(this.carId);
-    this.getUserId(this.carId);
     this.getCar(this.carId);
     this.s3Service
       .getFilesFromFolder('dawbucket', `post${this.carId}/`)
-      .then((response:string[]) => {
-        for(let r in response){
-          this.images.push(this.getUrl(response[r]));
+      .then((response: string[]) => {
+        for (const r of response) {
+          this.images.push(this.getUrl(r));
         }
       });
-  
   }
-  ngOnInit(){
-    this.load();
+
+  ngOnInit() {
+    this.getCurrentUserIdPostId().subscribe();
   }
-}
-interface carDTO {
-  titlu: string;
-  descriere: string;
-  pret: number;
-  firma: string;
-  model: string;
-  culoare: string;
-  kilometraj: number;
-  anFabricatie: number;
-  talon: string;
-  carteIdentitateMasina: string;
-  asigurare: string;
-  adresa_formala: string;
-  linkMaps: string;
 }

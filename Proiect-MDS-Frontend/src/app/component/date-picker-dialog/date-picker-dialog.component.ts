@@ -1,5 +1,9 @@
 import { Component, Inject, NgModule } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import {
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+  MatDialogModule,
+} from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms'; // Importăm FormsModule pentru ngModel
 import { ReactiveFormsModule } from '@angular/forms'; // Importăm ReactiveFormsModule pentru FormBuilder
 import { CardService } from '../../services/card.service';
@@ -7,11 +11,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-
-
-
 
 @Component({
   imports: [
@@ -25,18 +26,15 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    
   ],
   standalone: true,
 
-
-
   selector: 'app-date-picker-dialog',
-  templateUrl: './date-picker-dialog.component.html'
+  templateUrl: './date-picker-dialog.component.html',
 })
 export class DatePickerDialogComponent {
   startDate: Date = new Date();
-  endDate: Date  = new Date();
+  endDate: Date = new Date();
 
   constructor(public dialogRef: MatDialogRef<DatePickerDialogComponent>) {}
 
@@ -46,7 +44,10 @@ export class DatePickerDialogComponent {
 
   onSelectDates(): void {
     if (this.startDate && this.endDate) {
-      this.dialogRef.close({ startDate: this.startDate, endDate: this.endDate });
+      this.dialogRef.close({
+        startDate: this.startDate,
+        endDate: this.endDate,
+      });
     }
   }
 }

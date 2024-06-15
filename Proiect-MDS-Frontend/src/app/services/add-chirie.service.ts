@@ -4,15 +4,15 @@ import { Observable, forkJoin } from 'rxjs';
 import { UserService } from './user.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ChirieService {
-  private apiUrl = 'https://localhost:7215/api/Chirie'; 
+  private apiUrl = 'https://localhost:7215/api/Chirie';
 
-  constructor(private http: HttpClient, private userService: UserService) { }
+  constructor(private http: HttpClient, private userService: UserService) {}
 
   addChirie(chirieData: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, chirieData)
+    return this.http.post<any>(this.apiUrl, chirieData);
   }
 
   rentEmailConfirmation(chirieData: any): Observable<any> {

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ChirieService {
   private apiUrl = 'https://localhost:7215/api/Chirie';
@@ -25,5 +25,8 @@ export class ChirieService {
 
   getChirieByDateRange(dataStart: string, dataStop: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/data/${dataStart}/${dataStop}`);
+  }
+  rentEmailConfirmation(chirieData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/rentConfirmationEmail`, chirieData);
   }
 }

@@ -1,5 +1,9 @@
 import { Component, Inject, NgModule } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import {
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+  MatDialogModule,
+} from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms'; // Importăm FormsModule pentru ngModel
 import { ReactiveFormsModule } from '@angular/forms'; // Importăm ReactiveFormsModule pentru FormBuilder
 import { CardService } from '../../services/card.service';
@@ -9,23 +13,21 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { HttpClient } from '@angular/common/http';
 
-
 @Component({
   imports: [
     HttpClientModule,
-
 
     CommonModule,
     FormsModule, // Adăugăm FormsModule aici pentru ngModel
     ReactiveFormsModule, // Adăugăm ReactiveFormsModule aici pentru FormBuilder
     MatDialogModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
   ],
   standalone: true,
   providers: [CardService],
   selector: 'app-select-card-dialog',
-  templateUrl: './select-card-dialog.component.html'
+  templateUrl: './select-card-dialog.component.html',
 })
 export class SelectCardDialogComponent {
   cards: any[] = [];
@@ -41,7 +43,7 @@ export class SelectCardDialogComponent {
   }
 
   loadCards() {
-    this.cardService.getCards().subscribe(cards => {
+    this.cardService.getCards().subscribe((cards) => {
       this.cards = cards;
     });
   }
@@ -62,6 +64,8 @@ export class SelectCardDialogComponent {
   }
 
   isFormValid(): boolean {
-    return this.newCard.name.trim() !== '' && this.newCard.details.trim() !== '';
+    return (
+      this.newCard.name.trim() !== '' && this.newCard.details.trim() !== ''
+    );
   }
 }
