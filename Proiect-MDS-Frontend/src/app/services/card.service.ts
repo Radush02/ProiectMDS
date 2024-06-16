@@ -1,18 +1,19 @@
 import { Component, Injectable, NgModule } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environments';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class CardService {
-  private apiUrl = 'https://localhost:7215/api/Card';
+  private apiUrl = environment.API_KEY + '/Card';
 
   constructor(private http: HttpClient) {}
 
-  getCards(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+  getCards(id:number): Observable<any[]> {
+    return this.http.get<any>(this.apiUrl+"/"+id);
   }
 
   addCard(card: any): Observable<any> {

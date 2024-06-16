@@ -14,7 +14,7 @@ namespace ProiectMDS.Services
         {
             _cardRepository = cardRepository;
         }
-        public async Task AddCard(CardDTO cardDTO, int userId)
+        public async Task AddCard(CardDTO cardDTO)
         {
             var card = new Card()
             {
@@ -22,7 +22,7 @@ namespace ProiectMDS.Services
                 dataExpirare = cardDTO.dataExpirare,
                 nume = cardDTO.nume,
                 cvv = cardDTO.cvv,
-                UserId = userId
+                UserId = cardDTO.UserId
             };
             await _cardRepository.AddCard(card);
         }
@@ -47,6 +47,18 @@ namespace ProiectMDS.Services
             c.cvv = card.cvv;
 
             await _cardRepository.UpdateCard(c);
+        }
+        public async Task<IEnumerable<CardDTO>> CardByUserID(int id)
+        {
+            var cards = await _cardRepository.CardByUserID(id);
+            return cards.Select(c => new CardDTO()
+            {
+                numar = c.numar,
+                dataExpirare = c.dataExpirare,
+                nume = c.nume,
+                cvv = c.cvv,
+                UserId = c.UserId
+            });
         }
     }
 }

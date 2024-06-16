@@ -21,8 +21,17 @@ namespace ProiectMDS.Controllers
         [HttpPost]
         public async Task<IActionResult> AddChirie(ChirieDTO chirieDTO)
         {
-            await _chirieService.AddChirie(chirieDTO);
-            return Ok();
+            try
+            {
+                await _chirieService.AddChirie(chirieDTO); 
+                return Ok();
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+
         }
 
         [HttpDelete("{id}")]

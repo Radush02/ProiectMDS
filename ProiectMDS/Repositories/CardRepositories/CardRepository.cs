@@ -41,6 +41,16 @@ namespace ProiectMDS.Repositories
             }
             return c;
         }
+        public async Task<IEnumerable<Card>> CardByUserID(int id)
+        {
+            var c = await _dbcontext.Card.Where(i => i.UserId == id).ToListAsync();
+            if (c == null)
+            {
+                throw new Exception($"User-ul nu are carduri");
+
+            }
+            return c;
+        }
 
         public async Task UpdateCard(Card card)
         {

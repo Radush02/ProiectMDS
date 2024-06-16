@@ -23,7 +23,17 @@ namespace ProiectMDS.Repositories.SupportRepositories
         {
             return await _dbcontext.Support.ToListAsync();
         }
-
+        public async Task<int> getMaxID()
+        {
+            try
+            {
+                int max = await _dbcontext.Support.MaxAsync(x => x.SupportId);
+                return max;
+            }catch (Exception ex)
+            {
+                return 0;
+            }
+        }
         public async Task<IEnumerable<Support>> getSupportByUserId(int userId)
         {
             return await _dbcontext.Support.Where(s => s.UserId == userId).ToListAsync();

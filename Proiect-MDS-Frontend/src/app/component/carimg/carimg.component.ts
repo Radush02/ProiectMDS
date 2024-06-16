@@ -81,13 +81,12 @@ export class CarimgComponent implements OnInit {
 
         datePickerDialogRef.afterClosed().subscribe((dates) => {
           if (dates) {
-            // Format dates to 'yyyy-mm-dd' format
             const formattedStartDate = this.formatDate(dates.startDate);
             const formattedEndDate = this.formatDate(dates.endDate);
 
             const chirie = {
               userId: this.userId2,
-              postareId: this.postId,
+              postareId: this.postId+1,
               dataStart: formattedStartDate,
               dataStop: formattedEndDate,
             };
@@ -107,7 +106,9 @@ export class CarimgComponent implements OnInit {
                 );
               },
               (error) => {
-                console.error('Eroare la adăugarea chiriei:', error);
+                this.dialog.open(MessagePopUpComponent, {
+                  data: 'Eroare in rezervare:'+error.error,
+                });
               }
             );
           }

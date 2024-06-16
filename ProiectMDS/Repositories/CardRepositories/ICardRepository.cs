@@ -8,5 +8,6 @@ namespace ProiectMDS.Repositories
         Task DeleteCard(int id);
         Task<Card> CardById(int id);
         Task UpdateCard(Card c);
+        Task<IEnumerable<Card>> CardByUserID(int id);
     }
 }
