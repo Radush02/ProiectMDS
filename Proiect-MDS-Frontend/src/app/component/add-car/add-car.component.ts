@@ -75,7 +75,7 @@ export class AddCarComponent implements OnInit {
       this.selectedFiles.push(files.item(i)!);
     }
   }
-
+// Functie de copiere a mesajului generat de AI in clipboard
   copyToClipboard() {
     const textToCopy = this.suggestion;
     const textarea = document.createElement('textarea');
@@ -88,7 +88,7 @@ export class AddCarComponent implements OnInit {
     document.body.removeChild(textarea);
     alert('Textul a fost copiat in clipboard!');
   }
-  
+
   ngOnInit(): void {}
 
   async enhanceDescription() {
@@ -107,6 +107,8 @@ export class AddCarComponent implements OnInit {
     console.log(this.suggestion);
     this.loading = false;
   }
+
+  // Functie de adaugare a unei masini
   addCar() {
     if (this.carForm.invalid) {
       return;

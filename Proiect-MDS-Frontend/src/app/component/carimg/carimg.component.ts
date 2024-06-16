@@ -30,6 +30,7 @@ import { MessagePopUpComponent } from '../message-pop-up/message-pop-up.componen
   styleUrls: ['./carimg.component.css'],
 })
 export class CarimgComponent implements OnInit {
+  //Profile dummy data
   profile: Profile = {
     nume: 'dummyLastName',
     prenume: 'dummyFirstName',
@@ -69,12 +70,17 @@ export class CarimgComponent implements OnInit {
       this.carId = params['id'];
     });
   }
+
+  // Navigare
   gotoProfile(){
     this.router.navigate(['/profile'], { queryParams: { user: this.postOwner.username } });
   }
+
+  // Ia URL imaginii
   getImageUrl(imageName: string): string {
     return this.s3Service.getObjectUrl('dawbucket', imageName + '_pfp.png');
   }
+  // Dupa ce se da click pe butonul de inchiriaza
   openRentCarDialog(): void {
     console.log('postId:', this.postId);
     const selectCardDialogRef = this.dialog.open(SelectCardDialogComponent);
