@@ -58,7 +58,7 @@ namespace ProiectMDS.Controllers
             try
             {
                 await _userService.ConfirmEmail(username, token);
-                return Ok("Email confirmat cu succes!");
+                return Ok();
             }catch(NotFoundException e)
             {
                 return NotFound(e.Message);

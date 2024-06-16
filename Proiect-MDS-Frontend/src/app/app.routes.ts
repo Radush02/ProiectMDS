@@ -16,7 +16,11 @@ import { ListingComponent } from './component/listing/listing.component';
 import { ProfileSearchComponent } from './component/profile-search/profile-search.component';
 import { NewLandingPageComponent } from './component/new-landing-page/new-landing-page.component';
 import { CarimgComponent } from './component/carimg/carimg.component';
+<<<<<<< HEAD
 import { SupportComponent } from './component/support/support.component';
+=======
+import { ConfirmMailComponent } from './component/confirm-mail/confirm-mail.component';
+>>>>>>> b0464f54090a5311b3aca855b2dd9acf81e6347c
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -35,5 +39,6 @@ export const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'profileSearch', component: ProfileSearchComponent },
   { path: 'home', component: NewLandingPageComponent },
-  { path: 'carimg', component: CarimgComponent }
+  { path: 'carimg', component: CarimgComponent },
+  {path:'confirmMail',component:ConfirmMailComponent}
 ];
