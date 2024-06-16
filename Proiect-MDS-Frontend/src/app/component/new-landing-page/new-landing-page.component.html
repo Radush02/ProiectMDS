@@ -6,7 +6,7 @@
   <div class="register-container" id="form-cautare">
     <div id="customSearch">
       <label for="customSearch">Cautare personalizata:</label><br />
-      <input type="text" id="customSearch" />
+      <input type="text" id="customSearchText" />
       <button (click)="customSearch()">Cauta</button>
       </div>
     <form (ngSubmit)="applyFilter()" [formGroup]="findForm">

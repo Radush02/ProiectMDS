@@ -49,6 +49,10 @@ namespace ProiectMDS.Services
             }
         }
 
+        /// <summary>
+        /// Elimina ultimul caracter dintr-un substring
+        /// </summary
+
         private static string ultCaract(string originalString, string substring)
         {
             int index = originalString.LastIndexOf(substring);
@@ -56,6 +60,10 @@ namespace ProiectMDS.Services
                 return originalString;
             return originalString.Remove(index, substring.Length);
         }
+        /// <summary>
+        /// Functie apelata de Tool,ce trimite toti parametri pe care i-a extras din prompt-ul userului
+        /// Parseaza si returneaz un query SSMS ce va extrage ceea ce vrea userul
+        /// </summary>
         private async Task<string> CreateCarQuery(dynamic parameters)
         {
             string query = "SELECT * FROM [dbo].[postare] WHERE 1=1";
@@ -88,6 +96,7 @@ namespace ProiectMDS.Services
 
             return query;
         }
+
         public async Task<IEnumerable<PostareDTO>> GetInfo(string prompt)
         {
             var messages = new List<Message>
@@ -143,6 +152,7 @@ namespace ProiectMDS.Services
             }
             throw new Exception("Please give me more details");
         }
+
         public async Task<OpenAIDTO> GetDescription(OpenAIDTO prompt)  
         {
             var messages = new List<Message>

@@ -7,6 +7,12 @@ namespace ProiectMDS.Services
 {
     public interface IUserService
     {
+
+        /// <summary>
+        /// Inregistreaza un nou utilizator.
+        /// </summary>
+        /// <param name="newUser"></param>
+        /// <returns></returns>
         Task<IdentityResult> RegisterAsync(RegisterDTO newUser);
         Task<UserDTO> getUserDetails(string username);
         Task<string> LoginAsync(LoginDTO login);
