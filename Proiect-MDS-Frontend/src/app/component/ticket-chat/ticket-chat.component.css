@@ -1,0 +1,33 @@
+h3{
+    color: aliceblue;
+    font-size: 2.5rem;
+    font-weight: 500;
+    background-color: #372c59;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.row{
+    width: 50%;
+    align-items: center;
+    left: 25%;
+    position: relative;
+}
+
+p{
+    color:white;
+    background-color: #3e3066;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+textarea{
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #483679;
+    color: white;
+    margin-bottom: 10px;
+}
+
+

@@ -15,11 +15,17 @@ namespace ProiectMDS.Controllers
         {
             this.cardService = cardService;
         }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> CardByUserID(int id)
+        {
+            var cards = await cardService.CardByUserID(id);
+            return Ok(cards);
+        }
 
         [HttpPost]
-        public async Task<IActionResult> AddCard(CardDTO cardDTO, int userId)
+        public async Task<IActionResult> AddCard(CardDTO cardDTO)
         {
-            await cardService.AddCard(cardDTO, userId);
+            await cardService.AddCard(cardDTO);
             return Ok();
         }
 

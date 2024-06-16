@@ -22,6 +22,12 @@ namespace ProiectMDS.Controllers
             await _supportService.AddSupport(supportDTO);
             return Ok();
         }
+        [HttpPost("reply")]
+        public async Task<IActionResult> ReplySupport(SupportDTO supportDTO)
+        {
+            await _supportService.ReplySupport(supportDTO);
+            return Ok();
+        }
 
         [HttpGet]
         public async Task<IActionResult> getAllSupports()
@@ -44,13 +50,13 @@ namespace ProiectMDS.Controllers
             return Ok(supports);
         }
 
-        [HttpPost("ClientSupportEmail")]
+        [HttpPost("ReplyEmail")]
         [AllowAnonymous]
-        public async Task<IActionResult> clientEmail([FromForm] SupportDTO support)
+        public async Task<IActionResult> replyEmail(SupportDTO support)
         {
             try
             {
-                await _supportService.clientEmail(support);
+                await _supportService.replyEmail(support);
                 return Ok();
             }
             catch (Exception e)
@@ -59,9 +65,9 @@ namespace ProiectMDS.Controllers
             }
         }
 
-        [HttpPost("AdminSupportEmail")]
+        [HttpPost("CreateEmail")]
         [AllowAnonymous]
-        public async Task<IActionResult> adminEmail([FromForm] SupportDTO support)
+        public async Task<IActionResult> adminEmail(SupportDTO support)
         {
             try
             {

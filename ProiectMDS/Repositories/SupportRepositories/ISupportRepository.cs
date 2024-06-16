@@ -8,6 +8,7 @@ namespace ProiectMDS.Repositories.SupportRepositories
         Task<IEnumerable<Support>> getAllSupports();
         Task<IEnumerable<Support>> getSupportByUserId(int userId);
         Task<IEnumerable<Support>> getSupportBySupportId(int supportId);
-        Task<User> UserById(int userId); 
+        Task<User> UserById(int userId);
+        Task<int> getMaxID();
     }
 }

@@ -6,7 +6,7 @@
   <div class="register-container" id="form-cautare">
     <div id="customSearch">
       <label for="customSearch">Cautare personalizata:</label><br />
-      <input type="text" id="customSearch" />
+      <input type="text" id="customSearchText" />
       <button (click)="customSearch()">Cauta</button>
       </div>
     <form (ngSubmit)="applyFilter()" [formGroup]="findForm">
@@ -91,6 +91,7 @@
         <p>
           {{ post.firma }} {{ post.model }} {{ post.anFabricatie }}
           {{ post.kilometraj }}km Price:{{ post.pret }}
+          <img src="{{getUrl('thumbnail' + (post.id - 1))}}" alt="Car Image" width="100px" />
         </p>
       </div>
     </div>

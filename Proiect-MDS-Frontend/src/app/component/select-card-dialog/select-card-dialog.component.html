@@ -1,23 +1,57 @@
 <h1>Adăugare card nou</h1>
+<div *ngFor="let card of cards">
+  <div  (click)="selectCard(card)"class="card">
+    <div class="card-header">
+      <h2>{{ card.nume }}</h2>
+    </div>
+    <div class="card-body">
+      <p>{{ card.numar.slice(-4) }}</p>
+      <p>{{ card.dataExpirare }}</p>
+    </div>
+  </div>
+</div>
 
 <mat-form-field>
   <input
     matInput
     placeholder="Nume Card"
-    [(ngModel)]="newCard.name"
-    name="name"
+    [(ngModel)]="newCard.nume"
+    name="nume"
     required
   />
 </mat-form-field>
 
 <mat-form-field>
-  <textarea
+  <input
     matInput
-    placeholder="Detalii Card"
-    [(ngModel)]="newCard.details"
-    name="details"
+    placeholder="Numar card"
+    [(ngModel)]="newCard.numar"
+    name="numar"
+    [minLength]="16"
+    [maxlength]="16"
     required
-  ></textarea>
+  />
+</mat-form-field>
+
+<mat-form-field>
+  <input
+    matInput
+    placeholder="Data expirare"
+    [(ngModel)]="newCard.dataExpirare"
+    name="dataExpirare"
+    required
+  />
+</mat-form-field>
+<mat-form-field>
+<input type="number"
+    matInput
+    placeholder="CVV"
+    [(ngModel)]="newCard.cvv"
+    name="cvv"
+    min="100"
+    max="999"
+    required
+  />
 </mat-form-field>
 
 <button mat-raised-button color="primary" (click)="onAddCard()">

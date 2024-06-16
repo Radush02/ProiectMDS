@@ -65,10 +65,12 @@ export class UserService {
     console.log(info);
     return this.http.post(`${this.apiKey}/User/forgotPassword`,info);
   }
-
-
-  
-  
+  confirmEmail(username:string,token:string):Observable<any>{
+    return this.http.get(`${this.apiKey}/User/confirmEmail?username=${username}&token=${token}`);
+  }
+  getByID(id:number):Observable<any>{
+    return this.http.get(`${this.apiKey}/User/getById?id=${id}`);
+  }
 
   
 }

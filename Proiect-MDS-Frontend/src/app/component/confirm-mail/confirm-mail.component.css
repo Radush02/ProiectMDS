@@ -1,0 +1,22 @@
+#response{
+    color: white;
+    align-items: left;
+    text-align: center;
+    padding: 10px;
+    background-color: #3e3066;
+    width: 100%;
+    font-size: 20px;
+}
+
+.container{
+    width: 100vw;
+    position: relative;
+    align-items: center;
+    text-align: center;
+
+}
+
+#response:hover{
+    background-color: black;
+    transition: 0.3s;
+}

@@ -14,6 +14,7 @@ namespace ProiectMDS.Services.ChirieServices
         private readonly IEmailSender _emailSender;
         private readonly UserManager<User> _userManager;
         private readonly IGoogleService _googleService;
+        
 
         public ChirieService(IChirieRepository chirieRepository, IEmailSender emailSender, UserManager<User> userManager, IGoogleService googleService)
         {
@@ -139,6 +140,7 @@ namespace ProiectMDS.Services.ChirieServices
         {
             User renter = await _chirieRepository.UserById(chirie.userId);
             int ownerId = await _chirieRepository.UserByPostareId(chirie.postareId);
+            Console.WriteLine(ownerId);
             User owner = await _chirieRepository.UserById(ownerId);
             Postare postare = await _chirieRepository.PostareById(chirie.postareId);
 
@@ -157,7 +159,7 @@ namespace ProiectMDS.Services.ChirieServices
             renterEmailHtml = renterEmailHtml.Replace("{{maps_img}}", _googleService.getLocationImageFromCoordinates(postare.latitudine,postare.longitudine));
             renterEmailHtml = renterEmailHtml.Replace("{{adresa-text}}", postare.adresa_formala)
                 .Replace("{{latitudine}}", postare.latitudine.ToString()).Replace("{{longitudine}}",postare.longitudine.ToString());
-            await _emailSender.SendEmailAsync(renter.Email, "Confirmare email", renterEmailHtml);
+            await _emailSender.SendEmailAsync(renter.Email, "Vehicul inchiriat cu succes", renterEmailHtml);
 
             string ownerEmailHtml = await File.ReadAllTextAsync("Templates/OwnerEmailTemplate.html");
             ownerEmailHtml = ownerEmailHtml.Replace("{{username}}", owner.UserName);
@@ -166,7 +168,7 @@ namespace ProiectMDS.Services.ChirieServices
             ownerEmailHtml = ownerEmailHtml.Replace("{{model}}", postare.model);
             ownerEmailHtml = ownerEmailHtml.Replace("{{data-start}}", chirie.dataStart.ToString("yyyy-MM-dd"));
             ownerEmailHtml = ownerEmailHtml.Replace("{{data-stop}}", chirie.dataStop.ToString("yyyy-MM-dd"));
-            await _emailSender.SendEmailAsync(owner.Email, "Confirmare email", ownerEmailHtml);
+            await _emailSender.SendEmailAsync(owner.Email, "Vehicul inchiriat cu succes", ownerEmailHtml);
         }
     }
 }

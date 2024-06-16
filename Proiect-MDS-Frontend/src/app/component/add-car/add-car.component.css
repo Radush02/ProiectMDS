@@ -21,13 +21,20 @@ input[type="number"]::-webkit-outer-spin-button {
   background-color:black;
 }
 
+#textgpt{
+  color: white;
+  background-color: #6450a3;
+  padding: 20px;
+  border-radius: 10px;
+}
+
 .add-car-container {
-  width: 40vw;
+  width: 70vw;
   margin: 0;
   position: relative;
   grid-column: 1;
   top: 0vh;
-  overflow: hidden;
+  overflow: scroll;
   background: transparent;
   height: 100%;
 }
@@ -110,7 +117,7 @@ input[type="radio"] {
 }
 @media screen and (min-width: 770px) {
   .add-car-container {
-    width: 30vw;
+    width: 50vw;
     height: 100vh;
     top: 100px;
     position: relative;

@@ -331,11 +331,14 @@ namespace ProiectMDS.Migrations
 
             modelBuilder.Entity("ProiectMDS.Models.Support", b =>
                 {
-                    b.Property<int>("SupportId")
+                    b.Property<int>("dummyId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SupportId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("dummyId"));
+
+                    b.Property<int>("SupportId")
+                        .HasColumnType("int");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -348,7 +351,7 @@ namespace ProiectMDS.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("SupportId");
+                    b.HasKey("dummyId");
 
                     b.HasIndex("UserId");
 

@@ -7,10 +7,19 @@
         *ngFor="let result of results"
         (click)="redirectToListingPage(result.id-1)"
       >
+      <div class="container">
+        <div class = "row">
+          <div class = "col">
         <h3>{{ result.titlu }}</h3>
         <p class="truncate">Descriere:{{ result.descriere }}</p>
         <p>Pret: {{ result.pret }}</p>
-        <img src="{{ result.image }}" alt="car-image" />
+      </div>
+        
+        <div class = "col">
+        <img src="{{ getUrl('thumbnail'+(result.id-1)) }}" alt="car-image" width="250px" style="border-radius: 20px;" />
+      </div>
+      </div>
+      </div>
       </li>
     </ul>
   </div>

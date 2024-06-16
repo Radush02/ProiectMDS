@@ -17,6 +17,12 @@
     border-radius: 15px;
 }
 
+.user-panel img{
+    border-radius: 50%;
+    width: 125px;
+    height: 125px;
+
+}
 #cnt{
     top:-5vh;
     position: relative;

@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity.UI.Services;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using ProiectMDS.Exceptions;
 using ProiectMDS.Models;
 using ProiectMDS.Models.DTOs;
 using ProiectMDS.Repositories.SupportRepositories;
+using System.Runtime.InteropServices;
 
 namespace ProiectMDS.Services.SupportServices
 {
@@ -10,23 +12,39 @@ namespace ProiectMDS.Services.SupportServices
     {
         private readonly ISupportRepository _supportRepository;
         private readonly IEmailSender _emailSender;
-        public SupportService(ISupportRepository supportRepository, IEmailSender emailSender)
+        private readonly UserManager<User> _userManager;
+        public SupportService(ISupportRepository supportRepository, IEmailSender emailSender,UserManager<User> userManager)
         {
             _supportRepository = supportRepository;
             _emailSender = emailSender;
+            _userManager = userManager;
         }
         public async Task AddSupport(SupportDTO supportDTO)
         {
+
             var support = new Support
             {
+                SupportId = await _supportRepository.getMaxID() + 1,
                 UserId = supportDTO.userId,
-                titlu = supportDTO.titlu + " from client",
+                titlu = supportDTO.titlu,
                 comentariu = supportDTO.comentariu
             };
 
             await _supportRepository.AddSupport(support);
         }
+        public async Task ReplySupport(SupportDTO supportDTO)
+        {
 
+            var support = new Support
+            {
+                SupportId = supportDTO.supportId,
+                UserId = supportDTO.userId,
+                titlu = supportDTO.titlu,
+                comentariu = supportDTO.comentariu
+            };
+
+            await _supportRepository.AddSupport(support);
+        }
         public async Task<IEnumerable<SupportDTO>> getAllSupports()
         {
             IEnumerable<SupportDTO> rez;
@@ -34,6 +52,7 @@ namespace ProiectMDS.Services.SupportServices
 
             rez = s.Select(sup => new SupportDTO
             {
+                supportId = sup.SupportId,
                 userId = sup.UserId,
                 titlu = sup.titlu,
                 comentariu = sup.comentariu
@@ -44,17 +63,28 @@ namespace ProiectMDS.Services.SupportServices
 
         public async Task<IEnumerable<SupportDTO>> getSupportByUserId(int userId)
         {
-            
-            var s = await _supportRepository.getSupportByUserId(userId);
+            IEnumerable<Support> s=null;
 
+
+            User u = await _userManager.FindByIdAsync(userId.ToString());
+            if(await _userManager.IsInRoleAsync(u, "Admin"))
+            {
+                s = await _supportRepository.getAllSupports();
+
+
+            }
+            else
+            {
+                s = await _supportRepository.getSupportByUserId(userId);
+            }
             if (s == null || !s.Any())
             {
                 throw new NotFoundException("Nu exista support de la un user cu acest id");
             }
-
             IEnumerable<SupportDTO> rez;
             rez = s.Select(sup => new SupportDTO
             {
+                supportId = sup.SupportId,
                 userId = sup.UserId,
                 titlu = sup.titlu,
                 comentariu = sup.comentariu
@@ -75,7 +105,7 @@ namespace ProiectMDS.Services.SupportServices
 
             IEnumerable<SupportDTO> rez;
             rez = s.Select(sup => new SupportDTO
-            {
+            {supportId = sup.SupportId, 
                 userId = sup.UserId,
                 titlu = sup.titlu,
                 comentariu = sup.comentariu
@@ -84,43 +114,24 @@ namespace ProiectMDS.Services.SupportServices
             return rez;
         }
 
-        public async Task clientEmail(SupportDTO support)
+
+
+        public async Task replyEmail(SupportDTO support)
         {
-
-            var sup = new Support
-            {
-                UserId = support.userId,
-                titlu = support.titlu + " from client",
-                comentariu = support.comentariu
-            };
-
-            await _supportRepository.AddSupport(sup);
-
-            User user = await _supportRepository.UserById(support.userId);
+            User u = await _supportRepository.UserById(support.userId);
             string clientEmailHtml = await File.ReadAllTextAsync("Templates/ClientSupportEmailTemplate.html");
-            clientEmailHtml = clientEmailHtml.Replace("{{titlu}}", support.titlu.ToString());
-            clientEmailHtml = clientEmailHtml.Replace("{{username}}", user.UserName.ToString());
-            clientEmailHtml = clientEmailHtml.Replace("{{userid}}", user.Id.ToString());
-            clientEmailHtml = clientEmailHtml.Replace("{{comentariu}}", support.comentariu.ToString());
-            await _emailSender.SendEmailAsync("cipriangabriel07@gmail.com", "Support", clientEmailHtml);
+            clientEmailHtml = clientEmailHtml.Replace("{{titlu}}", support.titlu.ToString())
+                .Replace("{{username}}", u.UserName.ToString())
+                .Replace("{{link-ticket}}", "http://localhost:4200/ticket?id="+support.supportId.ToString());
+            await _emailSender.SendEmailAsync(u.Email, "Support", clientEmailHtml);
         }
-
         public async Task adminEmail(SupportDTO support)
         {
-            var sup = new Support
-            {
-                UserId = support.userId,
-                titlu = support.titlu + " from admin",
-                comentariu = support.comentariu
-            };
-
-            await _supportRepository.AddSupport(sup);
 
             User user = await _supportRepository.UserById(support.userId);
             string clientEmailHtml = await File.ReadAllTextAsync("Templates/AdminSupportEmailTemplate.html");
             clientEmailHtml = clientEmailHtml.Replace("{{titlu}}", support.titlu.ToString());
             clientEmailHtml = clientEmailHtml.Replace("{{username}}", user.UserName.ToString());
-            clientEmailHtml = clientEmailHtml.Replace("{{userid}}", user.Id.ToString());
             clientEmailHtml = clientEmailHtml.Replace("{{comentariu}}", support.comentariu.ToString());
             await _emailSender.SendEmailAsync(user.Email, "Support", clientEmailHtml);
         }

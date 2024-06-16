@@ -1,8 +1,5 @@
 <app-navbar />
 <div class="container">
-  <!-- <div class="logo">
-    <img src="assets/style_assets/logo_main.png" alt="logo" />
-  </div> -->
   <div class="add-car-container">
     <form (ngSubmit)="addCar()" [formGroup]="carForm">
       <label for="titlu">Titlu:</label><br />
@@ -28,8 +25,12 @@
       >
         Imbunatateste descrierea cu OpenAI
       </button>
-      <div *ngIf="suggestion != ''">
-        Sugestie de descriere generata de AI<br />{{ suggestion }}
+      <div *ngIf="suggestion != ''" id ="textgpt">
+        Sugestie de descriere generata de AI
+        <br />{{ suggestion }}<br />
+        <button (click)="copyToClipboard()" id="enhance">Copy</button>
+
+
       </div>
 
       <label for="pret">Pret:</label>
@@ -105,6 +106,7 @@
         required
       /><br />
       <label for="imagini">
+        Poze:
         <input
           formControlName="imagini"
           type="file"

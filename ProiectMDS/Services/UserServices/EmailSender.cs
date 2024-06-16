@@ -15,6 +15,13 @@ namespace ProiectMDS.Services
             _sendGridClient = sendGridClient;
             _sendGridSettings = sendGridSettings.Value;
         }
+        /// <summary>
+        /// Trimite un email la adresa specificata cu un fisier de tip HTML.
+        /// </summary>
+        /// <param name="email">Adresa de email destinatara</param>
+        /// <param name="subject">Titlul emailului</param>
+        /// <param name="htmlMessage">Continutul emailului</param>
+        /// <returns></returns>
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
             var msg = new SendGridMessage()

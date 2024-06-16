@@ -211,6 +211,7 @@ export class NewLandingPageComponent implements OnInit {
   getImageUrl(imageName: string): string {
     return this.s3Service.getObjectUrl('dawbucket', imageName + '_pfp.png');
   }
+  
   getUrl(fileImageName: string) {
     return this.s3Service.getObjectUrl('dawbucket', fileImageName);
   }
@@ -231,7 +232,8 @@ export class NewLandingPageComponent implements OnInit {
     this.router.navigate(['/listing'], { queryParams: { id: titlu } });
   }
   customSearch() {
-    let prmpt = document.getElementById('customSearch') as HTMLInputElement;
+    let prmpt = document.getElementById('customSearchText') as HTMLInputElement;
+    console.log(prmpt);
     console.log(prmpt.value);
     this.openaiService.customSearch({prompt:prmpt.value}).subscribe((response) => {
       console.log(response);

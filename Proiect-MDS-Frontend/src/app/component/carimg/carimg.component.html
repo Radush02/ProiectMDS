@@ -31,13 +31,13 @@
     <div class="col-md-6">
       <div class="user-panel" id="titludesc">
         <img
-          src="https://via.placeholder.com/125"
+          [src]="getImageUrl(postOwner.username)"
           alt="User Picture"
           class="user-picture"
         />
         <p class="post-by">Anunt postat de:</p>
-        <p class="username">DummyUser</p>
-        <button class="profile-button">Vezi Profil</button>
+        <p class="username">{{postOwner.username}}</p>
+        <button class="profile-button" (click)="gotoProfile()">Vezi Profil</button>
       </div>
       <div
         style="overflow: hidden; max-width: 100%; width: 500px; height: 400px"

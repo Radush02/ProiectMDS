@@ -58,7 +58,7 @@ namespace ProiectMDS.Controllers
             try
             {
                 await _userService.ConfirmEmail(username, token);
-                return Ok("Email confirmat cu succes!");
+                return Ok();
             }catch(NotFoundException e)
             {
                 return NotFound(e.Message);
@@ -160,6 +160,20 @@ namespace ProiectMDS.Controllers
             {
                 return BadRequest(e.Message);
             }
-        }   
+        }
+        [HttpGet("getById")]
+        [AllowAnonymous]
+        public async Task<IActionResult> getUserById(int id)
+        {
+            try
+            {
+                var result = await _userService.getUserById(id);
+                return Ok(result);
+            }
+            catch (NotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+        }
     }
 }

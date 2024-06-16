@@ -30,6 +30,7 @@ import { MessagePopUpComponent } from '../message-pop-up/message-pop-up.componen
   styleUrls: ['./carimg.component.css'],
 })
 export class CarimgComponent implements OnInit {
+  //Profile dummy data
   profile: Profile = {
     nume: 'dummyLastName',
     prenume: 'dummyFirstName',
@@ -42,6 +43,7 @@ export class CarimgComponent implements OnInit {
     permis: false,
     puncteFidelitate: 0,
   };
+  postOwner:any;
   loggedInUserId: number | null = null;
   carId = 0;
   images: string[] = [];
@@ -69,6 +71,16 @@ export class CarimgComponent implements OnInit {
     });
   }
 
+  // Navigare
+  gotoProfile(){
+    this.router.navigate(['/profile'], { queryParams: { user: this.postOwner.username } });
+  }
+
+  // Ia URL imaginii
+  getImageUrl(imageName: string): string {
+    return this.s3Service.getObjectUrl('dawbucket', imageName + '_pfp.png');
+  }
+  // Dupa ce se da click pe butonul de inchiriaza
   openRentCarDialog(): void {
     console.log('postId:', this.postId);
     const selectCardDialogRef = this.dialog.open(SelectCardDialogComponent);
@@ -81,13 +93,12 @@ export class CarimgComponent implements OnInit {
 
         datePickerDialogRef.afterClosed().subscribe((dates) => {
           if (dates) {
-            // Format dates to 'yyyy-mm-dd' format
             const formattedStartDate = this.formatDate(dates.startDate);
             const formattedEndDate = this.formatDate(dates.endDate);
 
             const chirie = {
               userId: this.userId2,
-              postareId: this.postId,
+              postareId: this.postId+1,
               dataStart: formattedStartDate,
               dataStop: formattedEndDate,
             };
@@ -95,6 +106,7 @@ export class CarimgComponent implements OnInit {
             this.chirieService.addChirie(chirie).subscribe(
               (response) => {
                 console.log('Chirie adăugată:', response);
+
                 this.chirieService.rentEmailConfirmation(chirie).subscribe(
                   () => {
                     this.dialog.open(MessagePopUpComponent, {
@@ -107,7 +119,9 @@ export class CarimgComponent implements OnInit {
                 );
               },
               (error) => {
-                console.error('Eroare la adăugarea chiriei:', error);
+                this.dialog.open(MessagePopUpComponent, {
+                  data: 'Eroare in rezervare:'+error.error,
+                });
               }
             );
           }
@@ -129,6 +143,7 @@ export class CarimgComponent implements OnInit {
     this.postService.getPostById(id).subscribe(
       (result) => {
         this.result = result;
+        this.getOwner(this.result.userId);
         this.result.linkMaps = this.sanitizer.bypassSecurityTrustResourceUrl(
           this.result.linkMaps
         );
@@ -207,6 +222,7 @@ export class CarimgComponent implements OnInit {
   }
 
   load() {
+    
     this.getCar(this.carId);
     this.s3Service
       .getFilesFromFolder('dawbucket', `post${this.carId}/`)
@@ -216,7 +232,12 @@ export class CarimgComponent implements OnInit {
         }
       });
   }
-
+  getOwner(id:number){
+    this.userService.getByID(id).subscribe((response)=>{
+      this.postOwner=response;
+      console.log(response);
+    });
+  }
   ngOnInit() {
     this.getCurrentUserIdPostId().subscribe();
   }

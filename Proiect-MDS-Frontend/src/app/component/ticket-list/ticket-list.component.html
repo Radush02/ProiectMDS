@@ -1,0 +1,10 @@
+<!-- src/app/components/ticket-list/ticket-list.component.html -->
+<h3 id ="titlu">Ticket list:</h3>
+<div *ngFor="let ticket of tickets" (click)="openTicket(ticket.supportId)" id="li">
+    <div class="list-item">
+      <h3>{{ ticket.titlu }}</h3>
+      <p>{{ ticket.comentariu }}</p>
+    </div>
+  </div>
+  
+  

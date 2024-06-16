@@ -24,6 +24,7 @@ namespace ProiectMDS.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Support>();
             modelBuilder.Entity<Chirie>()
                 .HasKey(c => c.ChirieId);
 
