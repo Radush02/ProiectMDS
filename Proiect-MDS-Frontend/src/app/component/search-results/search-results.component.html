@@ -10,7 +10,7 @@
         <h3>{{ result.titlu }}</h3>
         <p class="truncate">Descriere:{{ result.descriere }}</p>
         <p>Pret: {{ result.pret }}</p>
-        <img src="{{ result.image }}" alt="car-image" />
+        <img src="{{ getUrl('thumbnail'+(result.id-1)) }}" alt="car-image" width="400px" />
       </li>
     </ul>
   </div>

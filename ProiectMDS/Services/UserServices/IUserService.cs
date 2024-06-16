@@ -17,5 +17,6 @@ namespace ProiectMDS.Services
         Task forgotPassword(ForgotPasswordDTO userDTO);
         Task uploadDocument(string username, string document, IFormFile file);
         Task<SafeUserDTO> getUserProfile(string username);
+        Task<UserDTO> getUserById(int id);
     }
 }

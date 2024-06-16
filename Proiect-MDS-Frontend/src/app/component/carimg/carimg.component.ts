@@ -42,6 +42,7 @@ export class CarimgComponent implements OnInit {
     permis: false,
     puncteFidelitate: 0,
   };
+  postOwner:any;
   loggedInUserId: number | null = null;
   carId = 0;
   images: string[] = [];
@@ -68,7 +69,12 @@ export class CarimgComponent implements OnInit {
       this.carId = params['id'];
     });
   }
-
+  gotoProfile(){
+    this.router.navigate(['/profile'], { queryParams: { user: this.postOwner.username } });
+  }
+  getImageUrl(imageName: string): string {
+    return this.s3Service.getObjectUrl('dawbucket', imageName + '_pfp.png');
+  }
   openRentCarDialog(): void {
     console.log('postId:', this.postId);
     const selectCardDialogRef = this.dialog.open(SelectCardDialogComponent);
@@ -131,6 +137,7 @@ export class CarimgComponent implements OnInit {
     this.postService.getPostById(id).subscribe(
       (result) => {
         this.result = result;
+        this.getOwner(this.result.userId);
         this.result.linkMaps = this.sanitizer.bypassSecurityTrustResourceUrl(
           this.result.linkMaps
         );
@@ -209,6 +216,7 @@ export class CarimgComponent implements OnInit {
   }
 
   load() {
+    
     this.getCar(this.carId);
     this.s3Service
       .getFilesFromFolder('dawbucket', `post${this.carId}/`)
@@ -218,7 +226,12 @@ export class CarimgComponent implements OnInit {
         }
       });
   }
-
+  getOwner(id:number){
+    this.userService.getByID(id).subscribe((response)=>{
+      this.postOwner=response;
+      console.log(response);
+    });
+  }
   ngOnInit() {
     this.getCurrentUserIdPostId().subscribe();
   }

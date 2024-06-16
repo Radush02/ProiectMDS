@@ -91,6 +91,7 @@
         <p>
           {{ post.firma }} {{ post.model }} {{ post.anFabricatie }}
           {{ post.kilometraj }}km Price:{{ post.pret }}
+          <img src="{{getUrl('thumbnail' + (post.id - 1))}}" alt="Car Image" width="100px" />
         </p>
       </div>
     </div>

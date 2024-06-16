@@ -68,8 +68,9 @@ export class UserService {
   confirmEmail(username:string,token:string):Observable<any>{
     return this.http.get(`${this.apiKey}/User/confirmEmail?username=${username}&token=${token}`);
   }
-  
-  
+  getByID(id:number):Observable<any>{
+    return this.http.get(`${this.apiKey}/User/getById?id=${id}`);
+  }
 
   
 }

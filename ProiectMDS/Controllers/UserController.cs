@@ -160,6 +160,20 @@ namespace ProiectMDS.Controllers
             {
                 return BadRequest(e.Message);
             }
-        }   
+        }
+        [HttpGet("getById")]
+        [AllowAnonymous]
+        public async Task<IActionResult> getUserById(int id)
+        {
+            try
+            {
+                var result = await _userService.getUserById(id);
+                return Ok(result);
+            }
+            catch (NotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+        }
     }
 }

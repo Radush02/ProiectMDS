@@ -273,5 +273,27 @@ namespace ProiectMDS.Services
             var result = await _userManager.ChangePasswordAsync(u, user.parolaVeche, user.parolaNoua);
             return result;
         }
+        public async Task<UserDTO> getUserById(int id)
+        {
+            var u = await _userManager.FindByIdAsync(id.ToString());
+            if (u == null)
+            {
+                throw new NotFoundException("Userul nu a fost gasit");
+            }
+            var userInfo = new UserDTO
+            {
+                username = u.UserName,
+                email = u.Email,
+                nume = u.nume,
+                prenume = u.prenume,
+                nrTelefon = u.PhoneNumber,
+                permis = u.permis == "N/A" ? false : true,
+                carteIdentitate = u.carteIdentitate == "N/A" ? false : true,
+                dataNasterii = u.dataNasterii,
+                linkPozaProfil = u.pozaProfil,
+                puncteFidelitate = u.puncteFidelitate
+            };
+            return userInfo;
+        }
     }
 }
