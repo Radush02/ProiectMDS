@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity.UI.Services;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using ProiectMDS.Exceptions;
 using ProiectMDS.Models;
 using ProiectMDS.Models.DTOs;
 using ProiectMDS.Repositories.SupportRepositories;
+using System.Runtime.InteropServices;
 
 namespace ProiectMDS.Services.SupportServices
 {
@@ -10,10 +12,12 @@ namespace ProiectMDS.Services.SupportServices
     {
         private readonly ISupportRepository _supportRepository;
         private readonly IEmailSender _emailSender;
-        public SupportService(ISupportRepository supportRepository, IEmailSender emailSender)
+        private readonly UserManager<User> _userManager;
+        public SupportService(ISupportRepository supportRepository, IEmailSender emailSender,UserManager<User> userManager)
         {
             _supportRepository = supportRepository;
             _emailSender = emailSender;
+            _userManager = userManager;
         }
         public async Task AddSupport(SupportDTO supportDTO)
         {
@@ -59,14 +63,24 @@ namespace ProiectMDS.Services.SupportServices
 
         public async Task<IEnumerable<SupportDTO>> getSupportByUserId(int userId)
         {
-            
-            var s = await _supportRepository.getSupportByUserId(userId);
+            IEnumerable<Support> s=null;
 
+
+            User u = await _userManager.FindByIdAsync(userId.ToString());
+            if(await _userManager.IsInRoleAsync(u, "Admin"))
+            {
+                s = await _supportRepository.getAllSupports();
+
+
+            }
+            else
+            {
+                s = await _supportRepository.getSupportByUserId(userId);
+            }
             if (s == null || !s.Any())
             {
                 throw new NotFoundException("Nu exista support de la un user cu acest id");
             }
-
             IEnumerable<SupportDTO> rez;
             rez = s.Select(sup => new SupportDTO
             {

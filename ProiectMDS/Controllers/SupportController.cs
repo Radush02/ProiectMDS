@@ -52,7 +52,7 @@ namespace ProiectMDS.Controllers
 
         [HttpPost("ReplyEmail")]
         [AllowAnonymous]
-        public async Task<IActionResult> replyEmail([FromForm] SupportDTO support)
+        public async Task<IActionResult> replyEmail(SupportDTO support)
         {
             try
             {
@@ -67,7 +67,7 @@ namespace ProiectMDS.Controllers
 
         [HttpPost("CreateEmail")]
         [AllowAnonymous]
-        public async Task<IActionResult> adminEmail([FromForm] SupportDTO support)
+        public async Task<IActionResult> adminEmail(SupportDTO support)
         {
             try
             {

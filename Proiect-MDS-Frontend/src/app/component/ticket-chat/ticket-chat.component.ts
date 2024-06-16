@@ -60,7 +60,6 @@ export class TicketChatComponent implements OnInit {
     });
 
   }
-
   sendMessage() {
     const reply = {
       supportId: this.supportId,
@@ -68,9 +67,14 @@ export class TicketChatComponent implements OnInit {
       comentariu: this.newMessage,
       userId: this.currentUser
     };
-
     this.supportService.replyToSupportTicket(reply).subscribe(response => {
-      this.newMessage = '';
+
+      if(this.currentUser!=this.ticketSubmitter){
+        console.log({supportId:this.supportId,titlu:this.messages[0].titlu,comentariu:this.newMessage,userId:this.ticketSubmitter});
+        this.supportService.sendReplyEmail({supportId:this.supportId,titlu:this.messages[0].titlu,comentariu:this.newMessage,userId:this.ticketSubmitter}).subscribe(response => {
+        });
+        this.newMessage = '';
+      }
       this.loadMessages();
     });
   }

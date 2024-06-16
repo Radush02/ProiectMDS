@@ -28,9 +28,11 @@ export class SupportService{
         return this.http.post<any>(`${this.apiKey}/reply`, reply);
     }
     sendCreationEmail(email: any): Observable<any> {
-        return this.http.post<any>(`${this.apiKey}/CreateEmail`, email);
+        return this.http.post<any>(`${this.apiKey}/ReplyEmail`, email);
     }
     sendReplyEmail(email: any): Observable<any> {
-        return this.http.post<any>(`${this.apiKey}/ReplyEmail`, email);
+
+        console.log(email);
+        return this.http.post<any>(`${this.apiKey}/CreateEmail`, email);
     }
 }
