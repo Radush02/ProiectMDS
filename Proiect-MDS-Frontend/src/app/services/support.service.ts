@@ -22,7 +22,7 @@ export class SupportService{
         return this.http.post<any>(`${this.apiKey}`, ticket);
     }
     getSupportTicketByUserId(userId: number): Observable<any[]> {
-        return this.http.get<any>(`${this.apiKey}/SupportByUserId/user/${userId}`);
+        return this.http.get<any>(`${this.apiKey}/SupportByUserId/${userId}`);
     }
     replyToSupportTicket(reply: any): Observable<any> {
         return this.http.post<any>(`${this.apiKey}/reply`, reply);

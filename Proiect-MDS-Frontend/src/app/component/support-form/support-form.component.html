@@ -1,0 +1,7 @@
+<form (ngSubmit)="submitTicket()">
+    <input type="text" [(ngModel)]="ticket.titlu" name="titlu" placeholder="Titlu" required>
+    <textarea [(ngModel)]="ticket.comentariu" name="comentariu" placeholder="Comentariu" required></textarea>
+    <input type="hidden" [(ngModel)]="ticket.userId" name="userId" [value]="currentUser">
+    <button type="submit">Trimite</button>
+  </form>
+  

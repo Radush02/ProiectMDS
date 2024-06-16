@@ -14,6 +14,8 @@ import { jwtDecode } from 'jwt-decode';
 import { OpenaiService } from '../../services/openai.service';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { S3Service } from '../../services/s3.service';
+import {ClipboardModule} from '@angular/cdk/clipboard';
+
 @Component({
   selector: 'app-add-car',
   templateUrl: './add-car.component.html',
@@ -23,6 +25,7 @@ import { S3Service } from '../../services/s3.service';
     HttpClientModule,
     ReactiveFormsModule,
     NavbarComponent,
+    ClipboardModule
   ],
   providers: [CarService, OpenaiService],
   styleUrls: ['./add-car.component.css'],
@@ -72,6 +75,20 @@ export class AddCarComponent implements OnInit {
       this.selectedFiles.push(files.item(i)!);
     }
   }
+
+  copyToClipboard() {
+    const textToCopy = this.suggestion;
+    const textarea = document.createElement('textarea');
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    textarea.value = textToCopy;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+    alert('Textul a fost copiat in clipboard!');
+  }
+  
   ngOnInit(): void {}
 
   async enhanceDescription() {

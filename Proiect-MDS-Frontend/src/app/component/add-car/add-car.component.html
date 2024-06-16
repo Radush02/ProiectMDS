@@ -28,8 +28,12 @@
       >
         Imbunatateste descrierea cu OpenAI
       </button>
-      <div *ngIf="suggestion != ''">
-        Sugestie de descriere generata de AI<br />{{ suggestion }}
+      <div *ngIf="suggestion != ''" id ="textgpt">
+        Sugestie de descriere generata de AI
+        <br />{{ suggestion }}<br />
+        <button (click)="copyToClipboard()" id="enhance">Copy</button>
+
+
       </div>
 
       <label for="pret">Pret:</label>
@@ -105,6 +109,7 @@
         required
       /><br />
       <label for="imagini">
+        Poze:
         <input
           formControlName="imagini"
           type="file"
