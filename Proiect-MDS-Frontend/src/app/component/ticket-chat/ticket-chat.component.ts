@@ -5,46 +5,68 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
+import { CookieService } from 'ngx-cookie-service';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 
 @Component({
   selector: 'app-ticket-chat',
   imports:[
-    BrowserModule,
     FormsModule,
-    HttpClientModule,
-    CommonModule
-  
+    CommonModule,
+    NavbarComponent
 
   ],
+  providers: [SupportService],
   templateUrl: './ticket-chat.component.html',
   standalone: true,
 })
 export class TicketChatComponent implements OnInit {
-  @Input() supportId: number = 0;
+  supportId: number=0;
   messages: any[] = [];
   newMessage: string = '';
-  currentUser = { id: 6 }; // Exemplu de utilizator curent
+  currentUser:number;
+  ticketSubmitter:number=0;
+  constructor(private supportService: SupportService,private query: ActivatedRoute,private cookieService: CookieService) { 
+    const token=this.cookieService.get('token');
+    this.query.queryParams.subscribe(params => {
+      this.supportId = params['ticket'];
+    });
+    const decodedToken: { [key: string]: any } = jwtDecode(token);
+    this.currentUser = decodedToken['id'];
 
-  constructor(private supportService: SupportService) { }
+  }
 
   ngOnInit() {
     this.loadMessages();
-    setInterval(() => this.loadMessages(), 5000); // Polling every 5 seconds
+
   }
 
   loadMessages() {
     this.supportService.getSupportTicketById(this.supportId).subscribe(response => {
       this.messages = response;
+      this.ticketSubmitter=this.messages[0].userId;
+      for(let i=0;i<this.messages.length;i++){
+        if(this.messages[i].userId==this.ticketSubmitter){
+          this.messages[i].comentariu="client: "+this.messages[i].comentariu;
+        }
+        else{
+          this.messages[i].comentariu="admin: "+this.messages[i].comentariu;
+        }
+      }
+
     });
+
   }
 
   sendMessage() {
     const reply = {
       supportId: this.supportId,
-      titlu: 'Re: ' + this.messages[0].titlu,
+      titlu: this.messages[0].titlu,
       comentariu: this.newMessage,
-      userId: this.currentUser.id
+      userId: this.currentUser
     };
 
     this.supportService.replyToSupportTicket(reply).subscribe(response => {

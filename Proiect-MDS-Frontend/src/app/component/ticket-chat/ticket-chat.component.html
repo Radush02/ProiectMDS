@@ -1,7 +1,6 @@
-<!-- src/app/components/ticket-chat/ticket-chat.component.html -->
-<h3>Ticket chat</h3>
+<app-navbar/>
+<h3>{{ messages[0].titlu }}</h3>
 <div *ngFor="let message of messages">
-    <h4>{{ message.titlu }}</h4>
     <p>{{ message.comentariu }}</p>
   </div>
   <textarea [(ngModel)]="newMessage" placeholder="Scrie un mesaj..."></textarea>
