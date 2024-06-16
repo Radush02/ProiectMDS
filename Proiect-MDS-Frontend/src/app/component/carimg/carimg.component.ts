@@ -94,6 +94,7 @@ export class CarimgComponent implements OnInit {
             this.chirieService.addChirie(chirie).subscribe(
               (response) => {
                 console.log('Chirie adăugată:', response);
+
                 this.chirieService.rentEmailConfirmation(chirie).subscribe(
                   () => {
                     this.dialog.open(MessagePopUpComponent, {

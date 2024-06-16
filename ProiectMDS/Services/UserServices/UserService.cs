@@ -147,8 +147,10 @@ namespace ProiectMDS.Services
         {
             User user = await _userManager.FindByNameAsync(newUser.username);
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            Console.WriteLine(token);
             var encodedToken = HttpUtility.UrlEncode(token);
-            var url = "http://localhost:7215/api/user/confirmEmail?username=" + user.UserName + "&token=" + encodedToken;
+            Console.WriteLine(encodedToken);
+            var url = "http://localhost:4200/confirmMail?username=" + user.UserName + "&token=" + encodedToken;
             string emailHtml = await File.ReadAllTextAsync("Templates/ConfirmationEmailTemplate.html");
             emailHtml = emailHtml.Replace("{{confirmationUrl}}", url);
             emailHtml = emailHtml.Replace("{{username}}", newUser.username);
