@@ -1,0 +1,27 @@
+.list-item, #titlu{
+    background-color: #6450a3;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 2%;
+    color: white;
+    margin: 5px solid black;
+}
+.list-item h3{
+    color:white;
+    font-size: 1.5rem;
+}
+.list-item p{
+    color:rgb(197, 197, 197);
+    font-size: 1rem;
+}
+
+.list-item:hover{
+    background-color: black;
+    color: white;
+    transition: 0.3s;
+}
+
+#titlu{
+    background-color: black;
+}
+

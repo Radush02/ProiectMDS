@@ -1,8 +1,12 @@
 <app-navbar/>
+
+<div class = "container">
+    <div class = "row">
 <h3>{{ messages[0].titlu }}</h3>
 <div *ngFor="let message of messages">
     <p>{{ message.comentariu }}</p>
   </div>
   <textarea [(ngModel)]="newMessage" placeholder="Scrie un mesaj..."></textarea>
-  <button (click)="sendMessage()">Trimite</button>
-  
+  <button (click)="sendMessage()" class="btn btn-outline-light">Trimite</button>
+</div>
+</div>

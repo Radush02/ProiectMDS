@@ -14,6 +14,7 @@ import { CookieService } from 'ngx-cookie-service';
   ],
   templateUrl: './support-form.component.html',
   standalone: true,
+  styleUrls: ['./support-form.component.css']
 })
 export class SupportFormComponent implements OnInit{
 

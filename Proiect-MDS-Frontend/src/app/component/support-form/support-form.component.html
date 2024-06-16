@@ -1,7 +1,21 @@
+
+<h4>Creeaza un ticket:</h4>
 <form (ngSubmit)="submitTicket()">
-    <input type="text" [(ngModel)]="ticket.titlu" name="titlu" placeholder="Titlu" required>
-    <textarea [(ngModel)]="ticket.comentariu" name="comentariu" placeholder="Comentariu" required></textarea>
-    <input type="hidden" [(ngModel)]="ticket.userId" name="userId" [value]="currentUser">
-    <button type="submit">Trimite</button>
+    <fieldset>
+      <div>
+        <label for="titlu">Titlu:</label>
+        <input type="text" [(ngModel)]="ticket.titlu" id="titlu" name="titlu" placeholder="Titlu" required>
+      </div>
+      <div>
+        <label for="comentariu">Comentariu:</label>
+        <textarea [(ngModel)]="ticket.comentariu" id="comentariu" name="comentariu" placeholder="Comentariu" required></textarea>
+      </div>
+      <div style="display: none;">
+        <input type="hidden" [(ngModel)]="ticket.userId" name="userId" [value]="currentUser">
+      </div>
+      <div>
+        <button type="submit">Trimite</button>
+      </div>
+    </fieldset>
   </form>
   

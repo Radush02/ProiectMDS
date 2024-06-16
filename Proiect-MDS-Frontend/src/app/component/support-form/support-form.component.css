@@ -1,0 +1,59 @@
+.ticket-form {
+    max-width: 400px; /* Lățime maximă pentru formular */
+    margin: 0 auto; /* Centrează formularul pe pagină */
+    padding: 20px;
+    background-color: #f0f0f0; /* Culoare de fundal pentru formular */
+    border-radius: 8px; /* Margini rotunjite pentru formular */
+  }
+
+
+  
+  fieldset {
+    border: none; /* Elimină border-ul implicit al fieldset-ului */
+  }
+  
+  .form-group {
+    margin-bottom: 20px; /* Spațiu între grupurile de input-uri */
+  }
+  
+  label {
+    display: block; /* Afișează etichetele pe o linie nouă */
+    margin-bottom: 8px; /* Spațiu între etichetă și input/textarea */
+    font-weight: bold; /* Textul etichetelor bold */
+    color: white;
+    background-color: #6450a3;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    width: 25%;
+  }
+  
+  input[type="text"],
+  textarea {
+    width: 100%; /* Umple lățimea disponibilă */
+    padding: 10px; /* Spațiere interioară pentru input-uri/textarea */
+    font-size: 16px; /* Dimensiunea fontului */
+    border: 1px solid #ccc; /* Border subțire */
+    border-radius: 4px; /* Margini rotunjite */
+    box-sizing: border-box; /* Asigură că padding-ul nu mărește dimensiunea totală */
+  }
+  
+  button {
+    padding: 10px 20px; /* Spațiere interioară pentru buton */
+    font-size: 16px; /* Dimensiunea fontului */
+    border: none; /* Elimină border-ul */
+    background-color: black; /* Culoare de fundal pentru buton */
+    color: #fff; /* Culoare text buton */
+    border-radius: 4px; /* Margini rotunjite pentru buton */
+    cursor: pointer; /* Cursor de tip pointer */
+    transition: background-color 0.3s ease; /* Tranziție pentru schimbarea culorii de fundal */
+  }
+  
+  button:hover {
+    background-color: #6450a3; /* Culoare de fundal la hover */
+  }
+
+
+h4{
+    color: white;
+}

@@ -22,6 +22,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
   providers: [SupportService],
   templateUrl: './ticket-chat.component.html',
   standalone: true,
+  styleUrls: ['./ticket-chat.component.css']
 })
 export class TicketChatComponent implements OnInit {
   supportId: number=0;
