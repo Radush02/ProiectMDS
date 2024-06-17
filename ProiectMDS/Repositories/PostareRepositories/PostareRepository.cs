@@ -51,7 +51,7 @@ namespace ProiectMDS.Repositories
         }
         public async Task<int> CountPostare()
         {
-            return await _dbContext.Postare.CountAsync();
+            return await _dbContext.Postare.MaxAsync(p => p.PostareId);
         }
         public async Task<IEnumerable<Postare>> getPostare()
         {

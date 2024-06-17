@@ -20,7 +20,15 @@ namespace ProiectMDS.Services
 
         public async Task<int> AddPostare(PostareDTO postareDTO)
         {
-            int idx = await _postareRepository.CountPostare();
+            int idx;
+            try
+            {
+                idx = await _postareRepository.CountPostare() + 1;
+            }
+            catch
+            {
+                idx = 1;
+            }
             string aux;
             double lat,longitudine;
             try

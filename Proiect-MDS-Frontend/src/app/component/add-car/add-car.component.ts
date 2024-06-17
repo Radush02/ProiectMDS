@@ -141,7 +141,7 @@ export class AddCarComponent implements OnInit {
       .subscribe(
         (response: any) => {
           this.s3Service.uploadFile('dawbucket', `thumbnail${response}`, this.selectedFiles[0]);
-        this.carForm.reset();
+        this.router.navigate(['/home']);
       },
       (error: any) => {
         console.error('A apărut o eroare în timpul adăugării mașinii:', error);

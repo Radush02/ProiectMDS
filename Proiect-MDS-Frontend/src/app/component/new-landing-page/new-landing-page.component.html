@@ -86,12 +86,12 @@
     <br />
     <br />
     <div class="posts" *ngIf="posts.length > 0">
-      <div class="post" *ngFor="let post of posts" (click)="redirectToListingPage(post.id-1)">
+      <div class="post" *ngFor="let post of posts" (click)="redirectToListingPage(post.id)">
         <h4>{{ post.titlu }}</h4>
         <p>
           {{ post.firma }} {{ post.model }} {{ post.anFabricatie }}
           {{ post.kilometraj }}km Price:{{ post.pret }}
-          <img src="{{getUrl('thumbnail' + (post.id - 1))}}" alt="Car Image" width="100px" />
+          <img src="{{getUrl('thumbnail' + (post.id))}}" alt="Car Image" width="100px" />
         </p>
       </div>
     </div>

@@ -139,7 +139,6 @@ export class CarimgComponent implements OnInit {
   }
 
   getCar(id: number) {
-    id++; // Adjusting the id for your use case
     this.postService.getPostById(id).subscribe(
       (result) => {
         this.result = result;
